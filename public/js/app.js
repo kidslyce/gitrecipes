@@ -1,5 +1,25 @@
+console.log("Team Bravo - REACT Part");
+
+
+class Nav extends React.Component {
+
+    render = () => {
+        return <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand home-nav" href="#">HOME</a>
+        </nav>
+    }
+}
+
+class Header extends React.Component {
+
+    render = () => {
+        return <header>
+            <div className="recipes-title">Git That Recipe!</div>
+        </header>
+    }
+}
 class App extends React.Component {
-    state={
+    state = {
     name: '',
     prepTime: '',
     cookTime: '',
@@ -14,37 +34,11 @@ class App extends React.Component {
           .get('/recipes')
           .then((response) => {
             this.setState({
-              recipes: response.data
+              recipes: response.data,
             })
           })
       }
-      deleteRecipe = (event) => {
-        axios
-          .delete('/recipes/' + event.target.value)
-          .then(response => this.setState({recipes: response.data
-        })
-        )
-      }
-      handleChange = event =>{
-        this.setState( { [event.target.id]: event.target.value })
-    }
-    handleSubmit = event => {
-        event.preventDefault()
-        axios
-          .post('/recipes', this.state)
-          .then(response => this.setState(
-            {
-                name: '',
-                prepTime: '',
-                cookTime: '',
-                ingredients: '',
-                instructions: '',
-                image: '',
-                tags: '',
-                recipes: reponse.data 
-            })
-        )
-        }
+      
         updateRecipe = (event) => {
             event.preventDefault()
             const id = event.target.id
@@ -52,61 +46,95 @@ class App extends React.Component {
               .put('/recipes/' + id, this.state)
               .then(response => {
                 this.setState({
-                    name: '',
-                    prepTime: '',
-                    cookTime: '',
-                    ingredients: '',
-                    instructions: '',
-                    image: '',
-                    tags: '',
-                    recipes: reponse.data 
+                    // name: '',
+                    // prepTime: '',
+                    // cookTime: '',
+                    // ingredients: '',
+                    // instructions: '',
+                    // image: '',
+                    // tags: '',
+                    recipes: reponse.data,
                 })
               })
           }
+          deleteRecipe = (event) => {
+            axios
+              .delete('/recipes/' + event.target.value)
+              .then(response => this.setState({recipes: response.data,
+            })
+            )
+          }
+          handleChange = event =>{
+            this.setState( { [event.target.id]: event.target.value })
+        }
+        submitForm = (event) => {
+            event.preventDefault()
+            event.currentTarget.reset();
+            console.log(this.state);
+            event.preventDefault();
+            axios
+              .post('/recipes', this.state)
+              .then(response => this.setState(
+                {
+                    // name: '',
+                    // prepTime: '',
+                    // cookTime: '',
+                    // ingredients: '',
+                    // instructions: '',
+                    // image: '',
+                    // tags: '',
+                    recipes: reponse.data,
+                })
+            )
+            }
           render = () => {
-            return (
-              <div>
-                <h2>Create Recipe</h2>
-                <form onSubmit={this.handleSubmit}>
+            return <div className="blog-container">
+            <Nav />
+            <Header />
+            <div className="form-container">
+                <form onSubmit={this.submitForm}>
                   <label htmlFor="name">Name</label>
                   <br />
-                  <input id="name" onChange={this.handleChange} type="text" />
+                  <input id="name" onChange={this.handleChange} className="form-control" type="text" />
                   <br />
                   <label htmlFor="prep">Prep Time</label>
                   <br />
-                  <input id="prep" type="text" onChange={this.handleChange} />
+                  <input id="prep" type="text" onChange={this.handleChange} className="form-control" />
                   <br />
                   <label htmlFor="img">Image</label>
                   <br />
-                  <input id="img" type="text" onChange={this.handleChange} />
+                  <input id="img" type="text" onChange={this.handleChange} className="form-control"/>
                   <br />
                   <label htmlFor="cooktime">Cook Time</label>
                   <br />
-                  <input id="cooktime" type="text" onChange={this.handleChange} />
+                  <input id="cooktime" type="text" onChange={this.handleChange} className="form-control"/>
                   <br />
                   <label htmlFor="ingreds">Ingredients</label>
                   <br />
-                  <input id="ingreds" type="text" onChange={this.handleChange} />
+                  <input id="ingreds" type="text" onChange={this.handleChange} className="form-control" />
                   <br />
                   <label htmlFor="instructions">Instructions</label>
                   <br />
-                  <input id="instructions" type="text" onChange={this.handleChange} />
+                  <input id="instructions" type="text" onChange={this.handleChange} className="form-control" />
                   <br />
                   <label htmlFor="tags">Tags</label>
                   <br />
-                  <input id="tags" type="text" onChange={this.handleChange} />
+                  <input id="tags" type="text" onChange={this.handleChange} className="form-control" />
                   <br />
-                  <input type="submit" value="Create Recipe" />
+                  <input type="submit" value="Add" className="btn btn-outline-dark" />
                 </form>
-                <h3>List of Recipes</h3>
+                </div>
+                <div className="all-recipes-container">
                 <ul>
-                { this.state.recipe.map(recipe => { return (
+                { this.state.recipes.map((recipe) => { return (
                   <li key={recipe._id}>
-                    {recipe.name}<br />
+                    <h4>Name: {recipe.name} </h4>
+                    <br />
                     <img src={recipe.img} alt={recipe.name}/>
                     <button
                       value={recipe._id}
                       onClick={this.deleteRecipe}
+                      className="btn btn-outline-dark"
                     >DELETE
                     </button>
                     <details><summary>Edit this recipe</summary>
