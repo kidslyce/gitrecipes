@@ -44,7 +44,8 @@ app.use(express.static('public'))
 //=========
 //ROUTES
 //=========
-
+const recipeController = require('./controllers/recipes_controller.js')
+app.use('/recipes', recipeController)
 
 
 //===============
