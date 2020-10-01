@@ -17,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/kidslyce/gitrecipes/issues"
   },
-  "homepage": "https://github.com/kidslyce/gitrecipes#readme"
+  "homepage": "https://github.com/kidslyce/gitrecipes#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.7"
+  }
 }
