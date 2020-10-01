@@ -88,42 +88,70 @@ class App extends React.Component {
             )
             }
           render = () => {
-            return <div className="blog-container">
+            return <div className="blog-container" />
             <Nav />
             <Header />
             <div className="form-container">
                 <form onSubmit={this.submitForm}>
                   <label htmlFor="name">Name</label>
                   <br />
-                  <input id="name" onChange={this.handleChange} className="form-control" type="text" />
+                  <input 
+                    type="text"
+                    id="name" 
+                    onChange={this.handleChange} 
+                    className="form-control"  />
                   <br />
                   <label htmlFor="prep">Prep Time</label>
                   <br />
-                  <input id="prep" type="text" onChange={this.handleChange} className="form-control" />
+                  <input id="prep" 
+                    type="text" 
+                    onChange={this.handleChange} 
+                    className="form-control" />
                   <br />
                   <label htmlFor="img">Image</label>
                   <br />
-                  <input id="img" type="text" onChange={this.handleChange} className="form-control"/>
+                  <input id="img" 
+                    type="text" 
+                    onChange={this.handleChange} 
+                    className="form-control"/>
                   <br />
                   <label htmlFor="cooktime">Cook Time</label>
                   <br />
-                  <input id="cooktime" type="text" onChange={this.handleChange} className="form-control"/>
+                  <input id="cooktime" 
+                    type="text" 
+                    onChange={this.handleChange}
+                    className="form-control"/>
                   <br />
                   <label htmlFor="ingreds">Ingredients</label>
                   <br />
-                  <input id="ingreds" type="text" onChange={this.handleChange} className="form-control" />
+                  <input 
+                    id="ingreds" 
+                    type="text" 
+                    onChange={this.handleChange}
+                    className="form-control" />
                   <br />
                   <label htmlFor="instructions">Instructions</label>
                   <br />
-                  <input id="instructions" type="text" onChange={this.handleChange} className="form-control" />
+                  <input 
+                    id="instructions" 
+                    type="text" 
+                    onChange={this.handleChange}
+                    className="form-control" />
                   <br />
                   <label htmlFor="tags">Tags</label>
                   <br />
-                  <input id="tags" type="text" onChange={this.handleChange} className="form-control" />
+                  <input 
+                    id="tags" 
+                    type="text" 
+                    onChange={this.handleChange} 
+                    className="form-control" />
                   <br />
-                  <input type="submit" value="Add" className="btn btn-outline-dark" />
+                  <input 
+                    type="submit" 
+                    value="Add" 
+                    className="btn btn-outline-dark" />
                 </form>
-                </div>
+            </div>
                 <div className="all-recipes-container">
                 <ul>
                 { this.state.recipes.map((recipe) => { return (
@@ -145,6 +173,8 @@ class App extends React.Component {
                           type="text"
                           id="name"
                           onChange={this.handleChange}
+                          defaultValue={recipe.name}
+                          className="form-control"
                         />
                         <br />
                         <label htmlFor="img">Image</label>
@@ -153,6 +183,8 @@ class App extends React.Component {
                           type="text"
                           id="img"
                           onChange={this.handleChange}
+                          defaultValue={recipe.image}
+                          className="form-control"
                         />
                         <br />
                         <label htmlFor="prep">Prep Time</label>
@@ -161,6 +193,8 @@ class App extends React.Component {
                           type="text"
                           id="prep"
                           onChange={this.handleChange}
+                          defaultValue={recipe.prepTime}
+                          className="form-control"
                         />
                         <br />
                         <label htmlFor="cooktime">Cook Time</label>
@@ -169,6 +203,8 @@ class App extends React.Component {
                           type="text"
                           id="cooktime"
                           onChange={this.handleChange}
+                          defaultValue={recipe.cooktime}
+                          className="form-control"
                         />
                         <br />
                         <label htmlFor="instructions">Instructions</label>
@@ -177,6 +213,8 @@ class App extends React.Component {
                           type="text"
                           id="instructions"
                           onChange={this.handleChange}
+                          defaultValue={recipe.instructions}
+                          className="form-control"
                         />
                         <br />
                         <label htmlFor="ingreds">Ingredients</label>
@@ -185,6 +223,7 @@ class App extends React.Component {
                           type="text"
                           id="ingreds"
                           onChange={this.handleChange}
+                          defaultValue={recipe.ingredients}
                         />
                         <br />
                         <label htmlFor="tags">Tags</label>
@@ -193,6 +232,8 @@ class App extends React.Component {
                           type="text"
                           id="tags"
                           onChange={this.handleChange}
+                          defaultValue={recipe.tags}
+                          className="form-control" />
                         />
                         <br />
                         <input type="submit" value="Update Recipe" />
