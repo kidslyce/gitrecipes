@@ -87,6 +87,8 @@ class App extends React.Component {
             return <div className="recipe-container">
             <Nav />
             <Header />
+            <details>
+            <summary>Add Recipe</summary>
             <div className="form-container">
               <form onSubmit={this.handleSubmit}>
                 <label htmlFor="name">Name</label>
@@ -147,7 +149,9 @@ class App extends React.Component {
                   value="Add"
                   className="btn btn-outline-dark" />
               </form>
-            </div>
+              </div>
+              </details>
+
                 <div className="all-recipes-container">
                 <ul>
                 { this.state.recipes.map(recipe => { return (
@@ -220,6 +224,7 @@ class App extends React.Component {
                           id="ingredients"
                           onChange={this.handleChange}
                           defaultValue={recipe.ingredients}
+                          className="form-control"
                         />
                         <br />
                         <label htmlFor="tags">Tags</label>
