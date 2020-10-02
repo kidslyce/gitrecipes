@@ -11,7 +11,8 @@ class Header extends React.Component {
 
     render = () => {
         return <header>
-            <div className="recipes-title">Git That Recipe!</div>
+            <div className="recipes-title">Git Recipe</div>
+            
         </header>
     }
 }
@@ -83,7 +84,9 @@ class App extends React.Component {
             )
             }
           render = () => {
+
             return <div className="recipe-container">
+
             <Nav />
             <Header />
             <details>
@@ -174,7 +177,7 @@ class App extends React.Component {
                           onChange={this.handleChange}
                           defaultValue={recipe.name}
                           className="form-control"
-                        />
+                         />
                         <br />
                         <label htmlFor="image">Image</label>
                         <br />
