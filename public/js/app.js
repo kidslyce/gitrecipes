@@ -74,7 +74,7 @@ class App extends React.Component {
             )
             }
           render = () => {
-            return <div className="blog-container" />
+            return <div className="blog-container">
             <Nav />
             <Header />
             <div className="form-container">
