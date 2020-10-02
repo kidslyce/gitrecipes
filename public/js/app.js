@@ -21,7 +21,7 @@ class App extends React.Component {
     prepTime: '',
     cookTime: '',
     ingredients: '',
-    instructions: '',
+    instructions: 'How do you make this tasy dish?',
     image: '',
     tags:'',
     recipes: []
@@ -121,7 +121,8 @@ class App extends React.Component {
                 <br />
                 <label htmlFor="instructions">Instructions</label>
                 <br />
-                <input
+                <textarea
+                  value={this.state.instructions}
                   id="instructions"
                   type="text"
                   onChange={this.handleChange}
