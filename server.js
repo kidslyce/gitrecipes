@@ -46,7 +46,8 @@ app.use(express.static('public'))
 //=========
 const recipeController = require('./controllers/recipes_controller.js')
 app.use('/recipes', recipeController)
-
+const userController = require('./controllers/users_controller.js')
+app.use('/users', userController)
 
 //===============
 // LISTENERS
