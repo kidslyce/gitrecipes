@@ -47,23 +47,25 @@ header{
     font-weight: 700;
     font-style: italic;
     max-width: 400px;
-    background-color: #356a2d;
     align-items: center;
     margin: auto;
     color: #FFFFF0;
     border-radius: 20px;
-    display: flex;
-
+    /* display: flex; */
 
 }
-/* 
-.ul-items{
-   margin-top: 10%;
-} */
+.recipe-card{
+    
+}
 
-.form-container{
+.card-items{
+    background-color: #356a2d;
+    border-radius: 20px;
+}
+
+/* .form-container{
 flex-direction: row;
-}
+} */
 
 
 .all-recipes-container li {

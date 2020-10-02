@@ -180,9 +180,9 @@ class App extends React.Component {
                 <div className="all-recipes-container">
                     
                 <ul>
-                    
+                    <div className= "recipe-card">
                 { this.state.recipes.map(recipe => { return (
-                  <li key={recipe._id}>
+                  <li className="card-items" key={recipe._id}>
                     <h4>Name: {recipe.name} </h4>
                     <br />
                     <img src={recipe.image} alt={recipe.name}/>
@@ -199,6 +199,7 @@ class App extends React.Component {
                       <span class="fa fa-star"></span>
                       <span class="fa fa-star"></span>
                     <details><summary>Edit this recipe</summary>
+                    
                       <form id={recipe._id} onSubmit={this.updateRecipe}>
                         <label htmlFor="name">Name</label>
                         <br />
@@ -280,7 +281,10 @@ class App extends React.Component {
                       </button>
                     </details>
                   </li>
+                  
                 )})}
+                {/* recipe card div */}
+                </div>
                 </ul>
               </div>
 
