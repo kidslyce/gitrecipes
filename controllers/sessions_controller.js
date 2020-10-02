@@ -3,9 +3,11 @@ const express = require('express')
 const User = require('../models/user.js')
 const sessions = express.Router()
 
-sessions.get('/', (req, res) => {
-
-})
+// sessions.get('/', (req, res) => {
+//   res.json({
+//     currentUser: req.session.currentUser
+//   })
+// })
 
 sessions.post('/', (req, res) => {
   User.findOne({username: req.body.username},
@@ -13,12 +15,21 @@ sessions.post('/', (req, res) => {
     if(err){
       console.log(err);
     }else if(!foundUser){
-      //username isn't found
+      res.json({
+        msg: "User Not Found"
+      })
+      //user not found
     }else{
       if(bcrypt.compareSync(req.body.password, foundUser.password)){
-        req.session.currentUser = foundUser
+        username = foundUser
+        res.json({
+          msg: "Successfully Logged in"
+        })
         //successful log in
       }else{
+        res.json({
+          msg: "Password incorrect"
+        })
         //password + username doesnt match
       }
     }
@@ -27,7 +38,8 @@ sessions.post('/', (req, res) => {
 
 sessions.delete('/', (req, res) => {
   req.session.destroy( () => {
-    //redirect home
+    res.clearCookie("session-id")
+    res.json("Logged Out")
   })
 })
 

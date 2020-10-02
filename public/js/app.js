@@ -2,7 +2,7 @@ class Nav extends React.Component {
 
     render = () => {
         return <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand home-nav" href="#">HOME</a>
+            <a className="navbar-brand home-nav" href="#">HOME</a>
         </nav>
     }
 }
