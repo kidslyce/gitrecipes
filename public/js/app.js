@@ -91,9 +91,8 @@ class App extends React.Component {
               <form onSubmit={this.handleSubmit}>
                 <label htmlFor="name">Name</label>
                 <br />
-                <input
+                <input id="name"
                   type="text"
-                  id="name"
                   onChange={this.handleChange}
                   className="form-control"  />
                 <br />
@@ -127,7 +126,7 @@ class App extends React.Component {
                   onChange={this.handleChange}
                   className="form-control" />
                 <br />
-                <label htmlFor="image">Instructions</label>
+                <label htmlFor="image">Image</label>
                 <br />
                 <input
                   id="image"
@@ -184,23 +183,23 @@ class App extends React.Component {
                           className="form-control"
                         />
                         <br />
-                        <label htmlFor="prep">Prep Time</label>
+                        <label htmlFor="prepTime">Prep Time</label>
                         <br />
                         <input
                           type="text"
-                          id="prep"
+                          id="prepTime"
                           onChange={this.handleChange}
                           defaultValue={recipe.prepTime}
                           className="form-control"
                         />
                         <br />
-                        <label htmlFor="cooktime">Cook Time</label>
+                        <label htmlFor="cookTime">Cook Time</label>
                         <br />
                         <input
                           type="text"
-                          id="cooktime"
+                          id="cookTime"
                           onChange={this.handleChange}
-                          defaultValue={recipe.cooktime}
+                          defaultValue={recipe.cookTime}
                           className="form-control"
                         />
                         <br />
