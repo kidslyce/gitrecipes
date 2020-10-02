@@ -157,6 +157,12 @@ class App extends React.Component {
                     <h4>Name: {recipe.name} </h4>
                     <br />
                     <img src={recipe.image} alt={recipe.name}/>
+                    <details><summary>More info</summary>
+                      Prep time: {recipe.prepTime}<br />
+                      Cook time: {recipe.cookTime}<br />
+                      Ingredients: {recipe.ingredients}<br />
+                      Instructions: {recipe.instructions}<br />
+                      Tags: {recipe.tags}<br />
                     <details><summary>Edit this recipe</summary>
                       <form id={recipe._id} onSubmit={this.updateRecipe}>
                         <label htmlFor="name">Name</label>
@@ -230,6 +236,7 @@ class App extends React.Component {
                       <br />
                         <input type="submit" value="Update Recipe" />
                       </form>
+                      </details>
                       <button
                         value={recipe._id}
                         onClick={this.deleteRecipe}
