@@ -151,7 +151,6 @@ class App extends React.Component {
               </form>
               </div>
               </details>
-
                 <div className="all-recipes-container">
                 <ul>
                 { this.state.recipes.map(recipe => { return (
@@ -159,14 +158,8 @@ class App extends React.Component {
                     <h4>Name: {recipe.name} </h4>
                     <br />
                     <img src={recipe.image} alt={recipe.name}/>
-                    <button
-                      value={recipe._id}
-                      onClick={this.deleteRecipe}
-                      className="btn btn-outline-dark"
-                    >DELETE
-                    </button>
                     <details><summary>Edit this recipe</summary>
-                      <form onSubmit={this.updateRecipe} id={recipe._id}>
+                      <form id={recipe._id} onSubmit={this.updateRecipe}>
                         <label htmlFor="name">Name</label>
                         <br />
                         <input
@@ -238,6 +231,12 @@ class App extends React.Component {
                         <br />
                         <input type="submit" value="Update Recipe" />
                       </form>
+                      <button
+                        value={recipe._id}
+                        onClick={this.deleteRecipe}
+                        className="btn btn-outline-dark"
+                      >DELETE
+                      </button>
                     </details>
                   </li>
                 )})}
