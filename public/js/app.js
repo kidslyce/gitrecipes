@@ -151,11 +151,11 @@ class App extends React.Component {
             </div>
                 <div className="all-recipes-container">
                 <ul>
-                { this.state.recipes.map((recipe) => { return (
+                { this.state.recipes.map(recipe => { return (
                   <li key={recipe._id}>
                     <h4>Name: {recipe.name} </h4>
                     <br />
-                    <image src={recipe.image} alt={recipe.name}/>
+                    <img src={recipe.image} alt={recipe.name}/>
                     <button
                       value={recipe._id}
                       onClick={this.deleteRecipe}
