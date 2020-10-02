@@ -1,3 +1,5 @@
+
+
 class Nav extends React.Component {
 
     render = () => {
@@ -6,6 +8,77 @@ class Nav extends React.Component {
         </nav>
     }
 }
+
+class Login extends React.Component {
+  state = {
+    regUsername: '',
+    regPassword: '',
+    username: '',
+    password: '',
+    user: ''
+  }
+
+  onChange = () => {
+    this.setState( { [event.target.id]: event.target.value })
+  }
+
+  createUser = (event) => {
+    event.preventDefault();
+    event.target.reset();
+    axios.post('/register', this.state).then(response => {
+      this.setState({
+        regUsername: '',
+        regPassword: ''
+      })
+      // return console.log(this.state.regUsername + ' ' + this.state.regPassword);
+    })
+  }
+
+  logIn = (event) => {
+    event.preventDefault();
+    axios.post('/login', this.state).then(response => {
+      this.setState({
+        username: '',
+        password: '',
+      })
+    })
+  }
+
+  getUser = () => {
+    axios.get('/user', this.state).then((res) => {
+
+    })
+  }
+
+  render = () => {
+    return (
+      <div>
+      <h1>{this.state.user}</h1>
+        <h1>Create User</h1>
+        <form onSubmit={this.createUser}>
+          <label htmlFor="regUsername">Username:</label>
+          <input id='regUsername' type="text" name="regUsername" onChange={this.onChange} required/>
+          <br/>
+          <label  htmlFor="regPassword">Password:</label>
+          <input id='regPassword' type="password" name="regPassword"onChange={this.onChange}  />
+          <br/>
+          <input type="submit" value="Submit" />
+        </form>
+        <h1>Login</h1>
+        <form onSubmit={this.logIn}>
+          <label htmlFor="username">Username:</label>
+          <input id='username' type="text" name="username" onChange={this.onChange} required/>
+          <br/>
+          <label  htmlFor="logPassword">Password:</label>
+          <input id='password' type="password" name="password" onChange={this.onChange}  />
+          <br/>
+          <input type="submit" value="Submit" />
+        </form>
+      </div>)
+
+  }
+}
+
 
 class Header extends React.Component {
 
@@ -86,6 +159,7 @@ class App extends React.Component {
           render = () => {
             return <div className="recipe-container">
             <Nav />
+            <Login />
             <Header />
             <details>
             <summary>Add Recipe</summary>
