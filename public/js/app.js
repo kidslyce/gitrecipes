@@ -155,7 +155,7 @@ class App extends React.Component {
                   <li key={recipe._id}>
                     <h4>Name: {recipe.name} </h4>
                     <br />
-                    <image src={recipe.image} alt={recipe.name}/>
+                    <img src={recipe.image} alt={recipe.name}/>
                     <button
                       value={recipe._id}
                       onClick={this.deleteRecipe}
