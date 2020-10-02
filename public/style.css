@@ -19,7 +19,7 @@ nav  {
     font-style: normal;
     font-size: 150px;
     color:  #FFFFF0;
-    text-shadow: 2px 2px #356a2d;;
+    text-shadow: 3px 4px #356a2d;;
     text-align: center;
     position: absolute;
     top: 40%;
@@ -72,6 +72,17 @@ flex-direction: row;
     padding: 10%;
     margin-bottom: 30px;
     list-style: none;
+}
+/* card img controller */
+.recipe-card img{
+    display: inline-block;
+    border-radius: 5px;
+    width:100% !important;
+    height:90% !important;
+    max-width: 300px !important;
+    max-height: 300px!important;
+    margin-left:16px;
+    margin-right:0px;
 }
 /* delete button color change */
 .btn-outline-dark{
