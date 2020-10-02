@@ -32,7 +32,7 @@ class App extends React.Component {
     componentDidMount = () => {
         axios
           .get('/recipes')
-          .then((response) => {
+          .then(response => {
             this.setState({
               recipes: response.data,
             })
