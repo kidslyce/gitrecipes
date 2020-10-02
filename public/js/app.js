@@ -89,6 +89,8 @@ class App extends React.Component {
 
             <Nav />
             <Header />
+            <details>
+            <summary>Add Recipe</summary>
             <div className="form-container">
               <form onSubmit={this.handleSubmit}>
                 <label htmlFor="name">Name</label>
@@ -149,7 +151,8 @@ class App extends React.Component {
                   value="Add"
                   className="btn btn-outline-dark" />
               </form>
-            </div>
+              </div>
+              </details>
                 <div className="all-recipes-container">
                 <ul>
                 { this.state.recipes.map(recipe => { return (
@@ -157,14 +160,8 @@ class App extends React.Component {
                     <h4>Name: {recipe.name} </h4>
                     <br />
                     <img src={recipe.image} alt={recipe.name}/>
-                    <button
-                      value={recipe._id}
-                      onClick={this.deleteRecipe}
-                      className="btn btn-outline-dark"
-                    >DELETE
-                    </button>
                     <details><summary>Edit this recipe</summary>
-                      <form onSubmit={this.updateRecipe} id={recipe._id}>
+                      <form id={recipe._id} onSubmit={this.updateRecipe}>
                         <label htmlFor="name">Name</label>
                         <br />
                         <input
@@ -222,6 +219,7 @@ class App extends React.Component {
                           id="ingredients"
                           onChange={this.handleChange}
                           defaultValue={recipe.ingredients}
+                          className="form-control"
                         />
                         <br />
                         <label htmlFor="tags">Tags</label>
@@ -235,6 +233,12 @@ class App extends React.Component {
                         <br />
                         <input type="submit" value="Update Recipe" />
                       </form>
+                      <button
+                        value={recipe._id}
+                        onClick={this.deleteRecipe}
+                        className="btn btn-outline-dark"
+                      >DELETE
+                      </button>
                     </details>
                   </li>
                 )})}
