@@ -1,6 +1,3 @@
-console.log("Team Bravo - REACT Part");
-
-
 class Nav extends React.Component {
 
     render = () => {
@@ -32,7 +29,7 @@ class App extends React.Component {
     componentDidMount = () => {
         axios
           .get('/recipes')
-          .then((response) => {
+          .then(response => {
             this.setState({
               recipes: response.data,
             })
@@ -46,7 +43,14 @@ class App extends React.Component {
               .put('/recipes/' + id, this.state)
               .then(response => {
                 this.setState({
-                    recipes: reponse.data,
+                    recipes: response.data,
+                    name: '',
+                    prepTime: '',
+                    cookTime: '',
+                    ingredients: '',
+                    instructions: '',
+                    image: '',
+                    tags:[],
                 })
               })
           }
@@ -60,16 +64,22 @@ class App extends React.Component {
           handleChange = event =>{
             this.setState( { [event.target.id]: event.target.value })
         }
-        submitForm = (event) => {
+        handleSubmit = (event) => {
             event.preventDefault()
             event.currentTarget.reset();
-            console.log(this.state);
             event.preventDefault();
             axios
               .post('/recipes', this.state)
               .then(response => this.setState(
                 {
-                    recipes: reponse.data,
+                    recipes: response.data,
+                    name: '',
+                    prepTime: '',
+                    cookTime: '',
+                    ingredients: '',
+                    instructions: '',
+                    image: '',
+                    tags:[],
                 })
             )
             }
@@ -78,7 +88,7 @@ class App extends React.Component {
             <Nav />
             <Header />
             <div className="form-container">
-              <form onSubmit={this.submitForm}>
+              <form onSubmit={this.handleSubmit}>
                 <label htmlFor="name">Name</label>
                 <br />
                 <input
@@ -87,23 +97,16 @@ class App extends React.Component {
                   onChange={this.handleChange}
                   className="form-control"  />
                 <br />
-                <label htmlFor="prep">Prep Time</label>
+                <label htmlFor="prepTime">Prep Time</label>
                 <br />
-                <input id="prep"
+                <input id="prepTime"
                   type="text"
                   onChange={this.handleChange}
                   className="form-control" />
                 <br />
-                <label htmlFor="img">Image</label>
+                <label htmlFor="cookTime">Cook Time</label>
                 <br />
-                <input id="img"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control"/>
-                <br />
-                <label htmlFor="cooktime">Cook Time</label>
-                <br />
-                <input id="cooktime"
+                <input id="cookTime"
                   type="text"
                   onChange={this.handleChange}
                   className="form-control"/>
@@ -120,6 +123,14 @@ class App extends React.Component {
                 <br />
                 <input
                   id="instructions"
+                  type="text"
+                  onChange={this.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="image">Instructions</label>
+                <br />
+                <input
+                  id="image"
                   type="text"
                   onChange={this.handleChange}
                   className="form-control" />
