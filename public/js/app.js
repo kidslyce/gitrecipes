@@ -175,7 +175,7 @@ class App extends React.Component {
                           type="text"
                           id="name"
                           onChange={this.handleChange}
-                          defaultValue={recipe.name || ''}
+                          defaultValue={recipe.name}
                           className="form-control"
                          />
                         <br />
