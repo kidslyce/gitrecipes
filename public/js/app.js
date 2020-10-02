@@ -1,6 +1,3 @@
-console.log("Team Bravo - REACT Part");
-
-
 class Nav extends React.Component {
 
     render = () => {
@@ -234,7 +231,6 @@ class App extends React.Component {
                           onChange={this.handleChange}
                           defaultValue={recipe.tags}
                           className="form-control" />
-                        />
                         <br />
                         <input type="submit" value="Update Recipe" />
                       </form>
