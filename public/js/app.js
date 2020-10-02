@@ -151,14 +151,13 @@ class App extends React.Component {
                   className="btn btn-outline-dark" />
               </form>
             </div>
-
                 <div className="all-recipes-container">
                 <ul>
                 { this.state.recipes.map((recipe) => { return (
                   <li key={recipe._id}>
                     <h4>Name: {recipe.name} </h4>
                     <br />
-                    <img src={recipe.img} alt={recipe.name}/>
+                    <image src={recipe.image} alt={recipe.name}/>
                     <button
                       value={recipe._id}
                       onClick={this.deleteRecipe}
@@ -177,11 +176,11 @@ class App extends React.Component {
                           className="form-control"
                         />
                         <br />
-                        <label htmlFor="img">Image</label>
+                        <label htmlFor="image">Image</label>
                         <br />
                         <input
                           type="text"
-                          id="img"
+                          id="image"
                           onChange={this.handleChange}
                           defaultValue={recipe.image}
                           className="form-control"
@@ -234,7 +233,6 @@ class App extends React.Component {
                           onChange={this.handleChange}
                           defaultValue={recipe.tags}
                           className="form-control" />
-                        />
                         <br />
                         <input type="submit" value="Update Recipe" />
                       </form>
