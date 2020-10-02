@@ -87,23 +87,16 @@ class App extends React.Component {
                   onChange={this.handleChange}
                   className="form-control"  />
                 <br />
-                <label htmlFor="prep">Prep Time</label>
+                <label htmlFor="prepTime">Prep Time</label>
                 <br />
-                <input id="prep"
+                <input id="prepTime"
                   type="text"
                   onChange={this.handleChange}
                   className="form-control" />
                 <br />
-                <label htmlFor="img">Image</label>
+                <label htmlFor="cookTime">Cook Time</label>
                 <br />
-                <input id="img"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control"/>
-                <br />
-                <label htmlFor="cooktime">Cook Time</label>
-                <br />
-                <input id="cooktime"
+                <input id="cookTime"
                   type="text"
                   onChange={this.handleChange}
                   className="form-control"/>
@@ -120,6 +113,14 @@ class App extends React.Component {
                 <br />
                 <input
                   id="instructions"
+                  type="text"
+                  onChange={this.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="image">Instructions</label>
+                <br />
+                <input
+                  id="image"
                   type="text"
                   onChange={this.handleChange}
                   className="form-control" />
