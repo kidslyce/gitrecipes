@@ -38,7 +38,7 @@ class App extends React.Component {
             })
           })
       }
-      
+
         updateRecipe = (event) => {
             event.preventDefault()
             const id = event.target.id
@@ -46,13 +46,6 @@ class App extends React.Component {
               .put('/recipes/' + id, this.state)
               .then(response => {
                 this.setState({
-                    // name: '',
-                    // prepTime: '',
-                    // cookTime: '',
-                    // ingredients: '',
-                    // instructions: '',
-                    // image: '',
-                    // tags: '',
                     recipes: reponse.data,
                 })
               })
@@ -76,13 +69,6 @@ class App extends React.Component {
               .post('/recipes', this.state)
               .then(response => this.setState(
                 {
-                    // name: '',
-                    // prepTime: '',
-                    // cookTime: '',
-                    // ingredients: '',
-                    // instructions: '',
-                    // image: '',
-                    // tags: '',
                     recipes: reponse.data,
                 })
             )
@@ -92,66 +78,67 @@ class App extends React.Component {
             <Nav />
             <Header />
             <div className="form-container">
-                <form onSubmit={this.submitForm}>
-                  <label htmlFor="name">Name</label>
-                  <br />
-                  <input 
-                    type="text"
-                    id="name" 
-                    onChange={this.handleChange} 
-                    className="form-control"  />
-                  <br />
-                  <label htmlFor="prep">Prep Time</label>
-                  <br />
-                  <input id="prep" 
-                    type="text" 
-                    onChange={this.handleChange} 
-                    className="form-control" />
-                  <br />
-                  <label htmlFor="img">Image</label>
-                  <br />
-                  <input id="img" 
-                    type="text" 
-                    onChange={this.handleChange} 
-                    className="form-control"/>
-                  <br />
-                  <label htmlFor="cooktime">Cook Time</label>
-                  <br />
-                  <input id="cooktime" 
-                    type="text" 
-                    onChange={this.handleChange}
-                    className="form-control"/>
-                  <br />
-                  <label htmlFor="ingreds">Ingredients</label>
-                  <br />
-                  <input 
-                    id="ingreds" 
-                    type="text" 
-                    onChange={this.handleChange}
-                    className="form-control" />
-                  <br />
-                  <label htmlFor="instructions">Instructions</label>
-                  <br />
-                  <input 
-                    id="instructions" 
-                    type="text" 
-                    onChange={this.handleChange}
-                    className="form-control" />
-                  <br />
-                  <label htmlFor="tags">Tags</label>
-                  <br />
-                  <input 
-                    id="tags" 
-                    type="text" 
-                    onChange={this.handleChange} 
-                    className="form-control" />
-                  <br />
-                  <input 
-                    type="submit" 
-                    value="Add" 
-                    className="btn btn-outline-dark" />
-                </form>
+              <form onSubmit={this.submitForm}>
+                <label htmlFor="name">Name</label>
+                <br />
+                <input
+                  type="text"
+                  id="name"
+                  onChange={this.handleChange}
+                  className="form-control"  />
+                <br />
+                <label htmlFor="prep">Prep Time</label>
+                <br />
+                <input id="prep"
+                  type="text"
+                  onChange={this.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="img">Image</label>
+                <br />
+                <input id="img"
+                  type="text"
+                  onChange={this.handleChange}
+                  className="form-control"/>
+                <br />
+                <label htmlFor="cooktime">Cook Time</label>
+                <br />
+                <input id="cooktime"
+                  type="text"
+                  onChange={this.handleChange}
+                  className="form-control"/>
+                <br />
+                <label htmlFor="ingredients">Ingredients</label>
+                <br />
+                <input
+                  id="ingredients"
+                  type="text"
+                  onChange={this.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="instructions">Instructions</label>
+                <br />
+                <input
+                  id="instructions"
+                  type="text"
+                  onChange={this.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="tags">Tags</label>
+                <br />
+                <input
+                  id="tags"
+                  type="text"
+                  onChange={this.handleChange}
+                  className="form-control" />
+                <br />
+                <input
+                  type="submit"
+                  value="Add"
+                  className="btn btn-outline-dark" />
+              </form>
             </div>
+
                 <div className="all-recipes-container">
                 <ul>
                 { this.state.recipes.map((recipe) => { return (
@@ -217,11 +204,11 @@ class App extends React.Component {
                           className="form-control"
                         />
                         <br />
-                        <label htmlFor="ingreds">Ingredients</label>
+                        <label htmlFor="ingredients">Ingredients</label>
                         <br />
                         <input
                           type="text"
-                          id="ingreds"
+                          id="ingredients"
                           onChange={this.handleChange}
                           defaultValue={recipe.ingredients}
                         />
@@ -243,9 +230,9 @@ class App extends React.Component {
                 )})}
                 </ul>
               </div>
-            )
+
+            </div>
           }
         }
-        
+
         ReactDOM.render(<App />, document.querySelector('main'))
-        
