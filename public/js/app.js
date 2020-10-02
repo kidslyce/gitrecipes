@@ -36,7 +36,11 @@ class Header extends React.Component {
     render = () => {
         return <header>
             <div className="recipes-title">Git Recipe</div>
+<<<<<<< HEAD
          
+=======
+
+>>>>>>> 9b296fbd025133d6a556efe17c3a1632f860b730
         </header>
     }
 }
@@ -148,7 +152,8 @@ class App extends React.Component {
                 <br />
                 <label htmlFor="instructions">Instructions</label>
                 <br />
-                <input
+                <textarea
+                  value={this.state.instructions}
                   id="instructions"
                   type="text"
                   onChange={this.handleChange}
