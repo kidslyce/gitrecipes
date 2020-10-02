@@ -11,7 +11,8 @@ class Header extends React.Component {
 
     render = () => {
         return <header>
-            <div className="recipes-title">Git That Recipe!</div>
+            <div className="recipes-title">Git Recipe</div>
+            
         </header>
     }
 }
