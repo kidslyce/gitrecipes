@@ -74,7 +74,7 @@ class App extends React.Component {
             )
             }
           render = () => {
-            return <div className="blog-container" />
+            return <div className="recipe-container">
             <Nav />
             <Header />
             <div className="form-container">
@@ -153,7 +153,7 @@ class App extends React.Component {
                     >DELETE
                     </button>
                     <details><summary>Edit this recipe</summary>
-                      <form onSubmit={this.updateRecipe} id={Recipe._id}>
+                      <form onSubmit={this.updateRecipe} id={recipe._id}>
                         <label htmlFor="name">Name</label>
                         <br />
                         <input
