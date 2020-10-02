@@ -6,3 +6,21 @@ nav  {
     padding-left: 10px;
 }
 
+.blog-title{
+    font-family: komu-a, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 100px;
+    color:  #FFFFF0;
+    text-shadow: 2px 2px black;;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+font-family: joschmi, sans-serif;
+
+font-weight: 400;
+
+font-style: normal;

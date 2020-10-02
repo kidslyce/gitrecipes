@@ -173,7 +173,7 @@ class App extends React.Component {
                           onChange={this.handleChange}
                           defaultValue={recipe.name}
                           className="form-control"
-                        />
+                         />
                         <br />
                         <label htmlFor="image">Image</label>
                         <br />
