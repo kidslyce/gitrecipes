@@ -1,7 +1,7 @@
 class Nav extends React.Component {
 
     render = () => {
-        return <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        return <nav class="navbar fixed-top navbar-expand-lg navbar-light ">
         <a class="navbar-brand" href="#">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -17,13 +17,13 @@ class Nav extends React.Component {
                 <a class="dropdown-item" href="#">Login</a>
                 <a class="dropdown-item" href="#">Sign Up </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Contact</a>
+                <a class="dropdown-item" href="#">Add Recipe</a>
               </div>
             </li>
             
           </ul>
           <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+            <input class="form-control mr-sm-2" type="search" placeholder="type here" aria-label="Search"/>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
         </div>
@@ -178,7 +178,7 @@ class App extends React.Component {
               </div>
               </details>
                 <div className="all-recipes-container">
-                <ul>
+                <ul className="ul-items">
                 { this.state.recipes.map(recipe => { return (
                   <li key={recipe._id}>
                     <h4>Name: {recipe.name} </h4>
@@ -261,7 +261,7 @@ class App extends React.Component {
                         defaultValue={recipe.tags}
                         className="form-control" />
                       <br />
-                        <input type="submit" value="Update Recipe" />
+                        <input type="submit" className="btn btn-outline-dark" value="Update Recipe" />
                       </form>
                       </details>
                       <button
