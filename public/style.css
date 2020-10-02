@@ -52,10 +52,19 @@ header{
     margin: auto;
     color: #FFFFF0;
     border-radius: 20px;
-
+    display: flex;
 
 
 }
+/* 
+.ul-items{
+   margin-top: 10%;
+} */
+
+.form-container{
+flex-direction: row;
+}
+
 
 .all-recipes-container li {
     padding: 10%;
@@ -65,7 +74,7 @@ header{
 /* delete button color change */
 .btn-outline-dark{
     background-color: #FFFFF0;
-    margin-bottom: ;
+    margin-bottom: 2%;
 }
 
 /* SEARCH BAR BUTTON color change */
@@ -77,4 +86,9 @@ header{
 /* changing color of dropdown menu to ivory */
 .dropdown-menu {
     background-color: #FFFFF0;
-
+}
+    
+/* star rating */
+.checked {
+        color: orange;
+}

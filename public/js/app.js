@@ -178,7 +178,9 @@ class App extends React.Component {
               </div>
               </details>
                 <div className="all-recipes-container">
-                <ul className="ul-items">
+                    
+                <ul>
+                    
                 { this.state.recipes.map(recipe => { return (
                   <li key={recipe._id}>
                     <h4>Name: {recipe.name} </h4>
@@ -190,6 +192,12 @@ class App extends React.Component {
                       Ingredients: {recipe.ingredients}<br />
                       Instructions: {recipe.instructions}<br />
                       Tags: {recipe.tags}<br />
+                      {/* /* STAR RATING PLACE HOLDER */ }
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
                     <details><summary>Edit this recipe</summary>
                       <form id={recipe._id} onSubmit={this.updateRecipe}>
                         <label htmlFor="name">Name</label>
