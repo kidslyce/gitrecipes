@@ -23,7 +23,7 @@ class App extends React.Component {
     ingredients: '',
     instructions: '',
     image: '',
-    tags:[],
+    tags:'',
     recipes: []
     }
     componentDidMount = () => {
@@ -50,7 +50,7 @@ class App extends React.Component {
                     ingredients: '',
                     instructions: '',
                     image: '',
-                    tags:[],
+                    tags: ''
                 })
               })
           }
@@ -65,9 +65,8 @@ class App extends React.Component {
             this.setState( { [event.target.id]: event.target.value })
         }
         handleSubmit = (event) => {
-            event.preventDefault()
-            event.currentTarget.reset();
             event.preventDefault();
+            event.currentTarget.reset();
             axios
               .post('/recipes', this.state)
               .then(response => this.setState(
@@ -79,7 +78,7 @@ class App extends React.Component {
                     ingredients: '',
                     instructions: '',
                     image: '',
-                    tags:[],
+                    tags:''
                 })
             )
             }
@@ -221,14 +220,14 @@ class App extends React.Component {
                         />
                         <br />
                         <label htmlFor="tags">Tags</label>
-                        <br />
-                        <input
-                          type="text"
-                          id="tags"
-                          onChange={this.handleChange}
-                          defaultValue={recipe.tags}
-                          className="form-control" />
-                        <br />
+                      <br />
+                      <input
+                        type="text"
+                        id="tags"
+                        onChange={this.handleChange}
+                        defaultValue={recipe.tags}
+                        className="form-control" />
+                      <br />
                         <input type="submit" value="Update Recipe" />
                       </form>
                       <button
