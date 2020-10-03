@@ -1,5 +1,6 @@
 var myStorage = window.localStorage
 //use this variable to reference the current user
+//if no one is logged in currentUser = null
 let currentUser = localStorage.getItem('currentUser')
 
 class Nav extends React.Component {
