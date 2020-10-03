@@ -9,7 +9,7 @@ class Nav extends React.Component {
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-      
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
@@ -23,7 +23,7 @@ class Nav extends React.Component {
                 <a class="dropdown-item" href="#">Add Recipe</a>
               </div>
             </li>
-            
+
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="type here" aria-label="Search"/>
@@ -34,14 +34,10 @@ class Nav extends React.Component {
     }
 }
 
-class Login extends React.Component {
-
+class CreateUser extends React.Component {
   state = {
     regUsername: '',
     regPassword: '',
-    username: '',
-    password: '',
-    currentUser: '',
   }
 
   onChange = () => {
@@ -58,6 +54,32 @@ class Login extends React.Component {
       })
       // return console.log(this.state.regUsername + ' ' + this.state.regPassword);
     })
+  }
+  render = () => {
+    return (
+    <form onSubmit={this.createUser}>
+      <label htmlFor="regUsername">Username:</label>
+      <input id='regUsername' type="text" name="regUsername" onChange={this.onChange} required />
+      <br/>
+      <label  htmlFor="regPassword">Password:</label>
+      <input id='regPassword' type="password" name="regPassword"onChange={this.onChange}  />
+      <br/>
+      <input type="submit" value="Create User" />
+    </form>)
+  }
+}
+
+
+class Login extends React.Component {
+
+  state = {
+    username: '',
+    password: '',
+    currentUser: '',
+  }
+
+  onChange = () => {
+    this.setState( { [event.target.id]: event.target.value })
   }
 
 
@@ -83,31 +105,19 @@ class Login extends React.Component {
 
   render = () => {
     return (
-      <div>
-
-       <h1>Welcome {currentUser}!</h1>
-        <h1>Create User</h1>
-        <form onSubmit={this.createUser}>
-          <label htmlFor="regUsername">Username:</label>
-          <input id='regUsername' type="text" name="regUsername" onChange={this.onChange} required />
-          <br/>
-          <label  htmlFor="regPassword">Password:</label>
-          <input id='regPassword' type="password" name="regPassword"onChange={this.onChange}  />
-          <br/>
-          <input type="submit" value="Create User" />
-        </form>
         <h1>Login</h1>
         <form onSubmit={this.logIn}>
           <label htmlFor="username">Username:</label>
-          <input id='username' type="text" name="username" onChange={this.onChange} required/>
+          <input id='username' type="text" name="username" onChange={this.onChange}/>
           <br/>
           <label  htmlFor="logPassword">Password:</label>
           <input id='password' type="password" name="password" onChange={this.onChange}  />
           <br/>
           <input type="submit" value="Log In" />
         </form>
+
         <button onClick={this.logOut}>Log Out</button>
-      </div>)
+      )
 
   }
 }
@@ -118,7 +128,7 @@ class Header extends React.Component {
     render = () => {
         return <header>
             <div className="recipes-title">Git Recipe</div>
-         
+
         </header>
     }
 }
@@ -194,8 +204,10 @@ class App extends React.Component {
             return <div className="recipe-container">
 
             <Nav />
+            <CreateUser />
             <Login />
             <Header />
+            //vvv Variable to access current user's username see line 1+2 of app.js vvv//
             <h1>{currentUser}</h1>
             <details>
             <summary>Add Recipe</summary>
@@ -262,7 +274,7 @@ class App extends React.Component {
               </div>
               </details>
                 <div className="all-recipes-container">
-                    
+
                 <ul>
                     <div className= "recipe-card">
                 { this.state.recipes.map(recipe => { return (
@@ -283,7 +295,7 @@ class App extends React.Component {
                       <span class="fa fa-star"></span>
                       <span class="fa fa-star"></span>
                     <details><summary>Edit this recipe</summary>
-                    
+
                       <form id={recipe._id} onSubmit={this.updateRecipe}>
                         <label htmlFor="name">Name</label>
                         <br />
@@ -365,7 +377,7 @@ class App extends React.Component {
                       </button>
                     </details>
                   </li>
-                  
+
                 )})}
                 {/* recipe card div */}
                 </div>
