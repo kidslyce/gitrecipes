@@ -67,7 +67,7 @@ class App extends React.Component {
             .put('/recipes/' + id, this.state)
             .then(response => {
               this.setState({
-                  recipes: response.data,
+                recipes: response.data,
                   name: '',
               })
             })
@@ -175,6 +175,9 @@ class App extends React.Component {
                 })
             )
             }
+            handleChange = (event) => {
+               this.setState({ [event.target.id]: event.target.value })
+             }
           render = () => {
 
             return <div className="recipe-container">
@@ -268,7 +271,7 @@ class App extends React.Component {
                       <span class="fa fa-star"></span>
                     <details><summary>Edit this recipe</summary>
 
-                      <form id={recipe._id} onSubmit={this.updateRecipe}>
+                      <form id={recipe._id} onSubmit={this.updateName}>
                         <label htmlFor="name">Name</label>
                         <br />
                         <input
@@ -343,9 +346,7 @@ class App extends React.Component {
                         onChange={this.handleChange}
                         defaultValue={recipe.tags}
                         className="form-control" />
-                      <br />
-                        <input type="submit" className="btn btn-outline-dark" value="Update Recipe" />
-                      </form>
+                      <br /></form>
                       </details>
                       <button
                         value={recipe._id}
