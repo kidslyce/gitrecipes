@@ -6,25 +6,29 @@ let currentUser = localStorage.getItem('currentUser')
 class Nav extends React.Component {
 
     render = () => {
-        return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
-        <a className="navbar-brand" href="#">Home</a>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
+        return (
+        <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
+          <a className="navbar-brand" href="#">Home</a>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-<<<<<<< HEAD
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Login/Sign Up
-=======
+              </a>
+            </li>
+          </ul>
+        </div>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {currentUser == null ? <p>Login/Sign Up</p> : <p>Welcome {currentUser}</p>}
->>>>>>> c93a3270a66a7b7bf1f9a3b121a8a309429a1324
+
+                {currentUser == null ? <p>Login/Sign Up</p> : <p>Welcome</p>}
+
               </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a className="dropdown-item" href="#">Login</a>
@@ -32,7 +36,6 @@ class Nav extends React.Component {
                 <a className="dropdown-item" href="#">Add Recipe</a>
               </div>
             </li>
-
           </ul>
           <form className="form-inline my-2 my-lg-0">
             <input className="form-control mr-sm-2" type="search" placeholder="type here" aria-label="Search"/>
@@ -40,6 +43,7 @@ class Nav extends React.Component {
           </form>
         </div>
       </nav>
+    )
     }
 }
 
@@ -148,6 +152,7 @@ class Header extends React.Component {
         </header>
     }
 }
+
 class App extends React.Component {
     state = {
     name: '',
@@ -380,12 +385,8 @@ class App extends React.Component {
                       <span className="fa fa-star"></span>
                       <span className="fa fa-star"></span>
                     <details><summary>Edit this recipe</summary>
-
-<<<<<<< HEAD
                       <form id={recipe._id} onSubmit={this.updateName}>
-=======
-                      <form id={recipe._id} onSubmit={this.updateRecipe}>
->>>>>>> c93a3270a66a7b7bf1f9a3b121a8a309429a1324
+
                         <label htmlFor="name">Name</label>
                         <br />
                         <input
