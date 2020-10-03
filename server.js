@@ -65,12 +65,13 @@ require('./passportConfig')(passport)
 const recipeController = require('./controllers/recipes_controller.js')
 app.use('/recipes', recipeController)
 
+
 app.post("/login", (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if(err){
       console.log(err);
     }else if(!user){
-      console.log("wrong username or password")
+      res.json({message: "wrong username or password"})
     }else{
       req.logIn(user, (err) => {
         if(err){
@@ -78,6 +79,7 @@ app.post("/login", (req, res, next) => {
         }else{
           console.log('User Authenticated')
           console.log(user);
+          res.json(user)
         }
       })
     }
@@ -102,13 +104,8 @@ app.post("/register", (req, res) => {
       console.log("user created" + newUser);
     }
   })
-  res.redirect('/')
 })
 
-
-app.get("/user", (req, res) => {
-  console.log(req.user);
-})
 
 //===============
 // LISTENERS
