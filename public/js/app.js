@@ -1,3 +1,6 @@
+var myStorage = window.localStorage
+let currentUser = localStorage.getItem('currentUser')
+
 class Nav extends React.Component {
 
     render = () => {
@@ -30,6 +33,85 @@ class Nav extends React.Component {
       </nav>
     }
 }
+
+class Login extends React.Component {
+
+  state = {
+    regUsername: '',
+    regPassword: '',
+    username: '',
+    password: '',
+    currentUser: '',
+  }
+
+  onChange = () => {
+    this.setState( { [event.target.id]: event.target.value })
+  }
+
+  createUser = (event) => {
+    event.preventDefault();
+    event.target.reset();
+    axios.post('/register', this.state).then(response => {
+      this.setState({
+        regUsername: '',
+        regPassword: ''
+      })
+      // return console.log(this.state.regUsername + ' ' + this.state.regPassword);
+    })
+  }
+
+
+  logIn = (event) => {
+    event.preventDefault();
+    axios.post('/login', this.state).then(response => {
+      console.log(response);
+      this.setState({
+        username: '',
+        password: '',
+        currentUser: response.data.username
+      })
+      localStorage.setItem('currentUser', this.state.currentUser)
+      location.reload()
+    })
+  }
+
+
+  logOut = (event) => {
+    localStorage.clear()
+    location.reload()
+  }
+
+  render = () => {
+    return (
+      <div>
+
+       <h1>Welcome {currentUser}!</h1>
+        <h1>Create User</h1>
+        <form onSubmit={this.createUser}>
+          <label htmlFor="regUsername">Username:</label>
+          <input id='regUsername' type="text" name="regUsername" onChange={this.onChange} required />
+          <br/>
+          <label  htmlFor="regPassword">Password:</label>
+          <input id='regPassword' type="password" name="regPassword"onChange={this.onChange}  />
+          <br/>
+          <input type="submit" value="Create User" />
+        </form>
+        <h1>Login</h1>
+        <form onSubmit={this.logIn}>
+          <label htmlFor="username">Username:</label>
+          <input id='username' type="text" name="username" onChange={this.onChange} required/>
+          <br/>
+          <label  htmlFor="logPassword">Password:</label>
+          <input id='password' type="password" name="password" onChange={this.onChange}  />
+          <br/>
+          <input type="submit" value="Log In" />
+        </form>
+        <button onClick={this.logOut}>Log Out</button>
+      </div>)
+
+  }
+}
+
 
 class Header extends React.Component {
 
@@ -112,7 +194,9 @@ class App extends React.Component {
             return <div className="recipe-container">
 
             <Nav />
+            <Login />
             <Header />
+            <h1>{currentUser}</h1>
             <details>
             <summary>Add Recipe</summary>
             <div className="form-container">
