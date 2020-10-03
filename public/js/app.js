@@ -1,42 +1,141 @@
+var myStorage = window.localStorage
+//use this variable to reference the current user
+let currentUser = localStorage.getItem('currentUser')
+
 class Nav extends React.Component {
 
     render = () => {
-        return <nav class="navbar fixed-top navbar-expand-lg navbar-light ">
-        <a class="navbar-brand" href="#">Home</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+        return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
+        <a className="navbar-brand" href="#">Home</a>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
         </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Login/Sign Up
+
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {currentUser == null ? <p>Login/Sign Up</p> : <p>Welcome {currentUser}</p>}
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Login</a>
-                <a class="dropdown-item" href="#">Sign Up </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Add Recipe</a>
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a className="dropdown-item" href="#">Login</a>
+                <a className="dropdown-item" href="#">Sign Up </a>
+                <a className="dropdown-item" href="#">Add Recipe</a>
               </div>
             </li>
-            
+
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="type here" aria-label="Search"/>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <form className="form-inline my-2 my-lg-0">
+            <input className="form-control mr-sm-2" type="search" placeholder="type here" aria-label="Search"/>
+            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
         </div>
       </nav>
     }
 }
 
+class NewUser extends React.Component {
+  state = {
+    regUsername: '',
+    regPassword: '',
+  }
+
+  onChange = () => {
+    this.setState( { [event.target.id]: event.target.value })
+  }
+
+  createUser = (event) => {
+    event.preventDefault();
+    event.target.reset();
+    axios.post('/register', this.state).then(response => {
+      this.setState({
+        regUsername: '',
+        regPassword: ''
+      })
+      // return console.log(this.state.regUsername + ' ' + this.state.regPassword);
+    })
+  }
+
+
+  render = () => {
+    return (
+      <div>
+        <h1>Create User</h1>
+        <form onSubmit={this.createUser}>
+          <label htmlFor="regUsername">Username:</label>
+          <input id='regUsername' type="text" name="regUsername" onChange={this.onChange} required />
+          <br/>
+          <label  htmlFor="regPassword">Password:</label>
+          <input id='regPassword' type="password" name="regPassword"onChange={this.onChange}  />
+          <br/>
+          <input type="submit" value="Create User" />
+        </form>
+      </div>
+    )
+  }
+}
+
+
+class Login extends React.Component {
+
+  state = {
+    username: '',
+    password: '',
+    currentUser: ''
+  }
+
+  onChange = () => {
+    this.setState( { [event.target.id]: event.target.value })
+  }
+
+
+
+  logIn = (event) => {
+    event.preventDefault();
+    axios.post('/login', this.state).then(response => {
+      console.log(response);
+      this.setState({
+        username: '',
+        password: '',
+        currentUser: response.data.username
+      })
+      localStorage.setItem('currentUser', this.state.currentUser)
+      location.reload()
+    })
+  }
+
+
+  logOut = (event) => {
+    localStorage.clear()
+    location.reload()
+  }
+
+  render = () => {
+    return (
+        <div>
+        <h1>Login</h1>
+        <form onSubmit={this.logIn}>
+          <label htmlFor="username">Username:</label>
+          <input id='username' type="text" name="username" onChange={this.onChange} required/>
+          <br/>
+          <label  htmlFor="logPassword">Password:</label>
+          <input id='password' type="password" name="password" onChange={this.onChange}  />
+          <br/>
+          <input type="submit" value="Log In" />
+        </form>
+        <button onClick={this.logOut}>Log Out</button>
+      </div>
+      )
+  }
+}
+
+
 class Header extends React.Component {
 
     render = () => {
         return <header>
             <div className="recipes-title">Git Recipe</div>
-         
+
         </header>
     }
 }
@@ -113,6 +212,8 @@ class App extends React.Component {
 
             <Nav />
             <Header />
+            <NewUser />
+            <Login />
             <details>
             <summary>Add Recipe</summary>
             <div className="form-container">
@@ -178,7 +279,7 @@ class App extends React.Component {
               </div>
               </details>
                 <div className="all-recipes-container">
-                    
+
                 <ul>
                     <div className= "recipe-card">
                 { this.state.recipes.map(recipe => { return (
@@ -193,13 +294,13 @@ class App extends React.Component {
                       Instructions: {recipe.instructions}<br />
                       Tags: {recipe.tags}<br />
                       {/* /* STAR RATING PLACE HOLDER */ }
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star"></span>
-                      <span class="fa fa-star"></span>
+                      <span className="fa fa-star checked"></span>
+                      <span className="fa fa-star checked"></span>
+                      <span className="fa fa-star checked"></span>
+                      <span className="fa fa-star"></span>
+                      <span className="fa fa-star"></span>
                     <details><summary>Edit this recipe</summary>
-                    
+
                       <form id={recipe._id} onSubmit={this.updateRecipe}>
                         <label htmlFor="name">Name</label>
                         <br />
@@ -281,7 +382,7 @@ class App extends React.Component {
                       </button>
                     </details>
                   </li>
-                  
+
                 )})}
                 {/* recipe card div */}
                 </div>
