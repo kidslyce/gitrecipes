@@ -1,9 +1,33 @@
 class Nav extends React.Component {
 
     render = () => {
-        return <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand home-nav" href="#">HOME</a>
-        </nav>
+        return <nav class="navbar fixed-top navbar-expand-lg navbar-light ">
+        <a class="navbar-brand" href="#">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Login/Sign Up
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Login</a>
+                <a class="dropdown-item" href="#">Sign Up </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Add Recipe</a>
+              </div>
+            </li>
+            
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="type here" aria-label="Search"/>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
     }
 }
 
@@ -11,7 +35,8 @@ class Header extends React.Component {
 
     render = () => {
         return <header>
-            <div className="recipes-title">Git That Recipe!</div>
+            <div className="recipes-title">Git Recipe</div>
+         
         </header>
     }
 }
@@ -23,7 +48,7 @@ class App extends React.Component {
     ingredients: '',
     instructions: '',
     image: '',
-    tags:[],
+    tags:'',
     recipes: []
     }
     componentDidMount = () => {
@@ -50,7 +75,7 @@ class App extends React.Component {
                     ingredients: '',
                     instructions: '',
                     image: '',
-                    tags:[],
+                    tags: ''
                 })
               })
           }
@@ -65,9 +90,8 @@ class App extends React.Component {
             this.setState( { [event.target.id]: event.target.value })
         }
         handleSubmit = (event) => {
-            event.preventDefault()
-            event.currentTarget.reset();
             event.preventDefault();
+            event.currentTarget.reset();
             axios
               .post('/recipes', this.state)
               .then(response => this.setState(
@@ -79,12 +103,14 @@ class App extends React.Component {
                     ingredients: '',
                     instructions: '',
                     image: '',
-                    tags:[],
+                    tags:''
                 })
             )
             }
           render = () => {
+
             return <div className="recipe-container">
+
             <Nav />
             <Header />
             <details>
@@ -152,13 +178,28 @@ class App extends React.Component {
               </div>
               </details>
                 <div className="all-recipes-container">
+                    
                 <ul>
+                    <div className= "recipe-card">
                 { this.state.recipes.map(recipe => { return (
-                  <li key={recipe._id}>
+                  <li className="card-items" key={recipe._id}>
                     <h4>Name: {recipe.name} </h4>
                     <br />
                     <img src={recipe.image} alt={recipe.name}/>
+                    <details><summary>More info</summary>
+                      Prep time: {recipe.prepTime}<br />
+                      Cook time: {recipe.cookTime}<br />
+                      Ingredients: {recipe.ingredients}<br />
+                      Instructions: {recipe.instructions}<br />
+                      Tags: {recipe.tags}<br />
+                      {/* /* STAR RATING PLACE HOLDER */ }
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
                     <details><summary>Edit this recipe</summary>
+                    
                       <form id={recipe._id} onSubmit={this.updateRecipe}>
                         <label htmlFor="name">Name</label>
                         <br />
@@ -168,7 +209,7 @@ class App extends React.Component {
                           onChange={this.handleChange}
                           defaultValue={recipe.name}
                           className="form-control"
-                        />
+                         />
                         <br />
                         <label htmlFor="image">Image</label>
                         <br />
@@ -221,16 +262,17 @@ class App extends React.Component {
                         />
                         <br />
                         <label htmlFor="tags">Tags</label>
-                        <br />
-                        <input
-                          type="text"
-                          id="tags"
-                          onChange={this.handleChange}
-                          defaultValue={recipe.tags}
-                          className="form-control" />
-                        <br />
-                        <input type="submit" value="Update Recipe" />
+                      <br />
+                      <input
+                        type="text"
+                        id="tags"
+                        onChange={this.handleChange}
+                        defaultValue={recipe.tags}
+                        className="form-control" />
+                      <br />
+                        <input type="submit" className="btn btn-outline-dark" value="Update Recipe" />
                       </form>
+                      </details>
                       <button
                         value={recipe._id}
                         onClick={this.deleteRecipe}
@@ -239,7 +281,10 @@ class App extends React.Component {
                       </button>
                     </details>
                   </li>
+                  
                 )})}
+                {/* recipe card div */}
+                </div>
                 </ul>
               </div>
 
