@@ -34,10 +34,14 @@ class Nav extends React.Component {
     }
 }
 
-class CreateUser extends React.Component {
+class Login extends React.Component {
+
   state = {
     regUsername: '',
     regPassword: '',
+    username: '',
+    password: '',
+    currentUser: '',
   }
 
   onChange = () => {
@@ -54,32 +58,6 @@ class CreateUser extends React.Component {
       })
       // return console.log(this.state.regUsername + ' ' + this.state.regPassword);
     })
-  }
-  render = () => {
-    return (
-    <form onSubmit={this.createUser}>
-      <label htmlFor="regUsername">Username:</label>
-      <input id='regUsername' type="text" name="regUsername" onChange={this.onChange} required />
-      <br/>
-      <label  htmlFor="regPassword">Password:</label>
-      <input id='regPassword' type="password" name="regPassword"onChange={this.onChange}  />
-      <br/>
-      <input type="submit" value="Create User" />
-    </form>)
-  }
-}
-
-
-class Login extends React.Component {
-
-  state = {
-    username: '',
-    password: '',
-    currentUser: '',
-  }
-
-  onChange = () => {
-    this.setState( { [event.target.id]: event.target.value })
   }
 
 
@@ -105,17 +83,25 @@ class Login extends React.Component {
 
   render = () => {
     return (
+          <form onSubmit={this.createUser}>
+          <label htmlFor="regUsername">Username:</label>
+          <input id='regUsername' type="text" name="regUsername" onChange={this.onChange} required />
+          <br/>
+          <label  htmlFor="regPassword">Password:</label>
+          <input id='regPassword' type="password" name="regPassword"onChange={this.onChange}  />
+          <br/>
+          <input type="submit" value="Create User" />
+        </form>
         <h1>Login</h1>
         <form onSubmit={this.logIn}>
           <label htmlFor="username">Username:</label>
-          <input id='username' type="text" name="username" onChange={this.onChange}/>
+          <input id='username' type="text" name="username" onChange={this.onChange} required/>
           <br/>
           <label  htmlFor="logPassword">Password:</label>
           <input id='password' type="password" name="password" onChange={this.onChange}  />
           <br/>
           <input type="submit" value="Log In" />
         </form>
-
         <button onClick={this.logOut}>Log Out</button>
       )
 
@@ -204,7 +190,6 @@ class App extends React.Component {
             return <div className="recipe-container">
 
             <Nav />
-            <CreateUser />
             <Login />
             <Header />
             //vvv Variable to access current user's username see line 1+2 of app.js vvv//
