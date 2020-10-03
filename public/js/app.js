@@ -140,8 +140,12 @@ class Header extends React.Component {
         </header>
     }
 }
+
+
+
 class App extends React.Component {
     state = {
+    author:'',
     name: '',
     prepTime: '',
     cookTime: '',
@@ -151,6 +155,7 @@ class App extends React.Component {
     tags:'',
     recipes: []
     }
+
     componentDidMount = () => {
         axios
           .get('/recipes')
@@ -161,34 +166,36 @@ class App extends React.Component {
           })
       }
 
-        updateRecipe = (event) => {
-            event.preventDefault()
-            const id = event.target.id
-            axios
-              .put('/recipes/' + id, this.state)
-              .then(response => {
-                this.setState({
-                    recipes: response.data,
-                    name: '',
-                    prepTime: '',
-                    cookTime: '',
-                    ingredients: '',
-                    instructions: '',
-                    image: '',
-                    tags: ''
-                })
+      updateRecipe = (event) => {
+          event.preventDefault()
+          const id = event.target.id
+          axios
+            .put('/recipes/' + id, this.state)
+            .then(response => {
+              this.setState({
+                  recipes: response.data,
+                  author: '',
+                  name: '',
+                  prepTime: '',
+                  cookTime: '',
+                  ingredients: '',
+                  instructions: '',
+                  image: '',
+                  tags: '',
               })
-          }
-          deleteRecipe = (event) => {
-            axios
-              .delete('/recipes/' + event.target.value)
-              .then(response => this.setState({recipes: response.data,
             })
-            )
-          }
-          handleChange = event =>{
-            this.setState( { [event.target.id]: event.target.value })
         }
+        deleteRecipe = (event) => {
+          axios
+            .delete('/recipes/' + event.target.value)
+            .then(response => this.setState({recipes: response.data,
+          })
+          )
+        }
+        handleChange = event =>{
+          this.setState( { [event.target.id]: event.target.value })
+        }
+
         handleSubmit = (event) => {
             event.preventDefault();
             event.currentTarget.reset();
@@ -197,20 +204,21 @@ class App extends React.Component {
               .then(response => this.setState(
                 {
                     recipes: response.data,
+                    author: '',
                     name: '',
                     prepTime: '',
                     cookTime: '',
                     ingredients: '',
                     instructions: '',
                     image: '',
-                    tags:''
+                    tags:'',
                 })
             )
             }
+
           render = () => {
 
             return <div className="recipe-container">
-
             <Nav />
             <Header />
             <NewUser />
@@ -219,6 +227,8 @@ class App extends React.Component {
             <summary>Add Recipe</summary>
             <div className="form-container">
               <form onSubmit={this.handleSubmit}>
+                <label htmlFor="author">Author</label><br />
+                <input id="author" type="text" onChange={this.handleChange} className="form-control"/><br />
                 <label htmlFor="name">Name</label>
                 <br />
                 <input id="name"
@@ -294,6 +304,7 @@ class App extends React.Component {
                       Ingredients: {recipe.ingredients}<br />
                       Instructions: {recipe.instructions}<br />
                       Tags: {recipe.tags}<br />
+                      Author: {recipe.author}< br/>
                       {/* /* STAR RATING PLACE HOLDER */ }
                       <span className="fa fa-star checked"></span>
                       <span className="fa fa-star checked"></span>
@@ -303,8 +314,9 @@ class App extends React.Component {
                     <details><summary>Edit this recipe</summary>
 
                       <form id={recipe._id} onSubmit={this.updateRecipe}>
-                        <label htmlFor="name">Name</label>
-                        <br />
+                        <label htmlFor="author">Author</label><br />
+                        <input className="form-control" type="text" id="author" onChange={this.handleChange} defaultValue={recipe.author} readOnly/>< br/>
+                        <label htmlFor="name">Name</label><br />
                         <input
                           type="text"
                           id="name"
