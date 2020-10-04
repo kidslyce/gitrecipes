@@ -6,17 +6,20 @@ let currentUser = localStorage.getItem('currentUser')
 class Nav extends React.Component {
 
     render = () => {
-        return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
-        <a className="navbar-brand" href="#">Home</a>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
+        return (
+        <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
+          <a className="navbar-brand" href="#">Home</a>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                 {currentUser == null ? <p>Login/Sign Up</p> : <p>Welcome {currentUser}</p>}
+
               </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a className="dropdown-item" href="#">Login</a>
@@ -24,7 +27,6 @@ class Nav extends React.Component {
                 <a className="dropdown-item" href="#">Add Recipe</a>
               </div>
             </li>
-
           </ul>
           <form className="form-inline my-2 my-lg-0">
             <input className="form-control mr-sm-2" type="search" placeholder="type here" aria-label="Search"/>
@@ -32,6 +34,7 @@ class Nav extends React.Component {
           </form>
         </div>
       </nav>
+    )
     }
 }
 
@@ -53,7 +56,6 @@ class NewUser extends React.Component {
         regUsername: '',
         regPassword: ''
       })
-      // return console.log(this.state.regUsername + ' ' + this.state.regPassword);
     })
   }
 
@@ -141,8 +143,6 @@ class Header extends React.Component {
     }
 }
 
-
-
 class App extends React.Component {
     state = {
     author:'',
@@ -165,37 +165,103 @@ class App extends React.Component {
             })
           })
       }
-
-      updateRecipe = (event) => {
+      updateName = (event) => {
           event.preventDefault()
           const id = event.target.id
           axios
             .put('/recipes/' + id, this.state)
             .then(response => {
               this.setState({
-                  recipes: response.data,
-                  author: '',
+                recipes: response.data,
                   name: '',
-                  prepTime: '',
-                  cookTime: '',
-                  ingredients: '',
-                  instructions: '',
-                  image: '',
-                  tags: '',
               })
             })
         }
-        deleteRecipe = (event) => {
-          axios
-            .delete('/recipes/' + event.target.value)
-            .then(response => this.setState({recipes: response.data,
-          })
-          )
-        }
-        handleChange = event =>{
-          this.setState( { [event.target.id]: event.target.value, author:currentUser})
-        }
-
+        updateImage = (event) => {
+            event.preventDefault()
+            const id = event.target.id
+            axios
+              .put('/recipes/' + id, this.state)
+              .then(response => {
+                this.setState({
+                    recipes: response.data,
+                    image: '',
+                })
+              })
+          }
+          updatePrepTime = (event) => {
+              event.preventDefault()
+              const id = event.target.id
+              axios
+                .put('/recipes/' + id, this.state)
+                .then(response => {
+                  this.setState({
+                      recipes: response.data,
+                      prepTime: '',
+                  })
+                })
+            }
+            updateCookTime = (event) => {
+                event.preventDefault()
+                const id = event.target.id
+                axios
+                  .put('/recipes/' + id, this.state)
+                  .then(response => {
+                    this.setState({
+                        recipes: response.data,
+                        cookTime: '',
+                    })
+                  })
+              }
+              updateInstructions = (event) => {
+                  event.preventDefault()
+                  const id = event.target.id
+                  axios
+                    .put('/recipes/' + id, this.state)
+                    .then(response => {
+                      this.setState({
+                          recipes: response.data,
+                          instructions: '',
+                      })
+                    })
+                }
+                updateIngredients = (event) => {
+                    event.preventDefault()
+                    const id = event.target.id
+                    axios
+                      .put('/recipes/' + id, this.state)
+                      .then(response => {
+                        this.setState({
+                            recipes: response.data,
+                            ingredients: '',
+                        })
+                      })
+                  }
+                  updateTags = (event) => {
+                      event.preventDefault()
+                      const id = event.target.id
+                      axios
+                        .put('/recipes/' + id, this.state)
+                        .then(response => {
+                          this.setState({
+                              recipes: response.data,
+                              tags: '',
+                          })
+                        })
+                    }
+          deleteRecipe = (event) => {
+            axios
+              .delete('/recipes/' + event.target.value)
+              .then(response => this.setState({recipes: response.data,
+            })
+            )
+          }
+        nameChange = event =>{
+          this.setState( { [event.target.id]: event.target.value })
+      }
+      imageChange = event =>{
+        this.setState( { [event.target.id]: event.target.value })
+    }
         handleSubmit = (event) => {
             event.preventDefault();
             event.currentTarget.reset();
@@ -215,7 +281,9 @@ class App extends React.Component {
                 })
             )
             }
-
+            handleChange = (event) => {
+               this.setState({ [event.target.id]: event.target.value, author:currentUser })
+             }
           render = () => {
 
             return <div className="recipe-container">
@@ -310,27 +378,30 @@ class App extends React.Component {
                       <span className="fa fa-star"></span>
                       <span className="fa fa-star"></span>
                     <details><summary>Edit this recipe</summary>
+                      <form id={recipe._id} onSubmit={this.updateName}>
 
-                      <form id={recipe._id} onSubmit={this.updateRecipe}>
-                        <label htmlFor="name">Name</label><br />
+                        <label htmlFor="name">Name</label>
+                        <br />
                         <input
                           type="text"
                           id="name"
-                          onChange={this.handleChange}
+                          onChange={this.nameChange}
                           defaultValue={recipe.name}
                           className="form-control"
-                         />
+                         /><input type="submit" value="Update Name" /></form>
                         <br />
+                        <form id={recipe._id} onSubmit={this.updateImage}>
                         <label htmlFor="image">Image</label>
                         <br />
                         <input
                           type="text"
                           id="image"
-                          onChange={this.handleChange}
+                          onChange={this.imageChange}
                           defaultValue={recipe.image}
                           className="form-control"
-                        />
+                        /><input type="submit" value="Update Image" /></form>
                         <br />
+                        <form id={recipe._id} onSubmit={this.updatePrepTime}>
                         <label htmlFor="prepTime">Prep Time</label>
                         <br />
                         <input
@@ -339,8 +410,9 @@ class App extends React.Component {
                           onChange={this.handleChange}
                           defaultValue={recipe.prepTime}
                           className="form-control"
-                        />
+                        /><input type="submit" value="Update Prep Time" /></form>
                         <br />
+                        <form id={recipe._id} onSubmit={this.updateCookTime}>
                         <label htmlFor="cookTime">Cook Time</label>
                         <br />
                         <input
@@ -349,8 +421,9 @@ class App extends React.Component {
                           onChange={this.handleChange}
                           defaultValue={recipe.cookTime}
                           className="form-control"
-                        />
+                        /><input type="submit" value="Update Cook Time" /></form>
                         <br />
+                        <form id={recipe._id} onSubmit={this.updateInstructions}>
                         <label htmlFor="instructions">Instructions</label>
                         <br />
                         <input
@@ -359,8 +432,9 @@ class App extends React.Component {
                           onChange={this.handleChange}
                           defaultValue={recipe.instructions}
                           className="form-control"
-                        />
+                        /><input type="submit" value="Update Instructions" /></form>
                         <br />
+                        <form id={recipe._id} onSubmit={this.updateIngredients}>
                         <label htmlFor="ingredients">Ingredients</label>
                         <br />
                         <input
@@ -369,19 +443,18 @@ class App extends React.Component {
                           onChange={this.handleChange}
                           defaultValue={recipe.ingredients}
                           className="form-control"
-                        />
-                        <br />
-                        <label htmlFor="tags">Tags</label>
+                        /><input type="submit" value="Update Ingredients" /></form>
+
                       <br />
+                      <form id={recipe._id} onSubmit={this.updateTags}>
+                      <label htmlFor="tags">Tags</label>
                       <input
                         type="text"
                         id="tags"
                         onChange={this.handleChange}
                         defaultValue={recipe.tags}
                         className="form-control" />
-                      <br />
-                        <input type="submit" className="btn btn-outline-dark" value="Update Recipe" />
-                      </form>
+                      <br /></form>
                       </details>
                       <button
                         value={recipe._id}
