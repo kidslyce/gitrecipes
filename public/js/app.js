@@ -165,18 +165,19 @@ class App extends React.Component {
             })
           })
       }
+
       updateName = (event) => {
           event.preventDefault()
           const id = event.target.id
           axios
             .put('/recipes/' + id, this.state)
             .then(response => {
-              this.setState({
+
                 recipes: response.data,
                   name: '',
               })
             })
-        }
+
         updateImage = (event) => {
             event.preventDefault()
             const id = event.target.id
@@ -281,8 +282,9 @@ class App extends React.Component {
                 })
             )
             }
-            handleChange = (event) => {
-               this.setState({ [event.target.id]: event.target.value, author:currentUser })
+
+          handleChange = (event) => {
+               this.setState({ [event.target.id]: event.target.value, author: currentUser })
              }
           render = () => {
 
