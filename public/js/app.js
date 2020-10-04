@@ -182,7 +182,7 @@ class App extends React.Component {
           axios
             .put('/recipes/' + id, this.state)
             .then(response => {
-
+              this.setState({
                 recipes: response.data,
                   name: '',
               })
