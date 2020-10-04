@@ -193,7 +193,7 @@ class App extends React.Component {
           )
         }
         handleChange = event =>{
-          this.setState( { [event.target.id]: event.target.value })
+          this.setState( { [event.target.id]: event.target.value, author:currentUser})
         }
 
         handleSubmit = (event) => {
@@ -227,8 +227,6 @@ class App extends React.Component {
             <summary>Add Recipe</summary>
             <div className="form-container">
               <form onSubmit={this.handleSubmit}>
-                <label htmlFor="author">Author</label><br />
-                <input id="author" type="text" onChange={this.handleChange} className="form-control"/><br />
                 <label htmlFor="name">Name</label>
                 <br />
                 <input id="name"
@@ -314,8 +312,6 @@ class App extends React.Component {
                     <details><summary>Edit this recipe</summary>
 
                       <form id={recipe._id} onSubmit={this.updateRecipe}>
-                        <label htmlFor="author">Author</label><br />
-                        <input className="form-control" type="text" id="author" onChange={this.handleChange} defaultValue={recipe.author} readOnly/>< br/>
                         <label htmlFor="name">Name</label><br />
                         <input
                           type="text"
