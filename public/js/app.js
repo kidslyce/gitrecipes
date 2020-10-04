@@ -143,6 +143,20 @@ class Header extends React.Component {
     }
 }
 
+class Comments extends React.Component {
+
+  render = () => {
+    return (
+    <div className='comment-container'>
+      <form>
+        <textarea onChange={this.handleChange}></textarea>
+        <input type='submit' value='Submit Comment'/>
+      </form>
+    </div>)
+  }
+}
+
+
 class App extends React.Component {
     state = {
     author:'',
@@ -172,11 +186,12 @@ class App extends React.Component {
           axios
             .put('/recipes/' + id, this.state)
             .then(response => {
-
+            this.setState({
                 recipes: response.data,
-                  name: '',
+                name: '',
+                })
               })
-            })
+            }
 
         updateImage = (event) => {
             event.preventDefault()
@@ -379,6 +394,9 @@ class App extends React.Component {
                       <span className="fa fa-star checked"></span>
                       <span className="fa fa-star"></span>
                       <span className="fa fa-star"></span>
+                      <details><summary>Add a comment</summary>
+                        <Comments />
+                      </details>
                     <details><summary>Edit this recipe</summary>
                       <form id={recipe._id} onSubmit={this.updateName}>
 
