@@ -345,7 +345,27 @@ class App extends React.Component {
           })
       }
 
-     
+
+      updateRecipe = (event) => {
+          event.preventDefault()
+          const id = event.target.id
+          axios
+            .put('/recipes/' + id, this.state)
+            .then(response => {
+              this.setState({
+                recipes: response.data,
+                  name: '',
+                  prepTime:'',
+                  cookTime:'',
+                  ingredients: '',
+                  instructions:'',
+                  image:'',
+                  tags:''
+              })
+            })
+        }
+
+
           deleteRecipe = (event) => {
             axios
               .delete('/recipes/' + event.target.value)
@@ -472,6 +492,7 @@ class App extends React.Component {
               </details>
 
 
+
               <RecipeList 
                 handleChange={this.handleChange} 
                 handleSubmit={this.handleSubmit}
@@ -479,6 +500,7 @@ class App extends React.Component {
                 updateRecipe={this.updateRecipe}
                 filteredTags={this.state.filteredTags}
               />
+
 
 
             </div>
