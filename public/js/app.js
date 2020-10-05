@@ -312,8 +312,9 @@ class App extends React.Component {
     filteredTags: []
     }
 
-
-    
+//=================================================================
+// App functions
+//=================================================================
 
     componentDidMount = () => {
         axios
@@ -461,8 +462,8 @@ class App extends React.Component {
               </form>
               </div>
               </details>
+
               <RecipeList 
-                
                 handleChange={this.handleChange} 
                 handleSubmit={this.handleSubmit}
                 deleteRecipe={this.deleteRecipe}
