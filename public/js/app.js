@@ -189,6 +189,9 @@ class Header extends React.Component {
     }
 }
 
+//=====================================================================
+// FUNCTIONAL STATLESS COMPONENTS
+//=====================================================================
 
 const RecipeItem = (props) => {
     return (
@@ -294,7 +297,7 @@ const RecipeItem = (props) => {
     )
     
 }
-
+//=================================================================
 
 const RecipeList = (props) => {
   return (
@@ -314,6 +317,81 @@ const RecipeList = (props) => {
               </div>
   )
 }
+
+//==================================================================
+
+const AddRecipe = (props) => {
+    return(
+<details>
+            <summary>Add Recipe</summary>
+            <div className="form-container">
+              <form onSubmit={props.handleSubmit}>
+                <label htmlFor="author">Author</label><br />
+                <input id="author" type="text" onChange={props.handleChange} className="form-control"/><br />
+                <label htmlFor="name">Name</label>
+                <br />
+                <input id="name"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control"  />
+                <br />
+                <label htmlFor="prepTime">Prep Time</label>
+                <br />
+                <input id="prepTime"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="cookTime">Cook Time</label>
+                <br />
+                <input id="cookTime"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control"/>
+                <br />
+                <label htmlFor="ingredients">Ingredients</label>
+                <br />
+                <input
+                  id="ingredients"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="instructions">Instructions</label>
+                <br />
+                <input
+                  id="instructions"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="image">Image</label>
+                <br />
+                <input
+                  id="image"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="tags">Tags</label>
+                <br />
+                <input
+                  id="tags"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control" />
+                <br />
+                <input
+                  type="submit"
+                  value="Add"
+                  className="btn btn-outline-dark" />
+              </form>
+              </div>
+              </details>
+    )
+
+}
+
 
 class App extends React.Component {
     state = {
@@ -420,76 +498,13 @@ class App extends React.Component {
             return <div className="recipe-container">
 
             <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}/>
-
+            <AddRecipe
+                handleChange={this.handleChange} 
+                handleSubmit={this.handleSubmit}/>
             <Header />
             <NewUser />
             <Login />
-            <details>
-            <summary>Add Recipe</summary>
-            <div className="form-container">
-              <form onSubmit={this.handleSubmit}>
-                <label htmlFor="author">Author</label><br />
-                <input id="author" type="text" onChange={this.handleChange} className="form-control"/><br />
-                <label htmlFor="name">Name</label>
-                <br />
-                <input id="name"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control"  />
-                <br />
-                <label htmlFor="prepTime">Prep Time</label>
-                <br />
-                <input id="prepTime"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control" />
-                <br />
-                <label htmlFor="cookTime">Cook Time</label>
-                <br />
-                <input id="cookTime"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control"/>
-                <br />
-                <label htmlFor="ingredients">Ingredients</label>
-                <br />
-                <input
-                  id="ingredients"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control" />
-                <br />
-                <label htmlFor="instructions">Instructions</label>
-                <br />
-                <input
-                  id="instructions"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control" />
-                <br />
-                <label htmlFor="image">Image</label>
-                <br />
-                <input
-                  id="image"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control" />
-                <br />
-                <label htmlFor="tags">Tags</label>
-                <br />
-                <input
-                  id="tags"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control" />
-                <br />
-                <input
-                  type="submit"
-                  value="Add"
-                  className="btn btn-outline-dark" />
-              </form>
-              </div>
-              </details>
+            
 
 
 
