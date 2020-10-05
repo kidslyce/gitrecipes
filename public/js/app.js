@@ -176,7 +176,7 @@ class App extends React.Component {
           })
       }
 
-      updateName = (event) => {
+      updateRecipe = (event) => {
           event.preventDefault()
           const id = event.target.id
           axios
@@ -185,81 +185,16 @@ class App extends React.Component {
               this.setState({
                 recipes: response.data,
                   name: '',
+                  prepTime:'',
+                  cookTime:'',
+                  ingredients: '',
+                  instructions:'',
+                  image:'',
+                  tags:''
               })
             })
         }
-        updateImage = (event) => {
-            event.preventDefault()
-            const id = event.target.id
-            axios
-              .put('/recipes/' + id, this.state)
-              .then(response => {
-                this.setState({
-                    recipes: response.data,
-                    image: '',
-                })
-              })
-          }
-          updatePrepTime = (event) => {
-              event.preventDefault()
-              const id = event.target.id
-              axios
-                .put('/recipes/' + id, this.state)
-                .then(response => {
-                  this.setState({
-                      recipes: response.data,
-                      prepTime: '',
-                  })
-                })
-            }
-            updateCookTime = (event) => {
-                event.preventDefault()
-                const id = event.target.id
-                axios
-                  .put('/recipes/' + id, this.state)
-                  .then(response => {
-                    this.setState({
-                        recipes: response.data,
-                        cookTime: '',
-                    })
-                  })
-              }
-              updateInstructions = (event) => {
-                  event.preventDefault()
-                  const id = event.target.id
-                  axios
-                    .put('/recipes/' + id, this.state)
-                    .then(response => {
-                      this.setState({
-                          recipes: response.data,
-                          instructions: '',
-                      })
-                    })
-                }
-                updateIngredients = (event) => {
-                    event.preventDefault()
-                    const id = event.target.id
-                    axios
-                      .put('/recipes/' + id, this.state)
-                      .then(response => {
-                        this.setState({
-                            recipes: response.data,
-                            ingredients: '',
-                        })
-                      })
-                  }
-                  updateTags = (event) => {
-                      event.preventDefault()
-                      const id = event.target.id
-                      axios
-                        .put('/recipes/' + id, this.state)
-                        .then(response => {
-                          this.setState({
-                              recipes: response.data,
-                              tags: '',
-                          })
-                        })
-                    }
+
           deleteRecipe = (event) => {
             axios
               .delete('/recipes/' + event.target.value)
@@ -392,7 +327,7 @@ class App extends React.Component {
                       <span className="fa fa-star"></span>
                       <span className="fa fa-star"></span>
                     <details><summary>Edit this recipe</summary>
-                      <form id={recipe._id} onSubmit={this.updateName}>
+                      <form id={recipe._id} onSubmit={this.updateRecipe}>
 
                         <label htmlFor="name">Name</label>
                         <br />
@@ -404,7 +339,7 @@ class App extends React.Component {
                           className="form-control"
                          /><input type="submit" value="Update Name" /></form>
                         <br />
-                        <form id={recipe._id} onSubmit={this.updateImage}>
+                        <form id={recipe._id} onSubmit={this.updateRecipe}>
                         <label htmlFor="image">Image</label>
                         <br />
                         <input
@@ -415,7 +350,7 @@ class App extends React.Component {
                           className="form-control"
                         /><input type="submit" value="Update Image" /></form>
                         <br />
-                        <form id={recipe._id} onSubmit={this.updatePrepTime}>
+                        <form id={recipe._id} onSubmit={this.updateRecipe}>
                         <label htmlFor="prepTime">Prep Time</label>
                         <br />
                         <input
@@ -426,7 +361,7 @@ class App extends React.Component {
                           className="form-control"
                         /><input type="submit" value="Update Prep Time" /></form>
                         <br />
-                        <form id={recipe._id} onSubmit={this.updateCookTime}>
+                        <form id={recipe._id} onSubmit={this.updateRecipe}>
                         <label htmlFor="cookTime">Cook Time</label>
                         <br />
                         <input
@@ -437,7 +372,7 @@ class App extends React.Component {
                           className="form-control"
                         /><input type="submit" value="Update Cook Time" /></form>
                         <br />
-                        <form id={recipe._id} onSubmit={this.updateInstructions}>
+                        <form id={recipe._id} onSubmit={this.updateRecipe}>
                         <label htmlFor="instructions">Instructions</label>
                         <br />
                         <input
@@ -448,7 +383,7 @@ class App extends React.Component {
                           className="form-control"
                         /><input type="submit" value="Update Instructions" /></form>
                         <br />
-                        <form id={recipe._id} onSubmit={this.updateIngredients}>
+                        <form id={recipe._id} onSubmit={this.updateRecipe}>
                         <label htmlFor="ingredients">Ingredients</label>
                         <br />
                         <input
@@ -460,7 +395,7 @@ class App extends React.Component {
                         /><input type="submit" value="Update Ingredients" /></form>
 
                       <br />
-                      <form id={recipe._id} onSubmit={this.updateTags}>
+                      <form id={recipe._id} onSubmit={this.updateRecipe}>
                       <label htmlFor="tags">Tags</label>
                       <input
                         type="text"
