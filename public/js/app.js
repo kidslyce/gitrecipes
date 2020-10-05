@@ -236,6 +236,7 @@ class Comments extends React.Component {
     )
   }
 
+
   render = () => {
     return (
     <div className='comment-container'>
@@ -278,7 +279,7 @@ const RecipeItem = (props) => {
                       <span className="fa fa-star checked"></span>
                       <span className="fa fa-star"></span>
                       <span className="fa fa-star"></span>
-                    <Comments />
+                    <Comments id={recipe._id}/>
                     <details><summary>Edit this recipe</summary>
                       <form id={props.recipe._id} onSubmit={props.updateRecipe}>
                         <label htmlFor="name">Name</label>
