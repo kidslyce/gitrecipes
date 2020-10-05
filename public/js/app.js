@@ -1,5 +1,6 @@
 var myStorage = window.localStorage
 //use this variable to reference the current user
+//if no one is logged in currentUser = null
 let currentUser = localStorage.getItem('currentUser')
 
 class SearchBar extends React.Component {
@@ -37,6 +38,7 @@ class SearchBar extends React.Component {
     }
  }
 
+
 const Nav = (props) => {
     return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
         <a className="navbar-brand" href="#">Home</a>
@@ -44,11 +46,23 @@ const Nav = (props) => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Login/Sign Up
+              </a>
+            </li>
+          </ul>
+        </div>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {currentUser == null ? <p>Login/Sign Up</p> : <p>Welcome {currentUser}</p>}
+
+                {currentUser == null ? <p>Login/Sign Up</p> : <p>Welcome</p>}
+
               </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a className="dropdown-item" href="#">Login</a>
@@ -57,12 +71,12 @@ const Nav = (props) => {
                 <a className="dropdown-item" href="#">Add Recipe</a>
               </div>
             </li>
-
           </ul>
           
           <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
         </div>
       </nav>
+
 }
 
  
@@ -174,6 +188,7 @@ class Header extends React.Component {
         </header>
     }
 }
+
 
 const RecipeItem = (props) => {
     return (
@@ -299,8 +314,10 @@ const RecipeList = (props) => {
               </div>
   )
 }
+
 class App extends React.Component {
     state = {
+    author:'',
     name: '',
     prepTime: '',
     cookTime: '',
@@ -312,9 +329,11 @@ class App extends React.Component {
     filteredTags: []
     }
 
+
 //=================================================================
 // App functions
 //=================================================================
+
 
     componentDidMount = () => {
         axios
@@ -326,24 +345,7 @@ class App extends React.Component {
           })
       }
 
-        updateRecipe = (event) => {
-            event.preventDefault()
-            const id = event.target.id
-            axios
-              .put('/recipes/' + id, this.state)
-              .then(response => {
-                this.setState({
-                    recipes: response.data,
-                    name: '',
-                    prepTime: '',
-                    cookTime: '',
-                    ingredients: '',
-                    instructions: '',
-                    image: '',
-                    tags: ''
-                })
-              })
-          }
+     
           deleteRecipe = (event) => {
             axios
               .delete('/recipes/' + event.target.value)
@@ -351,6 +353,7 @@ class App extends React.Component {
             })
             )
           }
+
           handleChange = event =>{
             this.setState( { [event.target.id]: event.target.value })
         }
@@ -362,16 +365,18 @@ class App extends React.Component {
               .then(response => this.setState(
                 {
                     recipes: response.data,
+                    author: '',
                     name: '',
                     prepTime: '',
                     cookTime: '',
                     ingredients: '',
                     instructions: '',
                     image: '',
-                    tags:''
+                    tags:'',
                 })
             )
             }
+
 
 //=================================================================
 // handle the search submit action 
@@ -395,6 +400,7 @@ class App extends React.Component {
             return <div className="recipe-container">
 
             <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}/>
+
             <Header />
             <NewUser />
             <Login />
@@ -402,6 +408,8 @@ class App extends React.Component {
             <summary>Add Recipe</summary>
             <div className="form-container">
               <form onSubmit={this.handleSubmit}>
+                <label htmlFor="author">Author</label><br />
+                <input id="author" type="text" onChange={this.handleChange} className="form-control"/><br />
                 <label htmlFor="name">Name</label>
                 <br />
                 <input id="name"
@@ -463,6 +471,7 @@ class App extends React.Component {
               </div>
               </details>
 
+
               <RecipeList 
                 handleChange={this.handleChange} 
                 handleSubmit={this.handleSubmit}
@@ -470,6 +479,7 @@ class App extends React.Component {
                 updateRecipe={this.updateRecipe}
                 filteredTags={this.state.filteredTags}
               />
+
 
             </div>
           }
