@@ -77,7 +77,7 @@ const Nav = (props) => {
                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome {currentUser}!
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a className="dropdown-item" href="#">Add Recipe</a>
+                  <div className="dropdown-item" onClick={AddRecipe}>Add Recipe</div>
                 </div>
               </li>
             </ul>
@@ -570,7 +570,7 @@ class App extends React.Component {
 
             <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}/>
             <AddRecipe
-                handleChange={this.handleChange} 
+                handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}/>
             <Header />
             <NewUser />
