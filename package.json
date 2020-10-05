@@ -31,6 +31,5 @@
     "passport-local": "^1.0.0",
     "react": "^16.13.1",
     "session": "^0.1.0"
-
   }
 }
