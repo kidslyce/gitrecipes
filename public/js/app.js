@@ -3,49 +3,94 @@ var myStorage = window.localStorage
 //if no one is logged in currentUser = null
 let currentUser = localStorage.getItem('currentUser')
 
-class Nav extends React.Component {
+class SearchBar extends React.Component {
+    //add constructor
+    constructor(props) {
+        super(props);
+        this.state = {
+            search: ''
+       }
+    }
+    //function to show current state
+    updateSearch = (event) => {
+        event.preventDefault();
+        this.setState({search: event.target.value});
+    }
+    render() {
+        let filteredTags = this.props.recipes.filter(recipe => {
+              return recipe.tags.includes(this.state.search)
+            }
+        )
+        return(
+    //rendering items based on tag
+    //in navbar
+    //if the onChange event takes in arguments wrap the property in an anonymous
+            <form onSubmit={() => {this.props.handleSearchSubmit(event, filteredTags)}} className="form-inline my-2 my-lg-0">
+                <input className="form-control mr-sm-2"
+                       type="text"
+                       value={this.state.search}
+                       onChange={this.updateSearch}
+                       aria-label="Search"
+                />
+                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        )
+    }
+ }
 
-    render = () => {
-        return (
-        <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
+
+const Nav = (props) => {
+    if (currentUser === null){
+      return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
           <a className="navbar-brand" href="#">Home</a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Login/Sign Up
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                {currentUser == null ? <p>Login/Sign Up</p> : <p>Welcome</p>}
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login/Sign Up
+                </a>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a className="dropdown-item" href="#">Login</a>
+                  <a className="dropdown-item" href="#">Sign Up </a>
+                </div>
+              </li>
+            </ul>
 
-              </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" href="#">Login</a>
-                <a className="dropdown-item" href="#">Sign Up </a>
-                <a className="dropdown-item" href="#">Add Recipe</a>
-              </div>
-            </li>
-          </ul>
-          <form className="form-inline my-2 my-lg-0">
-            <input className="form-control mr-sm-2" type="search" placeholder="type here" aria-label="Search"/>
-            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
-        </div>
-      </nav>
-    )
+            <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
+          </div>
+        </nav>
+    }else{
+      return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
+          <a className="navbar-brand" href="#">Home</a>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome {currentUser}!
+                </a>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a className="dropdown-item" href="#">Add Recipe</a>
+                </div>
+              </li>
+            </ul>
+
+            <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
+          </div>
+        </nav>
     }
+
+
 }
+
+
 
 class NewUser extends React.Component {
   state = {
@@ -65,7 +110,6 @@ class NewUser extends React.Component {
         regUsername: '',
         regPassword: ''
       })
-      // return console.log(this.state.regUsername + ' ' + this.state.regPassword);
     })
   }
 
@@ -137,7 +181,9 @@ class Login extends React.Component {
           <input type="submit" value="Log In" />
         </form>
         <button onClick={this.logOut}>Log Out</button>
+
       </div>
+
       )
   }
 }
@@ -153,6 +199,272 @@ class Header extends React.Component {
     }
 }
 
+
+//=====================================================================
+// FUNCTIONAL STATELESS COMPONENTS
+//=====================================================================
+
+class Comments extends React.Component {
+  state = {
+    name: '',
+    author: '',
+    comment: '',
+    comments: []
+  }
+
+  componentDidMount = () => {
+      axios
+        .get('/comments')
+        .then(response => {
+          this.setState({
+            comments: response.data,
+          })
+        })
+    }
+
+  handleChange = (event) => {
+    this.setState({ [event.target.id]: event.target.value, author: currentUser})
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    event.currentTarget.reset()
+    axios
+      .post('/comments', this.state)
+      .then(response => this.setState(
+        {
+            comments: response.data,
+            author: '',
+            name: '',
+            comment: ''
+        })
+    )
+  }
+
+  render = () => {
+    return (
+    <div className='comment-container'>
+      <ul className='comment-list'>
+      <h3>Comments</h3>
+      {this.state.comments.map(comment => { return (
+        <li>
+          <h5>{comment.author}</h5>
+          <p>{comment.comment}</p>
+        </li>
+      )})}
+      </ul>
+      <details><summary>Add a comment</summary>
+      <form onSubmit={this.handleSubmit}>
+        <textarea id='comment' onChange={this.handleChange}></textarea>
+        <input type='submit' value='Submit Comment'/>
+      </form>
+      </details>
+    </div>)
+  }
+}
+
+
+const RecipeItem = (props) => {
+    return (
+<li className="card-items" key={props.recipe._id}>
+                    <h4>{props.recipe.name} </h4>
+                    <br />
+                    <img src={props.recipe.image} alt={props.recipe.name}/>
+                    <details><summary>More info</summary>
+                      Prep time: {props.recipe.prepTime}<br />
+                      Cook time: {props.recipe.cookTime}<br />
+                      Ingredients: {props.recipe.ingredients}<br />
+                      Instructions: {props.recipe.instructions}<br />
+                      Tags: {props.recipe.tags}<br />
+                      Author: {props.recipe.author}<br />
+                      {/* /* STAR RATING PLACE HOLDER */ }
+                      <span className="fa fa-star checked"></span>
+                      <span className="fa fa-star checked"></span>
+                      <span className="fa fa-star checked"></span>
+                      <span className="fa fa-star"></span>
+                      <span className="fa fa-star"></span>
+                    <Comments />
+                    <details><summary>Edit this recipe</summary>
+                      <form id={props.recipe._id} onSubmit={props.updateRecipe}>
+                        <label htmlFor="name">Name</label>
+                        <br />
+                        <input
+                          type="text"
+                          id="name"
+                          onChange={props.handleChange}
+                          defaultValue={props.recipe.name}
+                          className="form-control"
+                         />
+                        <br />
+                        <label htmlFor="image">Image</label>
+                        <br />
+                        <input
+                          type="text"
+                          id="image"
+                          onChange={props.handleChange}
+                          defaultValue={props.recipe.image}
+                          className="form-control"
+                        />
+                        <br />
+                        <label htmlFor="prepTime">Prep Time</label>
+                        <br />
+                        <input
+                          type="text"
+                          id="prepTime"
+                          onChange={props.handleChange}
+                          defaultValue={props.recipe.prepTime}
+                          className="form-control"
+                        />
+                        <br />
+                        <label htmlFor="cookTime">Cook Time</label>
+                        <br />
+                        <input
+                          type="text"
+                          id="cookTime"
+                          onChange={props.handleChange}
+                          defaultValue={props.recipe.cookTime}
+                          className="form-control"
+                        />
+                        <br />
+                        <label htmlFor="instructions">Instructions</label>
+                        <br />
+                        <input
+                          type="text"
+                          id="instructions"
+                          onChange={props.handleChange}
+                          defaultValue={props.recipe.instructions}
+                          className="form-control"
+                        />
+                        <br />
+                        <label htmlFor="ingredients">Ingredients</label>
+                        <br />
+                        <input
+                          type="text"
+                          id="ingredients"
+                          onChange={props.handleChange}
+                          defaultValue={props.recipe.ingredients}
+                          className="form-control"
+                        />
+                        <br />
+                        <label htmlFor="tags">Tags</label>
+                      <br />
+                      <input
+                        type="text"
+                        id="tags"
+                        onChange={props.handleChange}
+                        defaultValue={props.recipe.tags}
+                        className="form-control" />
+                      <br />
+                        <input type="submit" className="btn btn-outline-dark" value="Update Recipe" />
+                      </form>
+                      </details>
+                      <button
+                        value={props.recipe._id}
+                        onClick={props.deleteRecipe}
+                        className="btn btn-outline-dark"
+                      >DELETE
+                      </button>
+                    </details>
+                  </li>
+    )
+
+}
+//=================================================================
+
+const RecipeList = (props) => {
+  return (
+    <div className="all-recipes-container">
+
+                <ul className="ul-cards">
+                    <div className= "recipe-card">
+                { props.filteredTags.map(recipe => {
+                    return (
+                        <RecipeItem recipe={recipe}/>
+
+
+                )})}
+                {/* recipe card div */}
+                </div>
+                </ul>
+              </div>
+  )
+}
+
+//==================================================================
+
+const AddRecipe = (props) => {
+    return(
+<details>
+            <summary>Add Recipe</summary>
+            <div className="form-container">
+              <form onSubmit={props.handleSubmit}>
+                <label htmlFor="author">Author</label><br />
+                <input id="author" type="text" onChange={props.handleChange} className="form-control"/><br />
+                <label htmlFor="name">Name</label>
+                <br />
+                <input id="name"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control"  />
+                <br />
+                <label htmlFor="prepTime">Prep Time</label>
+                <br />
+                <input id="prepTime"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="cookTime">Cook Time</label>
+                <br />
+                <input id="cookTime"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control"/>
+                <br />
+                <label htmlFor="ingredients">Ingredients</label>
+                <br />
+                <input
+                  id="ingredients"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="instructions">Instructions</label>
+                <br />
+                <input
+                  id="instructions"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="image">Image</label>
+                <br />
+                <input
+                  id="image"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="tags">Tags</label>
+                <br />
+                <input
+                  id="tags"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control" />
+                <br />
+                <input
+                  type="submit"
+                  value="Add"
+                  className="btn btn-outline-dark" />
+              </form>
+              </div>
+              </details>
+    )
+
+}
+
+
 class App extends React.Component {
     state = {
     author:'',
@@ -163,8 +475,15 @@ class App extends React.Component {
     instructions: '',
     image: '',
     tags:'',
-    recipes: []
+    recipes: [],
+    filteredTags: []
     }
+
+
+//=================================================================
+// App functions
+//=================================================================
+
 
     componentDidMount = () => {
         axios
@@ -176,90 +495,27 @@ class App extends React.Component {
           })
       }
 
-      updateName = (event) => {
+
+      updateRecipe = (event) => {
           event.preventDefault()
           const id = event.target.id
           axios
             .put('/recipes/' + id, this.state)
             .then(response => {
-
+              this.setState({
                 recipes: response.data,
                   name: '',
+                  prepTime:'',
+                  cookTime:'',
+                  ingredients: '',
+                  instructions:'',
+                  image:'',
+                  tags:''
               })
             })
-        
-        updateImage = (event) => {
-            event.preventDefault()
-            const id = event.target.id
-            axios
-              .put('/recipes/' + id, this.state)
-              .then(response => {
-                this.setState({
-                    recipes: response.data,
-                    image: '',
-                })
-              })
-          }
-          updatePrepTime = (event) => {
-              event.preventDefault()
-              const id = event.target.id
-              axios
-                .put('/recipes/' + id, this.state)
-                .then(response => {
-                  this.setState({
-                      recipes: response.data,
-                      prepTime: '',
-                  })
-                })
-            }
-            updateCookTime = (event) => {
-                event.preventDefault()
-                const id = event.target.id
-                axios
-                  .put('/recipes/' + id, this.state)
-                  .then(response => {
-                    this.setState({
-                        recipes: response.data,
-                        cookTime: '',
-                    })
-                  })
-              }
-              updateInstructions = (event) => {
-                  event.preventDefault()
-                  const id = event.target.id
-                  axios
-                    .put('/recipes/' + id, this.state)
-                    .then(response => {
-                      this.setState({
-                          recipes: response.data,
-                          instructions: '',
-                      })
-                    })
-                }
-                updateIngredients = (event) => {
-                    event.preventDefault()
-                    const id = event.target.id
-                    axios
-                      .put('/recipes/' + id, this.state)
-                      .then(response => {
-                        this.setState({
-                            recipes: response.data,
-                            ingredients: '',
-                        })
-                      })
-                  }
-                  updateTags = (event) => {
-                      event.preventDefault()
-                      const id = event.target.id
-                      axios
-                        .put('/recipes/' + id, this.state)
-                        .then(response => {
-                          this.setState({
-                              recipes: response.data,
-                              tags: '',
-                          })
-                        })
-                    }
+        }
+
+
           deleteRecipe = (event) => {
             axios
               .delete('/recipes/' + event.target.value)
@@ -267,13 +523,11 @@ class App extends React.Component {
             })
             )
           }
-        nameChange = event =>{
-          this.setState( { [event.target.id]: event.target.value })
-      }
-      imageChange = event =>{
-        this.setState( { [event.target.id]: event.target.value })
-    }
-        handleSubmit = (event) => {
+
+          handleChange = event =>{
+            this.setState( { [event.target.id]: event.target.value, author: currentUser })
+        }
+          handleSubmit = (event) => {
             event.preventDefault();
             event.currentTarget.reset();
             axios
@@ -293,200 +547,45 @@ class App extends React.Component {
             )
             }
 
-            handleChange = (event) => {
-               this.setState({ [event.target.id]: event.target.value, author: currentUser })
-             }
-          render = () => {
 
+//=================================================================
+// handle the search submit action
+//=================================================================
+
+     handleSearchSubmit = (event, filteredResults) => {
+        event.preventDefault();
+         this.setState({
+             filteredTags: filteredResults
+         })
+
+     }
+
+
+//=================================================================
+//
+//=================================================================
+
+          render = () => {
             return <div className="recipe-container">
-            <Nav />
+
+            <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}/>
+            <AddRecipe
+                handleChange={this.handleChange} 
+                handleSubmit={this.handleSubmit}/>
             <Header />
             <NewUser />
             <Login />
-            <Footer />
-            <details>
-            <summary>Add Recipe</summary>
-            <div className="form-container">
-              <form onSubmit={this.handleSubmit}>
-                <label htmlFor="author">Author</label><br />
-                <input id="author" type="text" onChange={this.handleChange} className="form-control"/><br />
-                <label htmlFor="name">Name</label>
-                <br />
-                <input id="name"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control"  />
-                <br />
-                <label htmlFor="prepTime">Prep Time</label>
-                <br />
-                <input id="prepTime"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control" />
-                <br />
-                <label htmlFor="cookTime">Cook Time</label>
-                <br />
-                <input id="cookTime"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control"/>
-                <br />
-                <label htmlFor="ingredients">Ingredients</label>
-                <br />
-                <input
-                  id="ingredients"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control" />
-                <br />
-                <label htmlFor="instructions">Instructions</label>
-                <br />
-                <input
-                  id="instructions"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control" />
-                <br />
-                <label htmlFor="image">Image</label>
-                <br />
-                <input
-                  id="image"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control" />
-                <br />
-                <label htmlFor="tags">Tags</label>
-                <br />
-                <input
-                  id="tags"
-                  type="text"
-                  onChange={this.handleChange}
-                  className="form-control" />
-                <br />
-                <input
-                  type="submit"
-                  value="Add"
-                  className="btn btn-outline-dark" />
-              </form>
-              </div>
-              </details>
-                <div className="all-recipes-container">
 
-                <ul>
-                    <div className= "recipe-card">
-                { this.state.recipes.map(recipe => { return (
-                  <li className="card-items" key={recipe._id}>
-                    <h4>Name: {recipe.name} </h4>
-                    <br />
-                    <img src={recipe.image} alt={recipe.name}/>
-                    <details><summary>More info</summary>
-                      Prep time: {recipe.prepTime}<br />
-                      Cook time: {recipe.cookTime}<br />
-                      Ingredients: {recipe.ingredients}<br />
-                      Instructions: {recipe.instructions}<br />
-                      Tags: {recipe.tags}<br />
-                      Author: {recipe.author}< br/>
-                      {/* /* STAR RATING PLACE HOLDER */ }
-                      <span className="fa fa-star checked"></span>
-                      <span className="fa fa-star checked"></span>
-                      <span className="fa fa-star checked"></span>
-                      <span className="fa fa-star"></span>
-                      <span className="fa fa-star"></span>
-                    <details><summary>Edit this recipe</summary>
-                      <form id={recipe._id} onSubmit={this.updateName}>
-
-                        <label htmlFor="name">Name</label>
-                        <br />
-                        <input
-                          type="text"
-                          id="name"
-                          onChange={this.nameChange}
-                          defaultValue={recipe.name}
-                          className="form-control"
-                         /><input type="submit" value="Update Name" /></form>
-                        <br />
-                        <form id={recipe._id} onSubmit={this.updateImage}>
-                        <label htmlFor="image">Image</label>
-                        <br />
-                        <input
-                          type="text"
-                          id="image"
-                          onChange={this.imageChange}
-                          defaultValue={recipe.image}
-                          className="form-control"
-                        /><input type="submit" value="Update Image" /></form>
-                        <br />
-                        <form id={recipe._id} onSubmit={this.updatePrepTime}>
-                        <label htmlFor="prepTime">Prep Time</label>
-                        <br />
-                        <input
-                          type="text"
-                          id="prepTime"
-                          onChange={this.handleChange}
-                          defaultValue={recipe.prepTime}
-                          className="form-control"
-                        /><input type="submit" value="Update Prep Time" /></form>
-                        <br />
-                        <form id={recipe._id} onSubmit={this.updateCookTime}>
-                        <label htmlFor="cookTime">Cook Time</label>
-                        <br />
-                        <input
-                          type="text"
-                          id="cookTime"
-                          onChange={this.handleChange}
-                          defaultValue={recipe.cookTime}
-                          className="form-control"
-                        /><input type="submit" value="Update Cook Time" /></form>
-                        <br />
-                        <form id={recipe._id} onSubmit={this.updateInstructions}>
-                        <label htmlFor="instructions">Instructions</label>
-                        <br />
-                        <input
-                          type="text"
-                          id="instructions"
-                          onChange={this.handleChange}
-                          defaultValue={recipe.instructions}
-                          className="form-control"
-                        /><input type="submit" value="Update Instructions" /></form>
-                        <br />
-                        <form id={recipe._id} onSubmit={this.updateIngredients}>
-                        <label htmlFor="ingredients">Ingredients</label>
-                        <br />
-                        <input
-                          type="text"
-                          id="ingredients"
-                          onChange={this.handleChange}
-                          defaultValue={recipe.ingredients}
-                          className="form-control"
-                        /><input type="submit" value="Update Ingredients" /></form>
-
-                      <br />
-                      <form id={recipe._id} onSubmit={this.updateTags}>
-                      <label htmlFor="tags">Tags</label>
-                      <input
-                        type="text"
-                        id="tags"
-                        onChange={this.handleChange}
-                        defaultValue={recipe.tags}
-                        className="form-control" />
-                      <br /></form>
-                      </details>
-                      <button
-                        value={recipe._id}
-                        onClick={this.deleteRecipe}
-                        className="btn btn-outline-dark"
-                      >DELETE
-                      </button>
-                    </details>
-                  </li>
-
-                )})}
-                {/* recipe card div */}
-                </div>
-                </ul>
-              </div>
+              <RecipeList
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                deleteRecipe={this.deleteRecipe}
+                updateRecipe={this.updateRecipe}
+                filteredTags={this.state.filteredTags}
+              />
 
             </div>
-          
+          }
+        }
 
         ReactDOM.render(<App />, document.querySelector('main'))
