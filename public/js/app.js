@@ -40,33 +40,53 @@ class SearchBar extends React.Component {
 
 
 const Nav = (props) => {
-    return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
-        <a className="navbar-brand" href="#">Home</a>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
+    if (currentUser === null){
+      return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
+          <a className="navbar-brand" href="#">Home</a>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login/Sign Up
+                </a>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a className="dropdown-item" href="#">Login</a>
+                  <a className="dropdown-item" href="#">Sign Up </a>
+                </div>
+              </li>
+            </ul>
 
-                {currentUser == null ? <p>Login/Sign Up</p> : <p>Welcome {currentUser}</p>}
+            <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
+          </div>
+        </nav>
+    }else{
+      return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
+          <a className="navbar-brand" href="#">Home</a>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-              </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" href="#">Login</a>
-                <a className="dropdown-item" href="#">Sign Up </a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="#">Add Recipe</a>
-              </div>
-            </li>
-          </ul>
 
-          <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
-        </div>
-      </nav>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome {currentUser}!
+                </a>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a className="dropdown-item" href="#">Add Recipe</a>
+                </div>
+              </li>
+            </ul>
+
+            <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
+          </div>
+        </nav>
+    }
+
 
 }
 
