@@ -144,14 +144,60 @@ class Header extends React.Component {
 }
 
 class Comments extends React.Component {
+  state = {
+    name: '',
+    author: '',
+    comment: '',
+    comments: []
+  }
+
+  componentDidMount = () => {
+      axios
+        .get('/comments')
+        .then(response => {
+          this.setState({
+            comments: response.data,
+          })
+        })
+    }
+
+  handleChange = (event) => {
+    this.setState({ [event.target.id]: event.target.value, author: currentUser})
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    event.currentTarget.reset()
+    axios
+      .post('/comments', this.state)
+      .then(response => this.setState(
+        {
+            comments: response.data,
+            author: '',
+            name: '',
+            comment: ''
+        })
+    )
+  }
 
   render = () => {
     return (
     <div className='comment-container'>
-      <form>
-        <textarea onChange={this.handleChange}></textarea>
+      <ul className='comment-list'>
+      <h3>Comments</h3>
+      {this.state.comments.map(comment => { return (
+        <li>
+          <h5>{comment.author}</h5>
+          <p>{comment.comment}</p>
+        </li>
+      )})}
+      </ul>
+      <details><summary>Add a comment</summary>
+      <form onSubmit={this.handleSubmit}>
+        <textarea id='comment' onChange={this.handleChange}></textarea>
         <input type='submit' value='Submit Comment'/>
       </form>
+      </details>
     </div>)
   }
 }
@@ -302,7 +348,6 @@ class App extends React.Component {
                this.setState({ [event.target.id]: event.target.value, author: currentUser })
              }
           render = () => {
-
             return <div className="recipe-container">
             <Nav />
             <Header />
@@ -394,9 +439,7 @@ class App extends React.Component {
                       <span className="fa fa-star checked"></span>
                       <span className="fa fa-star"></span>
                       <span className="fa fa-star"></span>
-                      <details><summary>Add a comment</summary>
-                        <Comments />
-                      </details>
+                      <Comments />
                     <details><summary>Edit this recipe</summary>
                       <form id={recipe._id} onSubmit={this.updateName}>
 
