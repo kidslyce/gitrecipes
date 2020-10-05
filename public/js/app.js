@@ -262,7 +262,7 @@ class Comments extends React.Component {
 const RecipeItem = (props) => {
     return (
 <li className="card-items" key={props.recipe._id}>
-                    <h4>Name: {props.recipe.name} </h4>
+                    <h4>{props.recipe.name} </h4>
                     <br />
                     <img src={props.recipe.image} alt={props.recipe.name}/>
                     <details><summary>More info</summary>
