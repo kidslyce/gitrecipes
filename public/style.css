@@ -54,24 +54,25 @@ header{
     /* display: flex; */
 
 }
-.recipe-card{
-    
-}
+
+
 
 .card-items{
     background-color: #356a2d;
     border-radius: 20px;
 }
 
-/* .form-container{
-flex-direction: row;
-} */
 
 
 .all-recipes-container li {
     padding: 10%;
     margin-bottom: 30px;
     list-style: none;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
 }
 /* card img controller */
 .recipe-card img{
