@@ -178,6 +178,7 @@ class Header extends React.Component {
         </header>
     }
 }
+
 class Comments extends React.Component {
   state = {
     name: '',
@@ -250,6 +251,7 @@ const RecipeItem = (props) => {
                       Ingredients: {props.recipe.ingredients}<br />
                       Instructions: {props.recipe.instructions}<br />
                       Tags: {props.recipe.tags}<br />
+                      Author: {props.recipe.author}<br />
                       {/* /* STAR RATING PLACE HOLDER */ }
                       <span className="fa fa-star checked"></span>
                       <span className="fa fa-star checked"></span>
@@ -362,6 +364,7 @@ const RecipeList = (props) => {
               </div>
   )
 }
+
 class App extends React.Component {
     state = {
     author:'',
@@ -535,8 +538,6 @@ class App extends React.Component {
               </div>
               </details>
 
-
-
               <RecipeList
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
@@ -544,8 +545,6 @@ class App extends React.Component {
                 updateRecipe={this.updateRecipe}
                 filteredTags={this.state.filteredTags}
               />
-
-
 
             </div>
           }
