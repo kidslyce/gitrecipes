@@ -198,7 +198,15 @@ class Header extends React.Component {
         </header>
     }
 }
+class Footer extends React.Component {
 
+  render = () => {
+      return <footer>
+          <div className="page-footer">About US</div>
+
+      </footer>
+  }
+}
 
 //=====================================================================
 // FUNCTIONAL STATELESS COMPONENTS
