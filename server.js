@@ -11,6 +11,7 @@ const mongoose = require('mongoose')
 const session = require('express-session')
 const User = require('./models/user.js')
 
+
 //=================
 // CONFIG
 //=================
@@ -64,6 +65,8 @@ require('./passportConfig')(passport)
 //=========
 const recipeController = require('./controllers/recipes_controller.js')
 app.use('/recipes', recipeController)
+const commentsController = require('./controllers/comments_controller.js')
+app.use('/comments', commentsController)
 
 
 app.post("/login", (req, res, next) => {
