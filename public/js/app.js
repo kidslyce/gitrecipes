@@ -7,6 +7,7 @@ let currentUser = localStorage.getItem('currentUser')
 
 
 //==========================================================================
+//=====================================================================
 // Search Bar Component
 //=====================================================================
 class SearchBar extends React.Component {
@@ -22,20 +23,14 @@ class SearchBar extends React.Component {
         event.preventDefault();
         this.setState({search: event.target.value});
     }
-
-
-
-    render() {
         let filteredTags = this.props.recipes.filter(recipe => {
-              return recipe.tags.includes(this.state.search)
+              // return recipe.tags.includes(this.state.search)
             }
         )
         return(
     //rendering items based on tag
     //in navbar
     //if the onChange event takes in arguments wrap the property in an anonymous
-
-
             <form onSubmit={() => {this.props.handleSearchSubmit(event, filteredTags)}} className="form-inline my-2 my-lg-0">
                 <input className="form-control mr-sm-2"
                        type="text"
@@ -68,7 +63,7 @@ class NewUser extends React.Component {
   createUser = (event) => {
     event.preventDefault();
     event.target.reset();
-    if(this.state.regUsername.length < 7){
+    if(this.state.regUsername.length < 9){
       alert('Username must be longer than 8 characters')
     }else{
     axios.post('/register', this.state).then(response => {
@@ -190,6 +185,7 @@ class Header extends React.Component {
 
 
 
+
 //=====================================================================
 // Functional Stateless Components
 //=====================================================================
@@ -246,7 +242,6 @@ const Nav = (props) => {
             <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
           </div>
         </nav>
-
 
 }
 //=====================================================================
@@ -371,7 +366,6 @@ const RecipeList = (props) => {
                     return (
 
                         <RecipeItem recipe={recipe}></RecipeItem>
-
 
                       )
                 })}
