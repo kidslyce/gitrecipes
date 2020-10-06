@@ -6,92 +6,6 @@ var myStorage = window.localStorage
 let currentUser = localStorage.getItem('currentUser')
 
 
-//=========================================================
-// BOOTSTRAP MODAL ATTEMPT 5000
-//=========================================================
-
-
-
-
-
-
-
-
-
-
-
-
-//=========================================================
-// Imported bootsrap modals
-//=========================================================
-// import React from "react";
-// import ReactDOM from "react-dom";
-// import Modal from "react-bootstrap/Modal";
-// import ModalBody from "react-bootstrap/ModalBody";
-// import ModalHeader from "react-bootstrap/ModalHeader";
-// import ModalFooter from "react-bootstrap/ModalFooter";
-// import ModalTitle from "react-bootstrap/ModalTitle";
-
-
-// Sample MODAL
-//=========================================================
-
-// const App = (props) => {
-//     const [isOpen, setIsOpen] = React.useState(false);
-//     const [timer, setTimer] = React.useState(0);
-//     const [startTime, setStartTime] = React.useState(0);
-//     const [endTime, setEndTime] = React.useState(0);
-
-//     const showModal = () => {
-//       setIsOpen(true);
-//       setTitle("Modal Ready");
-//       document.body.style.backgroundColor = "white";
-//     };
-
-//     const hideModal = () => {
-//       setIsOpen(false);
-//     };
-
-//     const startTimer = () => {
-//       setStartTime(Date.now());
-//     };
-
-//     const modalLoaded = () => {
-//       setEndTime(Date.now());
-//     };
-
-//     const onExit = () => {
-//       setTitle("Goodbye 😀");
-//     };
-
-//     const onExited = () => {
-//       document.body.style.backgroundColor = "green";
-//     };
-
-//     return (
-//       <>
-//         <button onClick={showModal}>Display Modal</button>
-//         <Modal
-//           show={isOpen}
-//           onHide={hideModal}
-//           onEnter={startTimer}
-//           onEntered={modalLoaded}
-//           onExit={onExit}
-//           onExited={onExited}
-//         >
-//           <Modal.Header>
-//             <Modal.Title>{title}</Modal.Title>
-//           </Modal.Header>
-//           <Modal.Body>{endTime - startTime} ms</Modal.Body>
-//           <Modal.Footer>
-//             <button onClick={hideModal}>Cancel</button>
-//             <button>Save</button>
-//           </Modal.Footer>
-//         </Modal>
-//       </>
-//     );
-//   };
-
 //==========================================================================
 // Search Bar Component
 //=====================================================================
@@ -108,6 +22,7 @@ class SearchBar extends React.Component {
         event.preventDefault();
         this.setState({search: event.target.value});
     }
+
     render() {
         let filteredTags = this.props.recipes.filter(recipe => {
               return recipe.tags.includes(this.state.search)
@@ -117,6 +32,8 @@ class SearchBar extends React.Component {
     //rendering items based on tag
     //in navbar
     //if the onChange event takes in arguments wrap the property in an anonymous
+
+
             <form onSubmit={() => {this.props.handleSearchSubmit(event, filteredTags)}} className="form-inline my-2 my-lg-0">
                 <input className="form-control mr-sm-2"
                        type="text"
@@ -130,96 +47,10 @@ class SearchBar extends React.Component {
     }
  }
 
-
-
-//=======================================================================
-// User Modal Component
-//=======================================================================
-
-
-// class UserModal extends React.Component {
-//     constructor(props) {
-//         super(props);
-
-//         this.state = {
-//           showModal: false,
-//           loading: false,
-//           error: null
-//         };
-//       }
-
-//       openModal() {
-//         this.setState({
-//           showModal: true
-//         });
-//       }
-
-//       closeModal() {
-//         this.setState({
-//           showModal: false,
-//           error: null
-//         });
-//       }
-
-//       onLoginSuccess(method, response) {
-//         console.log("logged successfully with " + method);
-//       }
-
-//       onLoginFail(method, response) {
-//         console.log("logging failed with " + method);
-//         this.setState({
-//           error: response
-//         });
-//       }
-
-//       startLoading() {
-//         this.setState({
-//           loading: true
-//         });
-//       }
-
-//       finishLoading() {
-//         this.setState({
-//           loading: false
-//         });
-//       }
-
-//       afterTabsChange() {
-//         this.setState({
-//           error: null
-//         });
-//       }
-
-//       render() {
-//         return (
-//           <div>
-//             <button onClick={() => this.openModal()}>Open Modal</button>
-
-//             <ReactModalLogin
-//               visible={this.state.showModal}
-//               onCloseModal={this.closeModal.bind(this)}
-//               loading={this.state.loading}
-//               error={this.state.error}
-//               tabs={{
-//                 afterChange: this.afterTabsChange.bind(this)
-//               }}
-//               loginError={{
-//                 label: "Couldn't sign in, please try again."
-//               }}
-//               registerError={{
-//                 label: "Couldn't sign up, please try again."
-//               }}
-
-
-//             />
-//           </div>
-//         );
-//       }
-//     }
-
 //============================================================================
 // New User Component
 //==============================================================================
+
 
 
 class NewUser extends React.Component {
@@ -296,10 +127,7 @@ class Login extends React.Component {
   }
 
 
-  logOut = (event) => {
-    localStorage.clear()
-    location.reload()
-  }
+
 
   render = () => {
     return (
@@ -314,8 +142,6 @@ class Login extends React.Component {
           <br/>
           <input type="submit" value="Log In" />
         </form>
-        <button onClick={this.logOut}>Log Out</button>
-
       </div>
 
       )
@@ -334,71 +160,34 @@ class Header extends React.Component {
         </header>
     }
 }
-// class Footer extends React.Component {
+
+
+
 
 //=====================================================================
 // COMMENT Component
 //=====================================================================
 
-class Comments extends React.Component {
-  state = {
-    name: '',
-    author: '',
-    comment: '',
-    comments: []
-  }
-
-  componentDidMount = () => {
-      axios
-        .get('/comments')
-        .then(response => {
-          this.setState({
-            comments: response.data,
-          })
-        })
-    }
-
-  handleChange = (event) => {
-    this.setState({ [event.target.id]: event.target.value, author: currentUser})
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault()
-    event.currentTarget.reset()
-    axios
-      .post('/comments', this.state)
-      .then(response => this.setState(
-        {
-            comments: response.data,
-            author: '',
-            name: '',
-            comment: ''
-        })
-    )
-  }
-
-  render = () => {
+const Comments = (props) => {
     return (
     <div className='comment-container'>
       <ul className='comment-list'>
       <h3>Comments</h3>
-      {this.state.comments.map(comment => { return (
         <li>
-          <h5>{comment.author}</h5>
-          <p>{comment.comment}</p>
+        { props.filteredComments.map(comments => {
+            return (
+              <p>{comments.comment}</p>
+        )})}
         </li>
-      )})}
       </ul>
       <details><summary>Add a comment</summary>
-      <form onSubmit={this.handleSubmit}>
-        <textarea id='comment' onChange={this.handleChange}></textarea>
+      <form onSubmit={props.handleCommentSubmit}>
+        <textarea id='comment' onChange={props.handleChange}></textarea>
         <input type='submit' value='Submit Comment'/>
       </form>
       </details>
     </div>)
-  }
 }
-
 
 
 //=====================================================================
@@ -410,27 +199,32 @@ class Comments extends React.Component {
 //=====================================================================
 
 const Nav = (props) => {
-    if (currentUser === null){
+
+
+
       return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
           <a className="navbar-brand" href="#">Home</a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Add New Recipe
-</button>
+
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> {currentUser == null ? <text>Log In/Sign Up</text> : <text>Add Recipe</text>} </button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Recipe</h5>
+
+        <h5 class="modal-title" id="exampleModalLabel">Add Recipe</h5>
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      <AddRecipe />
+
+      {currentUser == null ? <Login></Login> : <AddRecipe/>}
+      {currentUser == null ? <NewUser></NewUser> : null}
 
       </div>
       <div class="modal-footer">
@@ -444,7 +238,7 @@ const Nav = (props) => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login/Sign Up
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{currentUser == null ? <text>Log In/Sign Up</text> : <text>Welcome {currentUser}!</text>}
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a className="dropdown-item" href="#">Login</a>
@@ -452,33 +246,9 @@ const Nav = (props) => {
                 </div>
               </li>
             </ul>
-
             <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
           </div>
         </nav>
-    }else{
-      return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
-          <a className="navbar-brand" href="#">Home</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome {currentUser}!
-                </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a className="dropdown-item" href="#">Add Recipe</a>
-                </div>
-              </li>
-            </ul>
-
-            <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
-          </div>
-        </nav>
-    }
 
 
 }
@@ -488,8 +258,7 @@ const Nav = (props) => {
 
 
 const RecipeItem = (props) => {
-    return (
-<li className="card-items" key={props.recipe._id}>
+    return ( <li className="card-items" key={props.recipe._id}>
                     <h4>{props.recipe.name} </h4>
                     <br />
                     <img src={props.recipe.image} alt={props.recipe.name}/>
@@ -506,7 +275,6 @@ const RecipeItem = (props) => {
                       <span className="fa fa-star checked"></span>
                       <span className="fa fa-star"></span>
                       <span className="fa fa-star"></span>
-                    <Comments />
                     <details><summary>Edit this recipe</summary>
                       <form id={props.recipe._id} onSubmit={props.updateRecipe}>
                         <label htmlFor="name">Name</label>
@@ -604,13 +372,16 @@ const RecipeList = (props) => {
                     <div className= "recipe-card">
                 { props.filteredTags.map(recipe => {
                     return (
-                        <RecipeItem recipe={recipe}/>
-
-
-                )})}
+                     
+                        <RecipeItem recipe={recipe}></RecipeItem>
+                        
+                      
+                      )
+                })}
                 {/* recipe card div */}
                 </div>
                 </ul>
+
               </div>
   )
 }
@@ -703,14 +474,18 @@ class App extends React.Component {
     instructions: '',
     image: '',
     tags:'',
+    comment: '',
+    commentAuthor: '',
     recipes: [],
-    filteredTags: []
+    filteredTags: [],
+    filteredComments: []
     }
 
 
 //=================================================================
 // App functions
 //=================================================================
+
 
 
     componentDidMount = () => {
@@ -771,6 +546,7 @@ class App extends React.Component {
                     instructions: '',
                     image: '',
                     tags:'',
+                    comments: ''
                 })
             )
             }
@@ -788,6 +564,20 @@ class App extends React.Component {
 
      }
 
+ //=================================================================
+ // handle the comment submits
+ //=================================================================
+
+      handleCommentSubmit = (event, filteredResults) => {
+         event.preventDefault();
+          this.setState({
+              filteredComments: filteredResults,
+              commentAuthor: currentUser
+          })
+
+      }
+
+
 
 //=================================================================
 // RENDER for APP
@@ -798,16 +588,16 @@ class App extends React.Component {
 
             <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}/>
             <Header />
-            <NewUser />
             <Login />
-
 
             <RecipeList
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
+                handleCommentSubmit={this.handleCommentSubmit}
                 deleteRecipe={this.deleteRecipe}
                 updateRecipe={this.updateRecipe}
                 filteredTags={this.state.filteredTags}
+                filteredComments={this.state.filteredComments}
               />
 
             </div>
