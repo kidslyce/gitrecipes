@@ -1,8 +1,100 @@
+
+
 var myStorage = window.localStorage
 //use this variable to reference the current user
 //if no one is logged in currentUser = null
 let currentUser = localStorage.getItem('currentUser')
 
+
+//=========================================================
+// BOOTSTRAP MODAL ATTEMPT 5000
+//=========================================================
+
+
+
+
+
+
+
+
+
+
+
+
+//=========================================================
+// Imported bootsrap modals
+//=========================================================
+// import React from "react";
+// import ReactDOM from "react-dom";
+// import Modal from "react-bootstrap/Modal";
+// import ModalBody from "react-bootstrap/ModalBody";
+// import ModalHeader from "react-bootstrap/ModalHeader";
+// import ModalFooter from "react-bootstrap/ModalFooter";
+// import ModalTitle from "react-bootstrap/ModalTitle";
+
+
+// Sample MODAL
+//=========================================================
+
+// const App = (props) => {
+//     const [isOpen, setIsOpen] = React.useState(false);
+//     const [timer, setTimer] = React.useState(0);
+//     const [startTime, setStartTime] = React.useState(0);
+//     const [endTime, setEndTime] = React.useState(0);
+
+//     const showModal = () => {
+//       setIsOpen(true);
+//       setTitle("Modal Ready");
+//       document.body.style.backgroundColor = "white";
+//     };
+
+//     const hideModal = () => {
+//       setIsOpen(false);
+//     };
+
+//     const startTimer = () => {
+//       setStartTime(Date.now());
+//     };
+
+//     const modalLoaded = () => {
+//       setEndTime(Date.now());
+//     };
+
+//     const onExit = () => {
+//       setTitle("Goodbye 😀");
+//     };
+
+//     const onExited = () => {
+//       document.body.style.backgroundColor = "green";
+//     };
+
+//     return (
+//       <>
+//         <button onClick={showModal}>Display Modal</button>
+//         <Modal
+//           show={isOpen}
+//           onHide={hideModal}
+//           onEnter={startTimer}
+//           onEntered={modalLoaded}
+//           onExit={onExit}
+//           onExited={onExited}
+//         >
+//           <Modal.Header>
+//             <Modal.Title>{title}</Modal.Title>
+//           </Modal.Header>
+//           <Modal.Body>{endTime - startTime} ms</Modal.Body>
+//           <Modal.Footer>
+//             <button onClick={hideModal}>Cancel</button>
+//             <button>Save</button>
+//           </Modal.Footer>
+//         </Modal>
+//       </>
+//     );
+//   };
+
+//==========================================================================
+// Search Bar Component
+//=====================================================================
 class SearchBar extends React.Component {
     //add constructor
     constructor(props) {
@@ -39,57 +131,95 @@ class SearchBar extends React.Component {
  }
 
 
-const Nav = (props) => {
-    if (currentUser === null){
-      return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
-          <a className="navbar-brand" href="#">Home</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
+
+//=======================================================================
+// User Modal Component
+//=======================================================================
 
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login/Sign Up
-                </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a className="dropdown-item" href="#">Login</a>
-                  <a className="dropdown-item" href="#">Sign Up </a>
-                </div>
-              </li>
-            </ul>
+// class UserModal extends React.Component {
+//     constructor(props) {
+//         super(props);
 
-            <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
-          </div>
-        </nav>
-    }else{
-      return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
-          <a className="navbar-brand" href="#">Home</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
+//         this.state = {
+//           showModal: false,
+//           loading: false,
+//           error: null
+//         };
+//       }
+
+//       openModal() {
+//         this.setState({
+//           showModal: true
+//         });
+//       }
+
+//       closeModal() {
+//         this.setState({
+//           showModal: false,
+//           error: null
+//         });
+//       }
+
+//       onLoginSuccess(method, response) {
+//         console.log("logged successfully with " + method);
+//       }
+
+//       onLoginFail(method, response) {
+//         console.log("logging failed with " + method);
+//         this.setState({
+//           error: response
+//         });
+//       }
+
+//       startLoading() {
+//         this.setState({
+//           loading: true
+//         });
+//       }
+
+//       finishLoading() {
+//         this.setState({
+//           loading: false
+//         });
+//       }
+
+//       afterTabsChange() {
+//         this.setState({
+//           error: null
+//         });
+//       }
+
+//       render() {
+//         return (
+//           <div>
+//             <button onClick={() => this.openModal()}>Open Modal</button>
+
+//             <ReactModalLogin
+//               visible={this.state.showModal}
+//               onCloseModal={this.closeModal.bind(this)}
+//               loading={this.state.loading}
+//               error={this.state.error}
+//               tabs={{
+//                 afterChange: this.afterTabsChange.bind(this)
+//               }}
+//               loginError={{
+//                 label: "Couldn't sign in, please try again."
+//               }}
+//               registerError={{
+//                 label: "Couldn't sign up, please try again."
+//               }}
 
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome {currentUser}!
-                </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <div className="dropdown-item" onClick={AddRecipe}>Add Recipe</div>
-                </div>
-              </li>
-            </ul>
+//             />
+//           </div>
+//         );
+//       }
+//     }
 
-            <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
-          </div>
-        </nav>
-    }
-
-
-}
-
+//============================================================================
+// New User Component
+//==============================================================================
 
 
 class NewUser extends React.Component {
@@ -132,6 +262,10 @@ class NewUser extends React.Component {
   }
 }
 
+
+//=============================================================================
+// Login Component
+//===========================================================================
 
 class Login extends React.Component {
 
@@ -188,7 +322,9 @@ class Login extends React.Component {
   }
 }
 
-
+//==============================================================================
+//  Header Component
+//==============================================================================
 class Header extends React.Component {
 
     render = () => {
@@ -200,16 +336,8 @@ class Header extends React.Component {
 }
 class Footer extends React.Component {
 
-  render = () => {
-      return <footer>
-          <div className="page-footer">About US</div>
-
-      </footer>
-  }
-}
-
 //=====================================================================
-// FUNCTIONAL STATELESS COMPONENTS
+// COMMENT Component
 //=====================================================================
 
 class Comments extends React.Component {
@@ -270,6 +398,93 @@ class Comments extends React.Component {
     </div>)
   }
 }
+
+
+
+//=====================================================================
+// Functional Stateless Components
+//=====================================================================
+
+//=====================================================================
+// Nav
+//=====================================================================
+
+const Nav = (props) => {
+    if (currentUser === null){
+      return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
+          <a className="navbar-brand" href="#">Home</a>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <AddRecipe />
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login/Sign Up
+                </a>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a className="dropdown-item" href="#">Login</a>
+                  <a className="dropdown-item" href="#">Sign Up </a>
+                </div>
+              </li>
+            </ul>
+
+            <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
+          </div>
+        </nav>
+    }else{
+      return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
+          <a className="navbar-brand" href="#">Home</a>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome {currentUser}!
+                </a>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a className="dropdown-item" href="#">Add Recipe</a>
+                </div>
+              </li>
+            </ul>
+
+            <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
+          </div>
+        </nav>
+    }
+
+
+}
+//=====================================================================
+// Recipe Item
+//=====================================================================
 
 
 const RecipeItem = (props) => {
@@ -377,7 +592,9 @@ const RecipeItem = (props) => {
     )
 
 }
-//=================================================================
+//=====================================================================
+// Recipe List
+//=====================================================================
 
 const RecipeList = (props) => {
   return (
@@ -398,7 +615,9 @@ const RecipeList = (props) => {
   )
 }
 
-//==================================================================
+//=====================================================================
+// Add Recipe
+//=====================================================================
 
 const AddRecipe = (props) => {
     return(
@@ -471,6 +690,10 @@ const AddRecipe = (props) => {
     )
 
 }
+
+//===============================================================================
+// APP
+//===============================================================================
 
 
 class App extends React.Component {
@@ -570,7 +793,7 @@ class App extends React.Component {
 
 
 //=================================================================
-//
+// RENDER for APP
 //=================================================================
 
           render = () => {
@@ -584,7 +807,8 @@ class App extends React.Component {
             <NewUser />
             <Login />
 
-              <RecipeList
+
+            <RecipeList
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 deleteRecipe={this.deleteRecipe}
@@ -596,4 +820,7 @@ class App extends React.Component {
           }
         }
 
+//=========================================
+// The end ...
+//=========================================
         ReactDOM.render(<App />, document.querySelector('main'))
