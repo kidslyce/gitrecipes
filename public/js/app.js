@@ -6,92 +6,6 @@ var myStorage = window.localStorage
 let currentUser = localStorage.getItem('currentUser')
 
 
-//=========================================================
-// BOOTSTRAP MODAL ATTEMPT 5000
-//=========================================================
-
-
-
-
-
-
-
-
-
-
-
-
-//=========================================================
-// Imported bootsrap modals
-//=========================================================
-// import React from "react";
-// import ReactDOM from "react-dom";
-// import Modal from "react-bootstrap/Modal";
-// import ModalBody from "react-bootstrap/ModalBody";
-// import ModalHeader from "react-bootstrap/ModalHeader";
-// import ModalFooter from "react-bootstrap/ModalFooter";
-// import ModalTitle from "react-bootstrap/ModalTitle";
-
-
-// Sample MODAL
-//=========================================================
-
-// const App = (props) => {
-//     const [isOpen, setIsOpen] = React.useState(false);
-//     const [timer, setTimer] = React.useState(0);
-//     const [startTime, setStartTime] = React.useState(0);
-//     const [endTime, setEndTime] = React.useState(0);
-
-//     const showModal = () => {
-//       setIsOpen(true);
-//       setTitle("Modal Ready");
-//       document.body.style.backgroundColor = "white";
-//     };
-
-//     const hideModal = () => {
-//       setIsOpen(false);
-//     };
-
-//     const startTimer = () => {
-//       setStartTime(Date.now());
-//     };
-
-//     const modalLoaded = () => {
-//       setEndTime(Date.now());
-//     };
-
-//     const onExit = () => {
-//       setTitle("Goodbye 😀");
-//     };
-
-//     const onExited = () => {
-//       document.body.style.backgroundColor = "green";
-//     };
-
-//     return (
-//       <>
-//         <button onClick={showModal}>Display Modal</button>
-//         <Modal
-//           show={isOpen}
-//           onHide={hideModal}
-//           onEnter={startTimer}
-//           onEntered={modalLoaded}
-//           onExit={onExit}
-//           onExited={onExited}
-//         >
-//           <Modal.Header>
-//             <Modal.Title>{title}</Modal.Title>
-//           </Modal.Header>
-//           <Modal.Body>{endTime - startTime} ms</Modal.Body>
-//           <Modal.Footer>
-//             <button onClick={hideModal}>Cancel</button>
-//             <button>Save</button>
-//           </Modal.Footer>
-//         </Modal>
-//       </>
-//     );
-//   };
-
 //==========================================================================
 // Search Bar Component
 //=====================================================================
@@ -132,92 +46,6 @@ class SearchBar extends React.Component {
         )
     }
  }
-
-
-//=======================================================================
-// User Modal Component
-//=======================================================================
-
-
-// class UserModal extends React.Component {
-//     constructor(props) {
-//         super(props);
-
-//         this.state = {
-//           showModal: false,
-//           loading: false,
-//           error: null
-//         };
-//       }
-
-//       openModal() {
-//         this.setState({
-//           showModal: true
-//         });
-//       }
-
-//       closeModal() {
-//         this.setState({
-//           showModal: false,
-//           error: null
-//         });
-//       }
-
-//       onLoginSuccess(method, response) {
-//         console.log("logged successfully with " + method);
-//       }
-
-//       onLoginFail(method, response) {
-//         console.log("logging failed with " + method);
-//         this.setState({
-//           error: response
-//         });
-//       }
-
-//       startLoading() {
-//         this.setState({
-//           loading: true
-//         });
-//       }
-
-//       finishLoading() {
-//         this.setState({
-//           loading: false
-//         });
-//       }
-
-//       afterTabsChange() {
-//         this.setState({
-//           error: null
-//         });
-//       }
-
-//       render() {
-//         return (
-//           <div>
-//             <button onClick={() => this.openModal()}>Open Modal</button>
-
-//             <ReactModalLogin
-//               visible={this.state.showModal}
-//               onCloseModal={this.closeModal.bind(this)}
-//               loading={this.state.loading}
-//               error={this.state.error}
-//               tabs={{
-//                 afterChange: this.afterTabsChange.bind(this)
-//               }}
-//               loginError={{
-//                 label: "Couldn't sign in, please try again."
-//               }}
-//               registerError={{
-//                 label: "Couldn't sign up, please try again."
-//               }}
-
-
-//             />
-//           </div>
-//         );
-//       }
-//     }
 
 //============================================================================
 // New User Component
@@ -379,19 +207,23 @@ const Nav = (props) => {
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
+
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> {currentUser == null ? <text>Log In/Sign Up</text> : <text>Add Recipe</text>} </button>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Recipe</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
+
       {currentUser == null ? <Login></Login> : <AddRecipe/>}
       {currentUser == null ? <NewUser></NewUser> : null}
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
