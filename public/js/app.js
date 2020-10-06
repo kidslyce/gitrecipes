@@ -68,6 +68,9 @@ class NewUser extends React.Component {
   createUser = (event) => {
     event.preventDefault();
     event.target.reset();
+    if(this.state.regUsername.length < 7){
+      alert('Username must be longer than 8 characters')
+    }else{
     axios.post('/register', this.state).then(response => {
       this.setState({
         regUsername: '',
@@ -75,6 +78,7 @@ class NewUser extends React.Component {
       })
     })
     location.reload()
+  }
   }
 
 
@@ -118,7 +122,6 @@ class Login extends React.Component {
   logIn = (event) => {
     event.preventDefault();
     axios.post('/login', this.state).then(response => {
-      console.log(response);
       this.setState({
         username: '',
         password: '',
@@ -182,9 +185,9 @@ class Header extends React.Component {
         </header>
     }
 }
-class Footer extends React.Component {
 
-}
+
+
 
 
 //=====================================================================
@@ -209,7 +212,9 @@ const Nav = (props) => {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
+
         <h5 class="modal-title" id="exampleModalLabel">Add Recipe</h5>
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -218,6 +223,10 @@ const Nav = (props) => {
 
       {currentUser == null ? <Login></Login> : <AddRecipe/>}
       {currentUser == null ? <NewUser></NewUser> : null }
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
       </div>
     </div>
@@ -360,7 +369,10 @@ const RecipeList = (props) => {
                     <div className= "recipe-card">
                 { props.filteredTags.map(recipe => {
                     return (
-                        <RecipeItem recipe={recipe} />
+
+                        <RecipeItem recipe={recipe}></RecipeItem>
+
+
                       )
                 })}
                 {/* recipe card div */}
