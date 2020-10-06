@@ -582,7 +582,8 @@ class App extends React.Component {
                 filteredTags={this.state.filteredTags}
                 filteredComments={this.state.filteredComments}
               />
-
+            <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}/>
+            <Footer />
             </div>
           }
         }
