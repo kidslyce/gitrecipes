@@ -108,6 +108,7 @@ class SearchBar extends React.Component {
         event.preventDefault();
         this.setState({search: event.target.value});
     }
+
     render() {
         let filteredTags = this.props.recipes.filter(recipe => {
               return recipe.tags.includes(this.state.search)
@@ -117,6 +118,8 @@ class SearchBar extends React.Component {
     //rendering items based on tag
     //in navbar
     //if the onChange event takes in arguments wrap the property in an anonymous
+
+
             <form onSubmit={() => {this.props.handleSearchSubmit(event, filteredTags)}} className="form-inline my-2 my-lg-0">
                 <input className="form-control mr-sm-2"
                        type="text"
@@ -130,54 +133,6 @@ class SearchBar extends React.Component {
     }
  }
 
-
-<<<<<<< HEAD
-const Nav = (props) => {
-    if (currentUser === null){
-      return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
-          <a className="navbar-brand" href="#">Home</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalLoginForm">
-            Launch demo modal
-            </button>
-
-
-            <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
-          </div>
-        </nav>
-    }else{
-      return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
-          <a className="navbar-brand" href="#">Home</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome {currentUser}!
-                </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a className="dropdown-item" href="#">Add Recipe</a>
-                </div>
-              </li>
-            </ul>
-
-            <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
-          </div>
-        </nav>
-    }
-
-
-}
-=======
->>>>>>> ac1ca7790c8979765cc1deff8a296c654383dbf6
 
 //=======================================================================
 // User Modal Component
@@ -268,88 +223,6 @@ const Nav = (props) => {
 // New User Component
 //==============================================================================
 
-const UserModal = (props) => {
-  return(
-<div id="ModalLoginForm" class="modal fade">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title">Login</h1>
-            </div>
-            <div class="modal-body">
-                <form role="form" method="POST" action="">
-                    <input type="hidden" name="_token" value="">
-                    <div class="form-group">
-                        <label class="control-label">E-Mail Address</label>
-                        <div>
-                            <input type="email" class="form-control input-lg" name="email" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Password</label>
-                        <div>
-                            <input type="password" class="form-control input-lg" name="password">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="remember"> Remember Me
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            <button type="submit" class="btn btn-success">Login</button>
-
-                            <a class="btn btn-link" href="">Forgot Your Password?</a>
-                        </div>
-                    </div>
-                </form>
-                <h1>Or Signup!</h1>
-                <form role="form" method="POST" action="">
-                    <input type="hidden" name="_token" value="">
-                    <div class="form-group">
-                        <label class="control-label">Username</label>
-                        <div>
-                            <input type="text" class="form-control input-lg" name="name" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">E-Mail Address</label>
-                        <div>
-                            <input type="email" class="form-control input-lg" name="email" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Password</label>
-                        <div>
-                            <input type="password" class="form-control input-lg" name="password">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Confirm Password</label>
-                        <div>
-                            <input type="password" class="form-control input-lg" name="password_confirmation">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            <button type="submit" class="btn btn-success">
-                                Register
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>)
-
-}
-
 
 
 class NewUser extends React.Component {
@@ -426,10 +299,7 @@ class Login extends React.Component {
   }
 
 
-  logOut = (event) => {
-    localStorage.clear()
-    location.reload()
-  }
+
 
   render = () => {
     return (
@@ -444,8 +314,6 @@ class Login extends React.Component {
           <br/>
           <input type="submit" value="Log In" />
         </form>
-        <button onClick={this.logOut}>Log Out</button>
-
       </div>
 
       )
@@ -466,70 +334,32 @@ class Header extends React.Component {
 }
 class Footer extends React.Component {
 
+}
+
 //=====================================================================
 // COMMENT Component
 //=====================================================================
 
-class Comments extends React.Component {
-  state = {
-    name: '',
-    author: '',
-    comment: '',
-    comments: []
-  }
-
-  componentDidMount = () => {
-      axios
-        .get('/comments')
-        .then(response => {
-          this.setState({
-            comments: response.data,
-          })
-        })
-    }
-
-  handleChange = (event) => {
-    this.setState({ [event.target.id]: event.target.value, author: currentUser})
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault()
-    event.currentTarget.reset()
-    axios
-      .post('/comments', this.state)
-      .then(response => this.setState(
-        {
-            comments: response.data,
-            author: '',
-            name: '',
-            comment: ''
-        })
-    )
-  }
-
-
-  render = () => {
+const Comments = (props) => {
     return (
     <div className='comment-container'>
       <ul className='comment-list'>
       <h3>Comments</h3>
-      {this.state.comments.map(comment => { return (
         <li>
-          <h5>{comment.author}</h5>
-          <p>{comment.comment}</p>
+        { props.filteredComments.map(comments => {
+            return (
+              <p>{comments.comment}</p>
+        )})}
         </li>
-      )})}
       </ul>
       <details><summary>Add a comment</summary>
-      <form onSubmit={this.handleSubmit}>
-        <textarea id='comment' onChange={this.handleChange}></textarea>
+      <form onSubmit={props.handleCommentSubmit}>
+        <textarea id='comment' onChange={props.handleChange}></textarea>
         <input type='submit' value='Submit Comment'/>
       </form>
       </details>
     </div>)
-  }
 }
-
 
 
 //=====================================================================
@@ -541,16 +371,15 @@ class Comments extends React.Component {
 //=====================================================================
 
 const Nav = (props) => {
-    if (currentUser === null){
+
+
+
       return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
           <a className="navbar-brand" href="#">Home</a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
-
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> {currentUser == null ? <text>Log In/Sign Up</text> : <text>Add Recipe</text>} </button>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -561,8 +390,8 @@ const Nav = (props) => {
         </button>
       </div>
       <div class="modal-body">
-      <AddRecipe />
-
+      {currentUser == null ? <Login></Login> : <AddRecipe/>}
+      {currentUser == null ? <NewUser></NewUser> : null}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -575,7 +404,7 @@ const Nav = (props) => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login/Sign Up
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{currentUser == null ? <text>Log In/Sign Up</text> : <text>Welcome {currentUser}!</text>}
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a className="dropdown-item" href="#">Login</a>
@@ -583,33 +412,9 @@ const Nav = (props) => {
                 </div>
               </li>
             </ul>
-
             <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
           </div>
         </nav>
-    }else{
-      return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
-          <a className="navbar-brand" href="#">Home</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome {currentUser}!
-                </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a className="dropdown-item" href="#">Add Recipe</a>
-                </div>
-              </li>
-            </ul>
-
-            <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
-          </div>
-        </nav>
-    }
 
 
 }
@@ -619,8 +424,7 @@ const Nav = (props) => {
 
 
 const RecipeItem = (props) => {
-    return (
-<li className="card-items" key={props.recipe._id}>
+    return ( <li className="card-items" key={props.recipe._id}>
                     <h4>{props.recipe.name} </h4>
                     <br />
                     <img src={props.recipe.image} alt={props.recipe.name}/>
@@ -637,7 +441,6 @@ const RecipeItem = (props) => {
                       <span className="fa fa-star checked"></span>
                       <span className="fa fa-star"></span>
                       <span className="fa fa-star"></span>
-                    <Comments id={recipe._id}/>
                     <details><summary>Edit this recipe</summary>
                       <form id={props.recipe._id} onSubmit={props.updateRecipe}>
                         <label htmlFor="name">Name</label>
@@ -718,6 +521,9 @@ const RecipeItem = (props) => {
                         className="btn btn-outline-dark"
                       >DELETE
                       </button>
+                      <Comments handleCommentSubmit={props.handleCommentSubmit}
+                      filteredComments={props.filteredComments}
+                      handleChange={props.handleChange}/>
                     </details>
                   </li>
     )
@@ -735,13 +541,14 @@ const RecipeList = (props) => {
                     <div className= "recipe-card">
                 { props.filteredTags.map(recipe => {
                     return (
-                        <RecipeItem recipe={recipe}/>
-
-
+                        <RecipeItem recipe={recipe} handleCommentSubmit={props.props.handleCommentSubmit}
+                        filteredComments={props.filteredComments}
+                        handleChange={props.handleChange}/>
                 )})}
                 {/* recipe card div */}
                 </div>
                 </ul>
+
               </div>
   )
 }
@@ -837,14 +644,18 @@ class App extends React.Component {
     instructions: '',
     image: '',
     tags:'',
+    comment: '',
+    commentAuthor: '',
     recipes: [],
-    filteredTags: []
+    filteredTags: [],
+    filteredComments: []
     }
 
 
 //=================================================================
 // App functions
 //=================================================================
+
 
 
     componentDidMount = () => {
@@ -905,6 +716,7 @@ class App extends React.Component {
                     instructions: '',
                     image: '',
                     tags:'',
+                    comments: ''
                 })
             )
             }
@@ -922,6 +734,20 @@ class App extends React.Component {
 
      }
 
+ //=================================================================
+ // handle the comment submits
+ //=================================================================
+
+      handleCommentSubmit = (event, filteredResults) => {
+         event.preventDefault();
+          this.setState({
+              filteredComments: filteredResults,
+              commentAuthor: currentUser
+          })
+
+      }
+
+
 
 //=================================================================
 // RENDER for APP
@@ -935,16 +761,16 @@ class App extends React.Component {
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}/>
             <Header />
-            <NewUser />
             <Login />
-
 
             <RecipeList
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
+                handleCommentSubmit={this.handleCommentSubmit}
                 deleteRecipe={this.deleteRecipe}
                 updateRecipe={this.updateRecipe}
                 filteredTags={this.state.filteredTags}
+                filteredComments={this.state.filteredComments}
               />
 
             </div>
