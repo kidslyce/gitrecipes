@@ -182,9 +182,10 @@ class Header extends React.Component {
         </header>
     }
 }
-class Footer extends React.Component {
 
-}
+
+
+
 
 
 //=====================================================================
@@ -209,7 +210,9 @@ const Nav = (props) => {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
+
         <h5 class="modal-title" id="exampleModalLabel">Add Recipe</h5>
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -218,6 +221,10 @@ const Nav = (props) => {
 
       {currentUser == null ? <Login></Login> : <AddRecipe/>}
       {currentUser == null ? <NewUser></NewUser> : null }
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
       </div>
     </div>
@@ -360,7 +367,9 @@ const RecipeList = (props) => {
                     <div className= "recipe-card">
                 { props.filteredTags.map(recipe => {
                     return (
-                        <RecipeItem recipe={recipe} />
+
+                        <RecipeItem recipe={recipe}></RecipeItem>
+
                       )
                 })}
                 {/* recipe card div */}
