@@ -180,6 +180,15 @@ class Header extends React.Component {
         </header>
     }
 }
+class Footer extends React.Component {
+
+  render = () => {
+      return <footer>
+          <div className="recipes-footer">ABOUT US</div>
+
+      </footer>
+  }
+}
 
 
 
