@@ -6,8 +6,6 @@ var myStorage = window.localStorage
 let currentUser = localStorage.getItem('currentUser')
 
 
-
-
 //==========================================================================
 // Search Bar Component
 //=====================================================================
@@ -48,8 +46,6 @@ class SearchBar extends React.Component {
         )
     }
  }
-
-
 
 //============================================================================
 // New User Component
@@ -211,7 +207,9 @@ const Nav = (props) => {
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
+
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> {currentUser == null ? <text>Log In/Sign Up</text> : <text>Add Recipe</text>} </button>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -222,8 +220,10 @@ const Nav = (props) => {
         </button>
       </div>
       <div class="modal-body">
+
       {currentUser == null ? <Login></Login> : <AddRecipe/>}
       {currentUser == null ? <NewUser></NewUser> : null}
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
