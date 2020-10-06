@@ -372,10 +372,10 @@ const RecipeList = (props) => {
                     <div className= "recipe-card">
                 { props.filteredTags.map(recipe => {
                     return (
-                     
+
                         <RecipeItem recipe={recipe}></RecipeItem>
-                        
-                      
+
+
                       )
                 })}
                 {/* recipe card div */}
