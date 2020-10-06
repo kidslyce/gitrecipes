@@ -1,5 +1,3 @@
-
-
 var myStorage = window.localStorage
 //use this variable to reference the current user
 //if no one is logged in currentUser = null
@@ -126,6 +124,9 @@ class Login extends React.Component {
     })
   }
 
+
+
+
   render = () => {
     return (
         <div>
@@ -158,22 +159,13 @@ class Header extends React.Component {
     }
 }
 
-//==========================================================================
-//  Footer Component
-//==============================================================================
-  class Footer extends React.Component {
 
-    render = () => {
-        return <footer>
-            <div className="recipes-footer">ABOUT US!</
-            div>
-  
-        </footer>
-    }
-}
-{/* //==========================================================================
-//  Class Component
-//============================================================================== */}
+
+
+//=====================================================================
+// COMMENT Component
+//=====================================================================
+
 const Comments = (props) => {
     return (
     <div className='comment-container'>
@@ -220,9 +212,7 @@ const Nav = (props) => {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-
         <h5 class="modal-title" id="exampleModalLabel">Add Recipe</h5>
-
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -235,7 +225,7 @@ const Nav = (props) => {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -378,10 +368,10 @@ const RecipeList = (props) => {
                     <div className= "recipe-card">
                 { props.filteredTags.map(recipe => {
                     return (
-
+                     
                         <RecipeItem recipe={recipe}></RecipeItem>
-
-
+                        
+                      
                       )
                 })}
                 {/* recipe card div */}
@@ -390,7 +380,7 @@ const RecipeList = (props) => {
 
               </div>
   )
-
+}
 
 //=====================================================================
 // Add Recipe
@@ -609,7 +599,7 @@ class App extends React.Component {
             </div>
           }
         }
-      }
+
 //=========================================
 // The end ...
 //=========================================
