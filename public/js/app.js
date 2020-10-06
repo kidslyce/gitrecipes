@@ -334,8 +334,18 @@ class Header extends React.Component {
         </header>
     }
 }
-// class Footer extends React.Component {
+//==========================================================================
+//  Footer Component
+//==============================================================================
+  class Footer extends React.Component {
 
+    render = () => {
+        return <footer>
+            <div className="recipes-footer">ABOUT US!</div>
+
+        </footer>
+    }
+}
 //=====================================================================
 // COMMENT Component
 //=====================================================================
