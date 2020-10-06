@@ -334,7 +334,7 @@ class Header extends React.Component {
         </header>
     }
 }
-class Footer extends React.Component {
+// class Footer extends React.Component {
 
 //=====================================================================
 // COMMENT Component
@@ -417,7 +417,7 @@ const Nav = (props) => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
+  Add New Recipe
 </button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -621,8 +621,6 @@ const RecipeList = (props) => {
 
 const AddRecipe = (props) => {
     return(
-<details>
-            <summary>Add Recipe</summary>
             <div className="form-container">
               <form onSubmit={props.handleSubmit}>
                 <label htmlFor="author">Author</label><br />
@@ -686,7 +684,6 @@ const AddRecipe = (props) => {
                   className="btn btn-outline-dark" />
               </form>
               </div>
-              </details>
     )
 
 }
@@ -800,9 +797,6 @@ class App extends React.Component {
             return <div className="recipe-container">
 
             <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}/>
-            <AddRecipe
-                handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}/>
             <Header />
             <NewUser />
             <Login />
