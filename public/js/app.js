@@ -538,12 +538,9 @@ const RecipeList = (props) => {
                     <div className= "recipe-card">
                 { props.filteredTags.map(recipe => {
                     return (
-                      <div>
-                        <RecipeItem recipe={recipe}></RecipeItem>
-                        <Comments></Comments>
-                      </div>
+                        <RecipeItem recipe={recipe} />
                       )
-                )})}
+                })}
                 {/* recipe card div */}
                 </div>
                 </ul>
