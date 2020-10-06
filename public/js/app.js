@@ -160,9 +160,9 @@ class Header extends React.Component {
         </header>
     }
 }
-// class Footer extends React.Component {
 
-}
+
+
 
 //=====================================================================
 // COMMENT Component
@@ -370,12 +370,12 @@ const RecipeList = (props) => {
                     <div className= "recipe-card">
                 { props.filteredTags.map(recipe => {
                     return (
-                      <div>
+                     
                         <RecipeItem recipe={recipe}></RecipeItem>
-                        <Comments></Comments>
-                      </div>
+                        
+                      
                       )
-                )})}
+                })}
                 {/* recipe card div */}
                 </div>
                 </ul>
