@@ -29,11 +29,10 @@
     "mongoose": "^5.10.7",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-
-
     "react": "^16.13.1",
-
-
-    "session": "^0.1.0"
+    "react-modal-login": "^1.4.5",
+    "serialize-javascript": "^5.0.1",
+    "session": "^0.1.0",
+    "webpack": "^4.44.2"
   }
 }
