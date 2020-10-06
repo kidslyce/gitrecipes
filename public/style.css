@@ -39,6 +39,9 @@ header{
     position: relative;
 }
 
+.modal-backdrop {
+z-index: 1;
+}
 
 
 /* all recipe control - list items card bodies */
@@ -97,6 +100,7 @@ header{
     color: #FFFFF0;
 }
 
+
 /* changing color of dropdown menu to ivory */
 .dropdown-menu {
     background-color: #FFFFF0;
@@ -106,3 +110,12 @@ header{
 .checked {
         color: orange;
 }
+.footer{
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: rgb(235, 195, 64);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
