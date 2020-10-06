@@ -108,6 +108,7 @@ class SearchBar extends React.Component {
         event.preventDefault();
         this.setState({search: event.target.value});
     }
+
     render() {
         let filteredTags = this.props.recipes.filter(recipe => {
               return recipe.tags.includes(this.state.search)
@@ -117,6 +118,8 @@ class SearchBar extends React.Component {
     //rendering items based on tag
     //in navbar
     //if the onChange event takes in arguments wrap the property in an anonymous
+
+
             <form onSubmit={() => {this.props.handleSearchSubmit(event, filteredTags)}} className="form-inline my-2 my-lg-0">
                 <input className="form-control mr-sm-2"
                        type="text"
@@ -129,7 +132,6 @@ class SearchBar extends React.Component {
         )
     }
  }
-
 
 
 //=======================================================================
@@ -222,6 +224,7 @@ class SearchBar extends React.Component {
 //==============================================================================
 
 
+
 class NewUser extends React.Component {
   state = {
     regUsername: '',
@@ -296,10 +299,7 @@ class Login extends React.Component {
   }
 
 
-  logOut = (event) => {
-    localStorage.clear()
-    location.reload()
-  }
+
 
   render = () => {
     return (
@@ -314,8 +314,6 @@ class Login extends React.Component {
           <br/>
           <input type="submit" value="Log In" />
         </form>
-        <button onClick={this.logOut}>Log Out</button>
-
       </div>
 
       )
@@ -336,69 +334,32 @@ class Header extends React.Component {
 }
 // class Footer extends React.Component {
 
+}
+
 //=====================================================================
 // COMMENT Component
 //=====================================================================
 
-class Comments extends React.Component {
-  state = {
-    name: '',
-    author: '',
-    comment: '',
-    comments: []
-  }
-
-  componentDidMount = () => {
-      axios
-        .get('/comments')
-        .then(response => {
-          this.setState({
-            comments: response.data,
-          })
-        })
-    }
-
-  handleChange = (event) => {
-    this.setState({ [event.target.id]: event.target.value, author: currentUser})
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault()
-    event.currentTarget.reset()
-    axios
-      .post('/comments', this.state)
-      .then(response => this.setState(
-        {
-            comments: response.data,
-            author: '',
-            name: '',
-            comment: ''
-        })
-    )
-  }
-
-  render = () => {
+const Comments = (props) => {
     return (
     <div className='comment-container'>
       <ul className='comment-list'>
       <h3>Comments</h3>
-      {this.state.comments.map(comment => { return (
         <li>
-          <h5>{comment.author}</h5>
-          <p>{comment.comment}</p>
+        { props.filteredComments.map(comments => {
+            return (
+              <p>{comments.comment}</p>
+        )})}
         </li>
-      )})}
       </ul>
       <details><summary>Add a comment</summary>
-      <form onSubmit={this.handleSubmit}>
-        <textarea id='comment' onChange={this.handleChange}></textarea>
+      <form onSubmit={props.handleCommentSubmit}>
+        <textarea id='comment' onChange={props.handleChange}></textarea>
         <input type='submit' value='Submit Comment'/>
       </form>
       </details>
     </div>)
-  }
 }
-
 
 
 //=====================================================================
@@ -410,16 +371,15 @@ class Comments extends React.Component {
 //=====================================================================
 
 const Nav = (props) => {
-    if (currentUser === null){
+
+
+
       return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
           <a className="navbar-brand" href="#">Home</a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Add New Recipe
-</button>
-
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> {currentUser == null ? <text>Log In/Sign Up</text> : <text>Add Recipe</text>} </button>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -430,8 +390,8 @@ const Nav = (props) => {
         </button>
       </div>
       <div class="modal-body">
-      <AddRecipe />
-
+      {currentUser == null ? <Login></Login> : <AddRecipe/>}
+      {currentUser == null ? <NewUser></NewUser> : null}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -444,7 +404,7 @@ const Nav = (props) => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login/Sign Up
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{currentUser == null ? <text>Log In/Sign Up</text> : <text>Welcome {currentUser}!</text>}
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a className="dropdown-item" href="#">Login</a>
@@ -452,33 +412,9 @@ const Nav = (props) => {
                 </div>
               </li>
             </ul>
-
             <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
           </div>
         </nav>
-    }else{
-      return <nav className="navbar fixed-top navbar-expand-lg navbar-light ">
-          <a className="navbar-brand" href="#">Home</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome {currentUser}!
-                </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a className="dropdown-item" href="#">Add Recipe</a>
-                </div>
-              </li>
-            </ul>
-
-            <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
-          </div>
-        </nav>
-    }
 
 
 }
@@ -488,8 +424,7 @@ const Nav = (props) => {
 
 
 const RecipeItem = (props) => {
-    return (
-<li className="card-items" key={props.recipe._id}>
+    return ( <li className="card-items" key={props.recipe._id}>
                     <h4>{props.recipe.name} </h4>
                     <br />
                     <img src={props.recipe.image} alt={props.recipe.name}/>
@@ -506,7 +441,6 @@ const RecipeItem = (props) => {
                       <span className="fa fa-star checked"></span>
                       <span className="fa fa-star"></span>
                       <span className="fa fa-star"></span>
-                    <Comments />
                     <details><summary>Edit this recipe</summary>
                       <form id={props.recipe._id} onSubmit={props.updateRecipe}>
                         <label htmlFor="name">Name</label>
@@ -604,13 +538,16 @@ const RecipeList = (props) => {
                     <div className= "recipe-card">
                 { props.filteredTags.map(recipe => {
                     return (
-                        <RecipeItem recipe={recipe}/>
-
-
+                      <div>
+                        <RecipeItem recipe={recipe}></RecipeItem>
+                        <Comments></Comments>
+                      </div>
+                      )
                 )})}
                 {/* recipe card div */}
                 </div>
                 </ul>
+
               </div>
   )
 }
@@ -703,14 +640,18 @@ class App extends React.Component {
     instructions: '',
     image: '',
     tags:'',
+    comment: '',
+    commentAuthor: '',
     recipes: [],
-    filteredTags: []
+    filteredTags: [],
+    filteredComments: []
     }
 
 
 //=================================================================
 // App functions
 //=================================================================
+
 
 
     componentDidMount = () => {
@@ -771,6 +712,7 @@ class App extends React.Component {
                     instructions: '',
                     image: '',
                     tags:'',
+                    comments: ''
                 })
             )
             }
@@ -788,6 +730,20 @@ class App extends React.Component {
 
      }
 
+ //=================================================================
+ // handle the comment submits
+ //=================================================================
+
+      handleCommentSubmit = (event, filteredResults) => {
+         event.preventDefault();
+          this.setState({
+              filteredComments: filteredResults,
+              commentAuthor: currentUser
+          })
+
+      }
+
+
 
 //=================================================================
 // RENDER for APP
@@ -798,16 +754,16 @@ class App extends React.Component {
 
             <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}/>
             <Header />
-            <NewUser />
             <Login />
-
 
             <RecipeList
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
+                handleCommentSubmit={this.handleCommentSubmit}
                 deleteRecipe={this.deleteRecipe}
                 updateRecipe={this.updateRecipe}
                 filteredTags={this.state.filteredTags}
+                filteredComments={this.state.filteredComments}
               />
 
             </div>
