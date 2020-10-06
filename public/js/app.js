@@ -521,9 +521,6 @@ const RecipeItem = (props) => {
                         className="btn btn-outline-dark"
                       >DELETE
                       </button>
-                      <Comments handleCommentSubmit={props.handleCommentSubmit}
-                      filteredComments={props.filteredComments}
-                      handleChange={props.handleChange}/>
                     </details>
                   </li>
     )
@@ -541,9 +538,11 @@ const RecipeList = (props) => {
                     <div className= "recipe-card">
                 { props.filteredTags.map(recipe => {
                     return (
-                        <RecipeItem recipe={recipe} handleCommentSubmit={props.props.handleCommentSubmit}
-                        filteredComments={props.filteredComments}
-                        handleChange={props.handleChange}/>
+                      <div>
+                        <RecipeItem recipe={recipe}></RecipeItem>
+                        <Comments></Comments>
+                      </div>
+                      )
                 )})}
                 {/* recipe card div */}
                 </div>
