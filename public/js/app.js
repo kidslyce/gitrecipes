@@ -180,40 +180,60 @@ class Header extends React.Component {
 //==============================================================================
  class Footer extends React.Component {
     render = () => {
-        return <footer>
-          <div className="recipes-footer">About Us</div>
-              <div className="mb-5 flex-center">
-                <a className="fb-ic">
-                  <i className="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x">
-                  </i>
-                </a>
-                <a className="tw-ic">
-                  <i className="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x">
-                  </i>
-                </a>
-                <a className="gplus-ic">
-                  <i className="fab fa-google-plus fa-lg white-text mr-md-5 mr-3 fa-2x">
-                  </i>
-                </a>
-                <a className="li-ic">
-                  <i className="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x">
-                  </i>
-                </a>
-                <a className="ins-ic">
-                  <i className="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x">
-                  </i>
-                </a>
-                <a className="pin-ic">
-                  <i className="fab fa-pinterest fa-lg white-text fa-2x"> </i>
-                </a>
-              </div>
-        <div className="footer-copyright text-center py-3">
-            <a href="https://git-recipes.herokuapp.com" />
+        return 
+          
+<footer className="page-footer font-small cyan darken-3">
+
+  
+  <div class="container">
+
+    
+    <div className="row">
+
+     
+      <div className="col-md-12 py-5">
+        <div className="mb-5 flex-center">
+
+          
+          <a className="fb-ic">
+            <i className="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          
+          <a className="tw-ic">
+            <i className="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          
+          <a className="gplus-ic">
+            <i classNAme="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          
+          <a className="li-ic">
+            <i className="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          
+          <a className="ins-ic">
+            <i className="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          
+          <a class="pin-ic">
+            <i class="fab fa-pinterest fa-lg white-text fa-2x"> </i>
+          </a>
         </div>
-         </footer>
+      </div>
+
+    </div>
+    
+
+  </div>
+  
+  <div class="footer-copyright text-center py-3">© 2020 Website:
+    <a href="https://git-recipes.herokuapp.com/" />
+  </div>
+  
+
+</footer>
     }
   }
-
 //=====================================================================
 // Functional Stateless Components
 //=====================================================================
