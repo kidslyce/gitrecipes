@@ -1,9 +1,12 @@
 # GitRecipes
-Recipe App storing all your favorite Jared test branch Alex test Kellen test
 
 https://git-recipez.herokuapp.com/
 
 https://github.com/masonsteeger/gitrecipev2
+
+## App Idea
+
+Users can create an account and log in. Afterwards, they can search through user supplied recipes by tags as well as add their own. 
 
 ## User Authentication (By: Mason) 
 
