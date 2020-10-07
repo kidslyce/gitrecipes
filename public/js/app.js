@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 63f3de50370c020ed0a9d343a0cc746ce2eae287
 //use this variable to reference the current user
 //if no one is logged in currentUser = null
 let currentUser = localStorage.getItem('currentUser')
@@ -105,8 +109,7 @@ class Login extends React.Component {
 
   state = {
     username: '',
-    password: '',
-    currentUser: ''
+    password: ''
   }
 
   onChange = () => {
@@ -121,9 +124,7 @@ class Login extends React.Component {
       this.setState({
         username: '',
         password: '',
-        currentUser: response.data.username
-      })
-      localStorage.setItem('currentUser', this.state.currentUser)
+      }, localStorage.setItem('currentUser', this.state.username))
       location.reload()
     })
   }
