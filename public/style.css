@@ -11,6 +11,8 @@ nav  {
     background-color: #FFFFF0;
     
 }
+
+.
 /* BANNER TITLE */
 .recipes-title{
 
@@ -98,14 +100,25 @@ z-index: 1;
 .btn-outline-success{
     background-color: #356a2d;
     color: #FFFFF0;
+    margin: 2px;
 }
+/*Add Recipe Button*/
 
+/* .btn-primary{
+    background-color: #356a2d;
+    color: #FFFFF0;
+} */
 
+ 
 /* changing color of dropdown menu to ivory */
 .dropdown-menu {
     background-color: #FFFFF0;
 }
     
+.modal-body{
+    background-color: #FFFFF0;
+}
+
 /* star rating */
 .checked {
         color: orange;
