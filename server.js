@@ -80,7 +80,7 @@ app.post("/login", (req, res, next) => {
         if(err){
           console.log(err);
         }else{
-          console.log('User Authenticated')
+          res.json('Login Success')
           console.log(user);
           res.json(user)
         }
