@@ -9,7 +9,6 @@ let currentUser = localStorage.getItem('currentUser')
 //==========================================================================
 // Search Bar Component
 //=====================================================================
-
 class SearchBar extends React.Component {
     
     constructor(props) {
@@ -46,13 +45,13 @@ class SearchBar extends React.Component {
             </form>
         )
     }
-
  }
-
 
 //============================================================================
 // New User Component
 //==============================================================================
+
+
 
 class NewUser extends React.Component {
   state = {
@@ -166,6 +165,8 @@ class LogOut extends React.Component {
          <button class="btn btn-outline-success" onClick={this.logOut}>Log Out</button>
       )
   }
+
+
 }
 
 //==============================================================================
@@ -183,110 +184,7 @@ class Header extends React.Component {
 
 
 
-class AddRecipe extends React.Component {
-    state = {
-      formData: {
-        author: currentUser,
-        name: '',
-        prepTime: '',
-        cookTime: '',
-        ingredients: '',
-        instructions: '',
-        image: '',
-        tags: ''
-      }
-    }
 
-    handleChange = e => {
-      e.preventDefault()
-      const formData = {...this.state.formData, [e.target.name]: e.target.value};
-      this.setState({
-        formData
-      })
-    }
-
-    render = () => {
-        return(
-                <div className="form-container">
-                  <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="author">Author</label><br />
-                    <input id="author" type="text" value={this.state.formData.author} name='author' onChange={this.handleChange} className="form-control"/><br />
-                    <label htmlFor="name">Name</label>
-                    <br />
-                    <input id="name"
-                      value={this.state.formData.name}
-                      name='name'
-                      type="text"
-                      onChange={this.handleChange}
-                      className="form-control"  />
-                    <br />
-                    <label htmlFor="prepTime">Prep Time</label>
-                    <br />
-                    <input id="prepTime"
-                      value={this.state.formData.prepTime}
-                      name='prepTime'
-                      type="text"
-                      onChange={this.handleChange}
-                      className="form-control" />
-                    <br />
-                    <label htmlFor="cookTime">Cook Time</label>
-                    <br />
-                    <input id="cookTime"
-                      type="text"
-                      name='cookTime'
-                      value={this.state.formData.cookTime}
-                      onChange={this.handleChange}
-                      className="form-control"/>
-                    <br />
-                    <label htmlFor="ingredients">Ingredients</label>
-                    <br />
-                    <input
-                    name='ingredients'
-                      id="ingredients"
-                      value={this.state.formData.ingredients}
-                      type="text"
-                      onChange={this.handleChange}
-                      className="form-control" />
-                    <br />
-                    <label htmlFor="instructions">Instructions</label>
-                    <br />
-                    <input
-                      id="instructions"
-                      name='instructions'
-                      value={this.state.formData.instructions}
-                      type="text"
-                      onChange={this.handleChange}
-                      className="form-control" />
-                    <br />
-                    <label htmlFor="image">Image</label>
-                    <br />
-                    <input
-                      id="image"
-                      name='image'
-                      type="text"
-                      value={this.state.formData.image}
-                      onChange={this.handleChange}
-                      className="form-control" />
-                    <br />
-                    <label htmlFor="tags">Tags</label>
-                    <br />
-                    <input
-                      id="tags"
-                      name='tags'
-                      value={this.state.formData.tags}
-                      type="text"
-                      onChange={this.handleChange}
-                      className="form-control" />
-                    <br />
-                    <input
-                      type="submit"
-                      value="Add"
-                      className="btn btn-outline-dark" />
-                  </form>
-                  </div>
-                )
-  }
-}
 
 
 //=====================================================================
@@ -316,7 +214,7 @@ const Nav = (props) => {
       </div>
       <div className="modal-body">
 
-      {currentUser == null ? <Login></Login> : <AddRecipe handleSubmit={props.handleSubmit} handleChange={props.handleChange}/>}
+      {currentUser == null ? <Login></Login> : <AddRecipe/>}
       {currentUser == null ? <NewUser></NewUser> : null }
 
       </div>
@@ -337,8 +235,8 @@ const Nav = (props) => {
               </li>
             </ul>
 
+            <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
           </div>
-            <SearchBar />
         </nav>
 
 
@@ -550,7 +448,6 @@ const AddRecipe = (props) => {
 
 }
 
-
 //===============================================================================
 // APP
 //===============================================================================
@@ -619,13 +516,14 @@ class App extends React.Component {
             )
           }
 
-        //   handleChange = event =>{
-        //     this.setState( { [event.target.id]: event.target.value, author: currentUser })
-        // }
-          handleSubmit = (newRecipe) => {
-            console.log(newRecipe)
+          handleChange = event =>{
+            this.setState( { [event.target.id]: event.target.value, author: currentUser })
+        }
+          handleSubmit = (event) => {
+            event.preventDefault();
+            event.currentTarget.reset();
             axios
-              .post('/recipes', newRecipe)
+              .post('/recipes', this.state)
               .then(response => this.setState(
                 {
                     recipes: response.data,
@@ -649,7 +547,6 @@ class App extends React.Component {
 
      handleSearchSubmit = (event, filteredResults) => {
         event.preventDefault();
-        console.log(filteredResults);
          this.setState({
              filteredTags: filteredResults
          })
@@ -664,9 +561,7 @@ class App extends React.Component {
           render = () => {
             return <div className="recipe-container">
 
-            <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}
-              handleSubmit={this.handleSubmit} handleChange={this.handleChange}
-            />
+            <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}/>
             <Header />
 
             <RecipeList
