@@ -1,23 +1,21 @@
 
-
-var myStorage = window.localStorage
 //use this variable to reference the current user
 //if no one is logged in currentUser = null
 let currentUser = localStorage.getItem('currentUser')
 
 
-//==========================================================================
+//=====================================================================
 // Search Bar Component
 //=====================================================================
 class SearchBar extends React.Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
             search: ''
        }
     }
-    
+
     updateSearch = (event) => {
         event.preventDefault();
         this.setState({search: event.target.value});
@@ -31,7 +29,7 @@ class SearchBar extends React.Component {
             }
         )
         return(
-    
+
 
 
             <form onSubmit={() => {this.props.handleSearchSubmit(event, filteredTags)}} className="form-inline my-2 my-lg-0">
@@ -66,6 +64,9 @@ class NewUser extends React.Component {
   createUser = (event) => {
     event.preventDefault();
     event.target.reset();
+    if(this.state.regUsername.length < 9){
+      alert('Username must be longer than 8 characters')
+    }else{
     axios.post('/register', this.state).then(response => {
       this.setState({
         regUsername: '',
@@ -74,6 +75,7 @@ class NewUser extends React.Component {
     })
     location.reload()
   }
+  }
 
 
   render = () => {
@@ -81,7 +83,7 @@ class NewUser extends React.Component {
       <div>
         <h1>Create User</h1>
         <form onSubmit={this.createUser}>
-          
+
           <label htmlFor="regUsername">Username:</label>
           <input id='regUsername' type="text" name="regUsername" onChange={this.onChange} required />
           <br/>
@@ -104,8 +106,7 @@ class Login extends React.Component {
 
   state = {
     username: '',
-    password: '',
-    currentUser: ''
+    password: ''
   }
 
   onChange = () => {
@@ -117,13 +118,10 @@ class Login extends React.Component {
   logIn = (event) => {
     event.preventDefault();
     axios.post('/login', this.state).then(response => {
-      console.log(response);
       this.setState({
         username: '',
         password: '',
-        currentUser: response.data.username
-      })
-      localStorage.setItem('currentUser', this.state.currentUser)
+      }, localStorage.setItem('currentUser', this.state.username))
       location.reload()
     })
   }
@@ -182,7 +180,9 @@ class Header extends React.Component {
     }
 }
 
-
+//=====================================================================
+// Add Recipe
+//=====================================================================
 
 
 
@@ -210,11 +210,14 @@ const Nav = (props) => {
     <div className="modal-content">
       <div className="modal-header">
 
-       
+
       </div>
       <div className="modal-body">
 
-      {currentUser == null ? <Login></Login> : <AddRecipe/>}
+
+      {currentUser == null ? <Login></Login> : <AddRecipe handleChange={props.handleChange}
+                handleSubmit={props.handleSubmit}/>}
+
       {currentUser == null ? <NewUser></NewUser> : null }
 
       </div>
@@ -231,14 +234,14 @@ const Nav = (props) => {
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{currentUser == null ? <text>Log In/Sign Up</text> : <text>Welcome {currentUser}!</text>}
                 </a>
-                
+
               </li>
             </ul>
+
 
             <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
           </div>
         </nav>
-
 
 }
 //=====================================================================
@@ -362,7 +365,13 @@ const RecipeList = (props) => {
                 { props.filteredTags.map(recipe => {
                     return (
 
-                        <RecipeItem recipe={recipe}></RecipeItem>
+
+                      <RecipeItem
+                        recipe={recipe}
+                        deleteRecipe={props.deleteRecipe} updateRecipe={props.updateRecipe}
+                        state={props.state}
+                        />
+
 
                       )
                 })}
@@ -374,9 +383,7 @@ const RecipeList = (props) => {
   )
 }
 
-//=====================================================================
-// Add Recipe
-//=====================================================================
+
 
 const AddRecipe = (props) => {
     return(
@@ -513,7 +520,9 @@ class App extends React.Component {
               .delete('/recipes/' + event.target.value)
               .then(response => this.setState({recipes: response.data,
             })
+
             )
+            location.reload()
           }
 
           handleChange = event =>{
@@ -561,10 +570,13 @@ class App extends React.Component {
           render = () => {
             return <div className="recipe-container">
 
-            <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}/>
+            <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                edit={this.state}/>
             <Header />
 
             <RecipeList
+                state= {this.state}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 handleCommentSubmit={this.handleCommentSubmit}
