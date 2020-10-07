@@ -2,10 +2,10 @@
 // START SEARCH BAR
 //======================================================
 
-//1st attempt = failure 
+//1st attempt = failure
 
 
-// class searchBar extends React.Component{ 
+// class searchBar extends React.Component{
 //     render = (state) => {
 //         return(
 //         <input type="search"
@@ -18,9 +18,9 @@
 
 //     editSearchTerm = (e) => {
 //         this.setState({tags: e.target.value})
-        
+
 //     }
-    
+
 
 //     dynamicSearch = (e) => {
 //         this.setState.tags.filter(tags => tags.toLowerCase().includes(this.state.tags.toLowerCase()))
@@ -34,13 +34,13 @@
 // }
 // }
 
-//2nd attempt 
-// at first glance I though I would have to render this component in my 
+//2nd attempt
+// at first glance I though I would have to render this component in my
 // navbar since I was storing my search bar there but I think I just need it
 // to be in my main app since that is where all the data is being in "state"
-// but I want to build it here and then plug it in once its done 
+// but I want to build it here and then plug it in once its done
 
-// class searchBar extends React.Component{ 
+// class searchBar extends React.Component{
 
 //    render = (props) => {
 //         return(
@@ -94,7 +94,7 @@
 //SEARCH FORM
 //=============
 class searchBar extends React.Component {
-    //add constructor 
+    //add constructor
     constructor(props) {
         super(props);
         this.state = {
@@ -104,34 +104,34 @@ class searchBar extends React.Component {
     //function to show current state
     updateSearch(event) {
         this.setState({search: event.target.value});
-    
+
     }
     render() {
         let filteredTags = this.props.tags.filter(
             (tag) => {
                 return recipes.tag.indexOf(this.state.search
                     ) !== -1;
-    
+
             }
         )
         return(
     //rendering items based on tag
-    
-    
+
+
     //in navbar
         <div>
             <form className="form-inline my-2 my-lg-0">
-                <input className="form-control mr-sm-2" 
+                <input className="form-control mr-sm-2"
                        type="text"
                        value={this.state.search}
                        onChange={this.updateSearch.bind(this)}
                        aria-label="Search"/>
-    
+
                        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
             </div>
         )
     }
     }
-    
+
     export default searchBar
