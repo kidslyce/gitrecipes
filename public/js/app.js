@@ -1,6 +1,3 @@
-
-
-var myStorage = window.localStorage
 //use this variable to reference the current user
 //if no one is logged in currentUser = null
 let currentUser = localStorage.getItem('currentUser')
@@ -366,12 +363,12 @@ const RecipeList = (props) => {
                     return (
 
 
-                      <RecipeItem 
+                      <RecipeItem
                         recipe={recipe}
                         deleteRecipe={props.deleteRecipe} updateRecipe={props.updateRecipe}
                         state={props.state}
                         />
-                        
+
 
                       )
                 })}
@@ -522,7 +519,7 @@ class App extends React.Component {
               .delete('/recipes/' + event.target.value)
               .then(response => this.setState({recipes: response.data,
             })
-            
+
             )
             location.reload()
           }
