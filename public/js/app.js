@@ -214,7 +214,8 @@ const Nav = (props) => {
       </div>
       <div className="modal-body">
 
-      {currentUser == null ? <Login></Login> : <AddRecipe/>}
+      {currentUser == null ? <Login></Login> : <AddRecipe handleChange={props.handleChange}
+                handleSubmit={props.handleSubmit}/>}
       {currentUser == null ? <NewUser></NewUser> : null }
 
       </div>
@@ -362,7 +363,12 @@ const RecipeList = (props) => {
                 { props.filteredTags.map(recipe => {
                     return (
 
-                        <RecipeItem recipe={recipe}></RecipeItem>
+                      <RecipeItem 
+                        recipe={recipe}
+                        deleteRecipe={props.deleteRecipe} updateRecipe={props.updateRecipe}
+                        state={props.state}
+                        />
+                        
 
                       )
                 })}
@@ -513,7 +519,9 @@ class App extends React.Component {
               .delete('/recipes/' + event.target.value)
               .then(response => this.setState({recipes: response.data,
             })
+            
             )
+            location.reload()
           }
 
           handleChange = event =>{
@@ -561,10 +569,13 @@ class App extends React.Component {
           render = () => {
             return <div className="recipe-container">
 
-            <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}/>
+            <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                edit={this.state}/>
             <Header />
-
+            
             <RecipeList
+                state= {this.state}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 handleCommentSubmit={this.handleCommentSubmit}
