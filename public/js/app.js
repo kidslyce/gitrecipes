@@ -7,7 +7,7 @@ let currentUser = localStorage.getItem('currentUser')
 
 
 //==========================================================================
-//  Bar Component
+// Search Bar Component
 //=====================================================================
 class SearchBar extends React.Component {
 
@@ -378,7 +378,75 @@ const RecipeList = (props) => {
 // Add Recipe
 //=====================================================================
 
+const AddRecipe = (props) => {
+    return(
+            <div className="form-container">
+              <form onSubmit={props.handleSubmit}>
+                <label htmlFor="author">Author</label><br />
+                <input id="author" type="text" onChange={props.handleChange} className="form-control"/><br />
+                <label htmlFor="name">Name</label>
+                <br />
+                <input id="name"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control"  />
+                <br />
+                <label htmlFor="prepTime">Prep Time</label>
+                <br />
+                <input id="prepTime"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="cookTime">Cook Time</label>
+                <br />
+                <input id="cookTime"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control"/>
+                <br />
+                <label htmlFor="ingredients">Ingredients</label>
+                <br />
+                <input
+                  id="ingredients"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="instructions">Instructions</label>
+                <br />
+                <input
+                  id="instructions"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="image">Image</label>
+                <br />
+                <input
+                  id="image"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control" />
+                <br />
+                <label htmlFor="tags">Tags</label>
+                <br />
+                <input
+                  id="tags"
+                  type="text"
+                  onChange={props.handleChange}
+                  className="form-control" />
+                <br />
+                <input
 
+                  type="submit"
+                  value="Add"
+                  className="btn btn-outline-success" />
+              </form>
+              </div>
+    )
+
+}
 
 //===============================================================================
 // APP
@@ -474,7 +542,7 @@ class App extends React.Component {
 
 
 //=================================================================
-// handle the  submit action
+// handle the search submit action
 //=================================================================
 
      handleSearchSubmit = (event, filteredResults) => {
