@@ -179,47 +179,43 @@ class Header extends React.Component {
 
         </header>
     }
-  }
-    
-class Footer extends React.Component {
-
-  render = () => {
-      return <footer>
-        <div className="recipes-footer">About Us</div>
-        
-            <div className="mb-5 flex-center">
-              <a className="fb-ic">
-                <i className="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x">
-                </i>
-              </a>
-              <a className="tw-ic">
-                <i className="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x">
-                </i>
-              </a>
-              <a className="gplus-ic">
-                <i className="fab fa-google-plus fa-lg white-text mr-md-5 mr-3 fa-2x">
-                </i>
-              </a>
-              <a className="li-ic">
-                <i className="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x">
-                </i>
-              </a>
-              <a className="ins-ic">
-                <i className="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x">
-                </i>
-              </a>
-              <a className="pin-ic">
-                <i className="fab fa-pinterest fa-lg white-text fa-2x"> </i>
-              </a>
-            </div>
-      <div className="footer-copyright text-center py-3">
-          <a href="https://git-recipes.herokuapp.com" />
-      </div>
-       </footer>
-  }
 }
+//  class Footer extends React.Component {
+//     render = () => {
+//         return <footer>
+//           <div className="recipes-footer">About Us</div>
+//               <div className="mb-5 flex-center">
+//                 <a className="fb-ic">
+//                   <i className="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x">
+//                   </i>
+//                 </a>
+//                 <a className="tw-ic">
+//                   <i className="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x">
+//                   </i>
+//                 </a>
+//                 <a className="gplus-ic">
+//                   <i className="fab fa-google-plus fa-lg white-text mr-md-5 mr-3 fa-2x">
+//                   </i>
+//                 </a>
+//                 <a className="li-ic">
+//                   <i className="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x">
+//                   </i>
+//                 </a>
+//                 <a className="ins-ic">
+//                   <i className="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x">
+//                   </i>
+//                 </a>
+//                 <a className="pin-ic">
+//                   <i className="fab fa-pinterest fa-lg white-text fa-2x"> </i>
+//                 </a>
+//               </div>
+//         <div className="footer-copyright text-center py-3">
+//             <a href="https://git-recipes.herokuapp.com" />
+//         </div>
+//          </footer>
+//     }
+//   }
 
-   
 
 
 
@@ -246,7 +242,9 @@ const Nav = (props) => {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
+
         <h5 class="modal-title" id="exampleModalLabel">Add Recipe</h5>
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -259,7 +257,7 @@ const Nav = (props) => {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+
       </div>
     </div>
   </div>
@@ -401,8 +399,9 @@ const RecipeList = (props) => {
                     <div className= "recipe-card">
                 { props.filteredTags.map(recipe => {
                     return (
-                     
+
                         <RecipeItem recipe={recipe}></RecipeItem>
+
                       )
                 })}
                 {/* recipe card div */}
@@ -611,8 +610,7 @@ class App extends React.Component {
                 filteredTags={this.state.filteredTags}
                 filteredComments={this.state.filteredComments}
               />
-            <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}/>
-            <Footer />
+            
             </div>
           }
         }
