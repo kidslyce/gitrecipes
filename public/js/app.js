@@ -214,8 +214,10 @@ const Nav = (props) => {
       </div>
       <div className="modal-body">
 
+
       {currentUser == null ? <Login></Login> : <AddRecipe handleChange={props.handleChange}
                 handleSubmit={props.handleSubmit}/>}
+
       {currentUser == null ? <NewUser></NewUser> : null }
 
       </div>
@@ -362,6 +364,7 @@ const RecipeList = (props) => {
                     <div className= "recipe-card">
                 { props.filteredTags.map(recipe => {
                     return (
+
 
                       <RecipeItem 
                         recipe={recipe}
@@ -573,7 +576,7 @@ class App extends React.Component {
                 handleSubmit={this.handleSubmit}
                 edit={this.state}/>
             <Header />
-            
+
             <RecipeList
                 state= {this.state}
                 handleChange={this.handleChange}
