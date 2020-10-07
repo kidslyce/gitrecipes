@@ -6,7 +6,7 @@ var myStorage = window.localStorage
 let currentUser = localStorage.getItem('currentUser')
 
 
-//==========================================================================
+//=====================================================================
 // Search Bar Component
 //=====================================================================
 class SearchBar extends React.Component {
@@ -66,6 +66,9 @@ class NewUser extends React.Component {
   createUser = (event) => {
     event.preventDefault();
     event.target.reset();
+    if(this.state.regUsername.length < 9){
+      alert('Username must be longer than 8 characters')
+    }else{
     axios.post('/register', this.state).then(response => {
       this.setState({
         regUsername: '',
@@ -73,6 +76,7 @@ class NewUser extends React.Component {
       })
     })
     location.reload()
+  }
   }
 
 
@@ -117,7 +121,6 @@ class Login extends React.Component {
   logIn = (event) => {
     event.preventDefault();
     axios.post('/login', this.state).then(response => {
-      console.log(response);
       this.setState({
         username: '',
         password: '',
@@ -182,7 +185,9 @@ class Header extends React.Component {
     }
 }
 
-
+//=====================================================================
+// Add Recipe
+//=====================================================================
 
 
 
@@ -238,10 +243,12 @@ const Nav = (props) => {
               </li>
             </ul>
 
+
             <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
           </div>
         </nav>
 
+        </nav>
 
 }
 //=====================================================================
@@ -383,9 +390,7 @@ const RecipeList = (props) => {
   )
 }
 
-//=====================================================================
-// Add Recipe
-//=====================================================================
+
 
 const AddRecipe = (props) => {
     return(
