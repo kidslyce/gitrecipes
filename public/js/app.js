@@ -365,7 +365,9 @@ const RecipeList = (props) => {
 
                       <RecipeItem 
                         recipe={recipe}
-                        deleteRecipe={props.deleteRecipe} updateRecipe={props.updateRecipe}/>
+                        deleteRecipe={props.deleteRecipe} updateRecipe={props.updateRecipe}
+                        state={props.state}
+                        />
                         
 
                       )
@@ -573,6 +575,7 @@ class App extends React.Component {
             <Header />
             
             <RecipeList
+                state= {this.state}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 handleCommentSubmit={this.handleCommentSubmit}
