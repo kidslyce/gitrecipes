@@ -8,14 +8,14 @@ let currentUser = localStorage.getItem('currentUser')
 // Search Bar Component
 //=====================================================================
 class SearchBar extends React.Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
             search: ''
        }
     }
-    
+
     updateSearch = (event) => {
         event.preventDefault();
         this.setState({search: event.target.value});
@@ -29,7 +29,7 @@ class SearchBar extends React.Component {
             }
         )
         return(
-    
+
 
 
             <form onSubmit={() => {this.props.handleSearchSubmit(event, filteredTags)}} className="form-inline my-2 my-lg-0">
@@ -83,7 +83,7 @@ class NewUser extends React.Component {
       <div>
         <h1>Create User</h1>
         <form onSubmit={this.createUser}>
-          
+
           <label htmlFor="regUsername">Username:</label>
           <input id='regUsername' type="text" name="regUsername" onChange={this.onChange} required />
           <br/>
@@ -210,7 +210,7 @@ const Nav = (props) => {
     <div className="modal-content">
       <div className="modal-header">
 
-       
+
       </div>
       <div className="modal-body">
 
@@ -234,15 +234,13 @@ const Nav = (props) => {
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{currentUser == null ? <text>Log In/Sign Up</text> : <text>Welcome {currentUser}!</text>}
                 </a>
-                
+
               </li>
             </ul>
 
 
             <SearchBar recipes={props.recipes} handleSearchSubmit={props.handleSearchSubmit}/>
           </div>
-        </nav>
-
         </nav>
 
 }
@@ -368,12 +366,12 @@ const RecipeList = (props) => {
                     return (
 
 
-                      <RecipeItem 
+                      <RecipeItem
                         recipe={recipe}
                         deleteRecipe={props.deleteRecipe} updateRecipe={props.updateRecipe}
                         state={props.state}
                         />
-                        
+
 
                       )
                 })}
@@ -522,7 +520,7 @@ class App extends React.Component {
               .delete('/recipes/' + event.target.value)
               .then(response => this.setState({recipes: response.data,
             })
-            
+
             )
             location.reload()
           }
