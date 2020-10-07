@@ -7,47 +7,8 @@ let currentUser = localStorage.getItem('currentUser')
 
 
 //==========================================================================
-// Search Bar Component
+//  Bar Component
 //=====================================================================
-
-class SearchBar extends React.Component {
-    
-    constructor(props) {
-        super(props);
-        this.state = {
-            search: ''
-       }
-    }
-    
-    updateSearch = (event) => {
-        event.preventDefault();
-        this.setState({search: event.target.value});
-    }
-
-
-
-    render()  {
-        let filteredTags = this.props.recipes.filter(recipe => {
-              return recipe.tags.includes(this.state.search)
-            }
-        )
-        return(
-    
-
-
-            <form onSubmit={() => {this.props.handleSearchSubmit(event, filteredTags)}} className="form-inline my-2 my-lg-0">
-                <input className="form-control mr-sm-2"
-                       type="text"
-                       value={this.state.search}
-                       onChange={this.updateSearch}
-                       aria-label="Search"
-                />
-                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        )
-    }
-
- }
 
 
 //============================================================================
@@ -82,7 +43,7 @@ class NewUser extends React.Component {
       <div>
         <h1>Create User</h1>
         <form onSubmit={this.createUser}>
-          
+
           <label htmlFor="regUsername">Username:</label>
           <input id='regUsername' type="text" name="regUsername" onChange={this.onChange} required />
           <br/>
@@ -312,7 +273,7 @@ const Nav = (props) => {
     <div className="modal-content">
       <div className="modal-header">
 
-       
+
       </div>
       <div className="modal-body">
 
@@ -333,12 +294,12 @@ const Nav = (props) => {
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{currentUser == null ? <text>Log In/Sign Up</text> : <text>Welcome {currentUser}!</text>}
                 </a>
-                
+
               </li>
             </ul>
 
           </div>
-            <SearchBar />
+
         </nav>
 
 
@@ -480,75 +441,7 @@ const RecipeList = (props) => {
 // Add Recipe
 //=====================================================================
 
-const AddRecipe = (props) => {
-    return(
-            <div className="form-container">
-              <form onSubmit={props.handleSubmit}>
-                <label htmlFor="author">Author</label><br />
-                <input id="author" type="text" onChange={props.handleChange} className="form-control"/><br />
-                <label htmlFor="name">Name</label>
-                <br />
-                <input id="name"
-                  type="text"
-                  onChange={props.handleChange}
-                  className="form-control"  />
-                <br />
-                <label htmlFor="prepTime">Prep Time</label>
-                <br />
-                <input id="prepTime"
-                  type="text"
-                  onChange={props.handleChange}
-                  className="form-control" />
-                <br />
-                <label htmlFor="cookTime">Cook Time</label>
-                <br />
-                <input id="cookTime"
-                  type="text"
-                  onChange={props.handleChange}
-                  className="form-control"/>
-                <br />
-                <label htmlFor="ingredients">Ingredients</label>
-                <br />
-                <input
-                  id="ingredients"
-                  type="text"
-                  onChange={props.handleChange}
-                  className="form-control" />
-                <br />
-                <label htmlFor="instructions">Instructions</label>
-                <br />
-                <input
-                  id="instructions"
-                  type="text"
-                  onChange={props.handleChange}
-                  className="form-control" />
-                <br />
-                <label htmlFor="image">Image</label>
-                <br />
-                <input
-                  id="image"
-                  type="text"
-                  onChange={props.handleChange}
-                  className="form-control" />
-                <br />
-                <label htmlFor="tags">Tags</label>
-                <br />
-                <input
-                  id="tags"
-                  type="text"
-                  onChange={props.handleChange}
-                  className="form-control" />
-                <br />
-                <input
 
-                  type="submit"
-                  value="Add"
-                  className="btn btn-outline-success" />
-              </form>
-              </div>
-    )
-
-}
 
 
 //===============================================================================
@@ -619,9 +512,9 @@ class App extends React.Component {
             )
           }
 
-        //   handleChange = event =>{
-        //     this.setState( { [event.target.id]: event.target.value, author: currentUser })
-        // }
+          handleChange = event =>{
+            this.setState( { [event.target.id]: event.target.value, author: currentUser })
+        }
           handleSubmit = (newRecipe) => {
             console.log(newRecipe)
             axios
@@ -644,17 +537,9 @@ class App extends React.Component {
 
 
 //=================================================================
-// handle the search submit action
+// handle the  submit action
 //=================================================================
 
-     handleSearchSubmit = (event, filteredResults) => {
-        event.preventDefault();
-        console.log(filteredResults);
-         this.setState({
-             filteredTags: filteredResults
-         })
-
-     }
 
 
 //=================================================================
@@ -664,7 +549,7 @@ class App extends React.Component {
           render = () => {
             return <div className="recipe-container">
 
-            <Nav recipes={this.state.recipes} handleSearchSubmit={this.handleSearchSubmit}
+            <Nav recipes={this.state.recipes}
               handleSubmit={this.handleSubmit} handleChange={this.handleChange}
             />
             <Header />
